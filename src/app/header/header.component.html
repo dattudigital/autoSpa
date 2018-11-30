@@ -1,0 +1,78 @@
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item _sale" id="__sale">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="sales" (click)="redirectToDashbaord()"
+      aria-selected="true">Sales </a>
+  </li>
+  <li class="nav-item _appt" id="__appt">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" role="tab" aria-controls="appointments" (click)="redirectToAppointment()"
+      aria-selected="false">Appointments</a>
+  </li>
+  <li class="nav-item" id="__time-clocks">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="time" aria-selected="false"
+      (click)="redirectToTimeClocks()">Time clocks</a>
+  </li>
+  <li class="nav-item" id="__schedule">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="schedule" aria-selected="false"
+      (click)="redirectToSchedule()">Schedule</a>
+  </li>
+  <li class="nav-item" id="__reports">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="reports" aria-selected="false"
+      (click)=" redirectToReport()">Reports</a>
+  </li>
+  <li class="nav-item" id="__manager">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="manager" (click)="redirectToManager()"
+      aria-selected="false">Manager</a>
+  </li>
+  <li class="nav-item" id="__inventory">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="inventory" aria-selected="false"
+      (click)="redirectToInventory()">Inventory</a>
+  </li>
+  <li class="nav-item" id="__setup">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" role="tab" aria-controls="setup" aria-selected="false"
+      (click)="redirectToSetup()">Setup</a>
+  </li>
+</ul>
+
+<div id="myModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form>
+          <div class="form-group">
+            <div class="col-md-4 col-sm-6 login_form-left">
+              <label>User Name</label>
+            </div>
+            <div class="col-md-8 col-sm-6 login_form-right">
+              <input type="text" class="form-control" [(ngModel)]="mailId" (ngModelChange)="errorClear()" name="some" placeholder="Employee Id">
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-4 col-sm-6 login_form-left">
+              <label>Password</label>
+            </div>
+            <div class="col-md-8 col-sm-6 login_form-right">
+              <input type="password" class="form-control" [(ngModel)]="password" (ngModelChange)="errorClear()" name="password" placeholder="Employee Password">
+            </div>
+            <div class="form-group" style="text-align: center">
+              <label *ngIf="errorMessage" class="alertRed">Invalid Credentials</label>
+            </div>
+  
+            <div class="clear"></div>
+          </div>
+          <div class="login_form-submit">
+            <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-3">
+                <button type="submit" [disabled]="btnDisable" (click)="loginSubmite();" class="btn btn-primary submit-button">Sign In
+                </button>
+              </div>
+              <div class="col-sm-2">
+                <button type="submit" data-dismiss="modal" class="btn btn-warning" (click)="redirectToHome()">Cancel</button>
+              </div>
+              <div class="col-sm-3"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,166 @@
+<div class="sales-tab2">
+  <div class="col-md-4 col-sm-5 str-sec2">
+    <ul>
+      <li (click)="newSaleClick()">
+        <a>
+            <i class="far fa-address-card"></i>
+            <br>Sales</a>
+      </li>
+      <li>
+        <a>
+          <i class="far fa-clock"></i>
+          <br>Time Clocks</a>
+      </li>
+      <li>
+        <a>
+          <i class="fas fa-user-circle"></i>
+          <br>Manager</a>
+      </li>
+      <li>
+        <a>
+          <i class="fas fa-motorcycle"></i>
+          <br>Inventory</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-8 col-sm-7 str-sec2">
+    <ul>
+      <li (click)="newSaleClick()">
+        <a>
+          <i class="fas fa-tags"></i>
+          <br>New Sale</a>
+      </li>
+      <li data-toggle="modal" data-target="#offersModel">
+        <a>
+          <i class="fas fa-caret-right"></i>
+          <br>Offers</a>
+      </li>
+      <li>
+        <a href="#" [routerLink]="['/footer/global-search']">
+          <i class="far fa-lightbulb"></i>
+          <br>global Search</a>
+      </li>
+      <li data-toggle="modal" data-target="#priceCheck">
+        <a>
+          <i class="fas fa-check"></i>
+          <br>Price Check</a>
+      </li>
+      <li (click)="logOutClick()">
+          <a>
+              <i class="fas fa-sign-out-alt"></i>
+            <br>Sign Out</a>
+        </li>
+    
+    </ul>
+  </div>
+  <div class="clear"></div>
+</div>
+<!-- <div class="footer">
+  <div class="col-sm-6">
+    <div class="sales-tab2">
+      <div class="col-md-8 col-sm-7 str-sec2">
+        <ul>
+          <li>
+            <a>
+              <br>Sales</a>
+          </li>
+          <li>
+            <a>
+              <br>Time Clocks</a>
+          </li>
+          <li>
+            <a>
+              <br>Manager</a>
+          </li>
+          <li>
+            <a>
+              <br>Inventory</a>
+          </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="sales-tab2">
+      <div class="col-md-8 col-sm-7 str-sec2">
+        <ul>
+          <li (click)="newSaleClick()">
+            <a>
+              <i class="fas fa-tags"></i>
+              <br>New Sale</a>
+          </li>
+          <li data-toggle="modal" data-target="#offersModel">
+            <a>
+              <i class="fas fa-caret-right"></i>
+              <br>Offers</a>
+          </li>
+          <li data-toggle="modal" data-target="#searchModal">
+            <a>
+              <i class="far fa-lightbulb"></i>
+              <br>global Search</a>
+          </li>
+          <li data-toggle="modal" data-target="#priceCheck">
+            <a>
+              <i class="fas fa-check"></i>
+              <br>Price Check</a>
+          </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div> -->
+
+<div id="priceCheck" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="price-info">
+        <h2>Price Check</h2>
+      </div>
+      <div class="search">
+        <!-- <input type="text" name="search" style="padding:5px;" [(ngModel)]="selectedValue" (ngModelChange)='customerSearch($event)'
+          [typeahead]="product" typeaheadOptionField="name" class="form-control"> -->
+        <div class="btn-search">
+          <i class="fas fa-search">
+            <span>Search</span>
+            <span style="color:red">[Enter]</span>
+          </i>
+        </div>
+      </div>
+      <hr>
+      <div class="select-stylist-footer-right">
+        <ul>
+          <li>
+            <a data-dismiss="modal">
+              <i class="fas fa-times"></i>
+              <br>Cancel</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="offersModel" class="modal fade" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="price-info">
+        <h2>New Offers</h2>
+      </div>
+      <div class="search">
+        <h2>Comming Soon...</h2>
+      </div>
+      <hr>
+      <div class="select-stylist-footer-right">
+        <ul>
+          <li>
+            <a data-dismiss="modal">
+              <i class="fas fa-times"></i>
+              <br>Cancel</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
