@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/components/common/selectitem';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,54 +8,80 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  // cars: SelectItem[];
-  // selectedCars1: string[] = [];
-
   newUser = true;
   vehInfo = true;
-  existingInfo = true;
-  carUser = false;
+  vehservice = true;
+  existingInfo = false;
+  carUser = true;
   bikeUser = false;
   commercialUser = false;
+
+  cars: SelectItem[];
+
+  selectedCars1: string[] = [];
+
 
 
   constructor() { }
 
   ngOnInit() {
+    this.cars = [
+      {label: 'Audi', value: 'Audi'},
+      {label: 'BMW', value: 'BMW'},
+      {label: 'Fiat', value: 'Fiat'},
+      {label: 'Ford', value: 'Ford'},
+      {label: 'Honda', value: 'Honda'},
+      {label: 'Jaguar', value: 'Jaguar'},
+      {label: 'Mercedes', value: 'Mercedes'},
+      {label: 'Renault', value: 'Renault'},
+      {label: 'VW', value: 'VW'},
+      {label: 'Volvo', value: 'Volvo'},
+  ];
   }
 
   newUserClick() {
     this.newUser = true;
     this.vehInfo = true;
-
+    this.carUser = true;
+    this.vehservice = true;
+    this.existingInfo = false;
+    this.bikeUser = false;
+    this.commercialUser = false;
   }
 
-  existingUserClick(){
+  existingUserClick() {
     this.existingInfo = true;
+    this.vehservice = false;
     this.newUser = false;
     this.vehInfo = false;
-    this.carUser = false;  
+    this.carUser = false;
     this.bikeUser = false;
     this.commercialUser = false;
 
   }
 
   carUserClick() {
+    this.vehInfo = true;
     this.carUser = true;
+    this.vehservice = true;
     this.bikeUser = false;
     this.commercialUser = false;
   }
 
   bikeUserClick() {
+    this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = true;
+    this.vehservice = true;
     this.commercialUser = false;
   }
 
   commercialUserClick() {
+    this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = false;
     this.commercialUser = true;
+    this.vehservice = true;
   }
 
 }

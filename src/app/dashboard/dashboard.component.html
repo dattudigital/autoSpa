@@ -51,9 +51,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="text" formControlName="FirstName" (keypress)="omit_special_char($event)" maxlength="50"
-              placeholder="Customer Name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }"
-              [(ngModel)]="name" (mouseleave)="leaveFields()">
+          <input type="text" class="form-control" name ="firstName">
           </div>
         </div>
 
@@ -62,12 +60,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="text" formControlName="custEmail" placeholder="Email id" min="0" maxlength="50" class="form-control"
-              [(ngModel)]="email" [ngClass]="{ 'is-invalid': submitted && f.custEmail.errors }" (mouseleave)="leaveFields()">
-            <div *ngIf="submitted && f.custEmail.errors" class="invalid-feedback">
-              <div *ngIf="f.custEmail.errors.required" style="color:#ff0000"> Email id is required</div>
-              <div *ngIf="f.custEmail.errors.email" style="color:#ff0000">Email must be a valid email address</div>
-            </div>
+              <input type="text" class="form-control" name ="Email">
           </div>
         </div>
 
@@ -76,13 +69,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="number" formControlName="custMobile" (keypress)="only_allow_number($event)" placeholder="Mobile"
-              min="0" class="form-control" [(ngModel)]="mobile" (mouseleave)="leaveFields()" [ngClass]="{ 'is-invalid': submitted && f.custMobile.errors }"
-              oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
-              maxlength="50">
-            <div *ngIf="submitted && f.custMobile.errors" class="invalid-feedback">
-              <div *ngIf="f.custMobile.errors.required" style="color:#ff0000"> Mobile Number is required</div>
-            </div>
+              <input type="text" class="form-control" name ="mobile">
           </div>
         </div>
 
@@ -91,11 +78,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="text" formControlName="profession" (keypress)="omit_special_char($event)" placeholder="Profession"
-              maxlength="50" class="form-control" [(ngModel)]="professionName" (mouseleave)="leaveFields()" [ngClass]="{ 'is-invalid': submitted && f.relation.errors }">
-            <div *ngIf="submitted && f.relation.errors" class="invalid-feedback">
-              <div *ngIf="f.relation.errors.required" style="color:#ff0000"> Relation Name is required</div>
-            </div>
+              <input type="text" class="form-control" name ="profession">
           </div>
         </div>
 
@@ -104,11 +87,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <textarea class="form-control" formControlName="custAddress" placeholder="Address" maxlength="1000" rows="2"
-              name="address" style="padding-left:1.6em" [(ngModel)]="address" (mouseleave)="leaveFields()" [ngClass]="{ 'is-invalid': submitted && f.custAddress.errors }"></textarea>
-            <div *ngIf="submitted && f.custAddress.errors" class="invalid-feedback">
-              <div *ngIf="f.custAddress.errors.required" style="color:#ff0000"> Address is required</div>
-            </div>
+              <input type="text" class="form-control" name ="address">
           </div>
         </div>
       </div>
@@ -120,15 +99,12 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <select class="form-control" formControlName="sourceCustomer" [(ngModel)]="sourceCustomer" [ngClass]="{ 'is-invalid': submitted && f.sourceCustomer.errors }">
+            <select class="form-control"  [(ngModel)]="sourceCustomer" >
               <option value="" disabled select>Select</option>
               <option value="walkin">Walk-in</option>
               <option value="referral">Referral</option>
               <option value="family">Family Friend</option>
             </select>
-            <div *ngIf="submitted && f.sourceCustomer.errors" class="invalid-feedback">
-              <div *ngIf="f.sourceCustomer.errors.required" style="color:red">Source Customer is required</div>
-            </div>
           </div>
         </div>
 
@@ -137,14 +113,11 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <select class="form-control" formControlName="serviceType" [(ngModel)]="serviceType" [ngClass]="{ 'is-invalid': submitted && f.serviceType.errors }">
+            <select class="form-control"  [(ngModel)]="serviceType">
               <option value="" disabled select>Select</option>
               <option value="Door Step">Door Step</option>
               <option value="Store">Store</option>
             </select>
-            <div *ngIf="submitted && f.serviceType.errors" class="invalid-feedback">
-              <div *ngIf="f.serviceType.errors.required" style="color:red">Service Type is required</div>
-            </div>
           </div>
         </div>
 
@@ -153,14 +126,12 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <select class="form-control" formControlName="businessType" [(ngModel)]="businessType" [ngClass]="{ 'is-invalid': submitted && f.businessType.errors }">
+            <select class="form-control"  [(ngModel)]="businessType" >
               <option value="" disabled select>Select</option>
               <option value="Door Step">B2B</option>
               <option value="Store">B2C</option>
             </select>
-            <div *ngIf="submitted && f.businessType.errors" class="invalid-feedback">
-              <div *ngIf="f.businessType.errors.required" style="color:red">Business Type is required</div>
-            </div>
+           
           </div>
         </div>
 
@@ -171,53 +142,54 @@
 
 
 <div *ngIf="existingInfo">
-    <div class="personal-info">
-        <div class="container">
-            <h3>Existing Information</h3>
-            <div class="row form-group">
-                <label class="col-sm-4 col-form-label required">Enter Phone No./EmailId
-                  <span style="color:red">*</span>
-                </label>
-                <div class="col-sm-5">
-                  <input type="text" name="exDetail" maxlength="50" class="form-control" [(ngModel)]="existingDetail">
-                </div>
-              </div>
-
-              <div class="row form-group">
-                    <button type="submit" class="btn btn-warning" style="float:right;margin-right: 20%">Submit</button>
-                </div>
+  <div class="personal-info">
+    <div class="container">
+      <h3>Existing Information</h3>
+      <div class="row form-group">
+        <label class="col-sm-4 col-form-label required">Enter Phone No./EmailId
+          <span style="color:red">*</span>
+        </label>
+        <div class="col-sm-5">
+          <input type="text" name="exDetail" maxlength="50" class="form-control" [(ngModel)]="existingDetail">
+        </div>
       </div>
-   </div>
+
+      <!-- <div class="row form-group">
+        <button type="submit" class="btn btn-warning" style="float:right;margin-right: 20%">Submit</button>
+      </div> -->
+    </div>
+  </div>
 </div>
 
 
 <div *ngIf="vehInfo">
-    <div class="sales-tab">
-  <div class="sales-tab1">
-    <div class="col-md-12 col-sm-12 sales-tab-left">
-      <br>
-      <div class="row">
-        <div class="container">
-          <h3>Vehicle Information</h3>
-          <div class="col-sm-3">
-            <input type="radio" name="optradio1" (click)="carUserClick()" checked>
-            <label style="font-size:16px">Car</label>
-          </div>
-          <div class="col-sm-3">
-            <input type="radio" name="optradio1" (click)="bikeUserClick()">
-            <label style="font-size:16px">Bike</label>
-          </div>
-          <div class="col-sm-3">
-            <input type="radio" name="optradio1" (click)="commercialUserClick()">
-            <label style="font-size:16px">Commercial</label>
+  <div class="sales-tab">
+    <div class="sales-tab1">
+      <div class="col-md-12 col-sm-12 sales-tab-left">
+        <br>
+        <div class="row">
+          <div class="container">
+            <h3>Vehicle Information</h3>
+            <div class="col-sm-3">
+              <input type="radio" name="optradio1" (click)="carUserClick()" checked>
+              <label style="font-size:16px">Car</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="radio" name="optradio1" (click)="bikeUserClick()">
+              <label style="font-size:16px">Bike</label>
+            </div>
+            <div class="col-sm-3">
+              <input type="radio" name="optradio1" (click)="commercialUserClick()">
+              <label style="font-size:16px">Commercial</label>
+            </div>
           </div>
         </div>
       </div>
+      <div class="clear"></div>
     </div>
-    <div class="clear"></div>
   </div>
+  <div class="clear"></div>
 </div>
-<div class="clear"></div>
 <br>
 <div *ngIf="carUser">
   <div class="vehicle-info">
@@ -410,27 +382,23 @@
   </div>
 </div>
 
-<div class="veh-services">
-  <div class="container">
-    <h3>Services</h3>
-    <div class="row form-group">
-      <label class="col-sm-4 col-form-label required">Services List
-        <span style="color:red">*</span>
-      </label>
-      <!-- <div class="col-sm-5">
-        <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-          <option value="" disabled select>Select</option>
-          <option value="aadhar">Aston Martin</option>
-          <option value="license">Audi</option>
-          <option value="license">BMW</option>
-        </select>
-      </div> -->
-      <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
-      <p>Selected Cars: {{selectedCars1}}</p>
+<div *ngIf="vehservice">
+  <div class="veh-services">
+    <div class="container">
+      <h3>Services</h3>
+      <div class="row form-group">
+        <label class="col-sm-4 col-form-label required">Services List
+          <span style="color:red">*</span>
+        </label>
+        <div class="col-sm-5">
+            <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+            <p>Selected Cars: {{selectedCars1}}</p>
+      </div> 
+        
+      </div>
     </div>
   </div>
 </div>
-
 
 <!-- <div *ngIf="carUser || bikeUser ||commercialUser"> -->
 <div class="row form-group">
@@ -439,7 +407,6 @@
   </div>
 </div>
 <!-- </div> -->
-</div>
 
 
 
