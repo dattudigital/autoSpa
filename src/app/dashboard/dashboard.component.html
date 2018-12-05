@@ -60,7 +60,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-              <input type="text" class="form-control" name ="Email">
+              <input type="text" class="form-control" name ="Email" [(ngModel)]="emailId">
           </div>
         </div>
 
@@ -69,7 +69,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-              <input type="text" class="form-control" name ="mobile">
+              <input type="text" class="form-control" name ="mobile" [(ngModel)]="mobileNo">
           </div>
         </div>
 
@@ -78,7 +78,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-              <input type="text" class="form-control" name ="profession">
+              <input type="text" class="form-control" name ="profession" [(ngModel)]="profession">
           </div>
         </div>
 
@@ -87,7 +87,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-              <input type="text" class="form-control" name ="address">
+              <input type="text" class="form-control" name ="address" [(ngModel)]="address">
           </div>
         </div>
       </div>
@@ -222,11 +222,11 @@
           </label>
           <div class="col-sm-5">
             <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Small</option>
-              <option value="license">Medium</option>
-              <option value="aadhar">Large</option>
-              <option value="license">Extra Large</option>
+              <option value="0" disabled select>Select</option>
+              <option value="s">Small</option>
+              <option value="m">Medium</option>
+              <option value="l">Large</option>
+              <option value="el">Extra Large</option>
             </select>
           </div>
         </div>
@@ -403,7 +403,7 @@
 <!-- <div *ngIf="carUser || bikeUser ||commercialUser"> -->
 <div class="row form-group">
   <div claas="container">
-    <button type="submit" class="btn btn-warning" style="float:right;margin-right: 20%">Submit</button>
+    <button type="submit" class="btn btn-warning" (click)="addUserInfoAndVehicle()" style="float:right;margin-right: 20%">Submit</button>
   </div>
 </div>
 <!-- </div> -->

@@ -20,6 +20,13 @@ export class DashboardComponent implements OnInit {
 
   selectedCars1: string[] = [];
 
+  firstName : string;
+  emailId:string;
+  mobileNo:string;
+  profession:string;
+  address:string;
+
+
 
 
   constructor() { }
@@ -84,4 +91,7 @@ export class DashboardComponent implements OnInit {
     this.vehservice = true;
   }
 
+  addUserInfoAndVehicle(){
+    console.log(this.firstName)
+  }
 }
