@@ -7,8 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  // cars: SelectItem[];
+  // selectedCars1: string[] = [];
+
   newUser = true;
-  carUser = true;
+  vehInfo = true;
+  existingInfo = true;
+  carUser = false;
   bikeUser = false;
   commercialUser = false;
 
@@ -20,13 +25,18 @@ export class DashboardComponent implements OnInit {
 
   newUserClick() {
     this.newUser = true;
+    this.vehInfo = true;
+
   }
 
   existingUserClick(){
+    this.existingInfo = true;
     this.newUser = false;
-    this.carUser = false;
+    this.vehInfo = false;
+    this.carUser = false;  
     this.bikeUser = false;
     this.commercialUser = false;
+
   }
 
   carUserClick() {
