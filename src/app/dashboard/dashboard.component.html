@@ -18,7 +18,6 @@
           <div class="row">
             <div class="container">
               <div class="col-sm-3">
-
               </div>
               <div class="col-sm-3">
                 <input type="radio" name="optradio" (click)="newUserClick()" checked>
@@ -41,110 +40,10 @@
 </div>
 <div class="clear"></div>
 
-<div *ngIf="newUser">
-  <div class="personal-info">
-    <div class="container">
-      <div class="col-sm-6">
-        <h3>Personal Information</h3>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Name of the Customer
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-          <input type="text" class="form-control" name ="firstName" [(ngModel)]="firstName">
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Email Id
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-              <input type="text" class="form-control" name ="Email" [(ngModel)]="emailId">
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Mobile
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-              <input type="text" class="form-control" name ="mobile" [(ngModel)]="mobileNo">
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Profession
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-              <input type="text" class="form-control" name ="profession" [(ngModel)]="profession">
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Address
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-              <input type="text" class="form-control" name ="address" [(ngModel)]="address">
-          </div>
-        </div>
-      </div>
-
-      <div class="col-sm-6">
-        <br><br><br>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Source Of Customer
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control"  [(ngModel)]="sourceCustomer" >
-              <option value="" disabled select>Select</option>
-              <option value="walkin">Walk-in</option>
-              <option value="referral">Referral</option>
-              <option value="family">Family Friend</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Service Type
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control"  [(ngModel)]="serviceType">
-              <option value="" disabled select>Select</option>
-              <option value="Door Step">Door Step</option>
-              <option value="Store">Store</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Business Type
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control"  [(ngModel)]="businessType" >
-              <option value="" disabled select>Select</option>
-              <option value="Door Step">B2B</option>
-              <option value="Store">B2C</option>
-            </select>
-           
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <div *ngIf="existingInfo">
   <div class="personal-info">
     <div class="container">
-      <h3>Existing Information</h3>
+      <h3></h3>
       <div class="row form-group">
         <label class="col-sm-4 col-form-label required">Enter Phone No./EmailId
           <span style="color:red">*</span>
@@ -153,14 +52,129 @@
           <input type="text" name="exDetail" maxlength="50" class="form-control" [(ngModel)]="existingDetail">
         </div>
       </div>
-
-      <!-- <div class="row form-group">
-        <button type="submit" class="btn btn-warning" style="float:right;margin-right: 20%">Submit</button>
-      </div> -->
     </div>
   </div>
 </div>
 
+<div *ngIf="newUser">
+  <div class="personal-info">
+    <div class="container">
+      <div class="col-sm-12">
+        <h3>Personal Information</h3>
+      </div>
+      <form [formGroup]="salesForm">
+        <div class="col-sm-6">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Name of the Customer
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="Name" class="form-control" placeholder="Enter First Name" [(ngModel)]="firstName" [ngClass]="{ 'is-invalid': submitted && f.Name.errors }">
+              <div *ngIf="submitted && f.Name.errors" class="invalid-feedback">
+                <div *ngIf="f.Name.errors.required" style="color:red">Customer Name is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Email Id
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="Email" class="form-control" placeholder="Enter Email id" [(ngModel)]="emailId" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }">
+              <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                <div *ngIf="f.Email.errors.required" style="color:red">Email is required</div>
+                <div *ngIf="f.Email.errors.email" style="color:red">Email must be a valid email address</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Mobile
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="phone" class="form-control" placeholder="Enter Mobile Number" [(ngModel)]="mobileNo"
+                [ngClass]="{ 'is-invalid': submitted && f.phone.errors }">
+              <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                <div *ngIf="f.phone.errors.required" style="color:red">Phone Number is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Profession
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="Profession" class="form-control" placeholder="Enter profession" [(ngModel)]="profession"
+                [ngClass]="{ 'is-invalid': submitted && f.Profession.errors }">
+              <div *ngIf="submitted && f.Profession.errors" class="invalid-feedback">
+                <div *ngIf="f.Profession.errors.required" style="color:red">Profession is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Address
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="Address" class="form-control" [(ngModel)]="address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }">
+              <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                <div *ngIf="f.Address.errors.required" style="color:red">Address is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Source Of Customer
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Source" class="form-control" [(ngModel)]="sourceCustomer" [ngClass]="{ 'is-invalid': submitted && f.Source.errors }">
+                <option value="" disabled select>Select</option>
+                <option value="walkin">Walk-in</option>
+                <option value="referral">Referral</option>
+                <option value="family">Family Friend</option>
+              </select>
+              <div *ngIf="submitted && f.Source.errors" class="invalid-feedback">
+                <div *ngIf="f.Source.errors.required" style="color:red">Source Of Customer is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Service Type
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Service" class="form-control" [(ngModel)]="serviceType" [ngClass]="{ 'is-invalid': submitted && f.Service.errors }">
+                <option value="" disabled select>Select</option>
+                <option value="Door Step">Door Step</option>
+                <option value="Store">Store</option>
+              </select>
+              <div *ngIf="submitted && f.Service.errors" class="invalid-feedback">
+                <div *ngIf="f.Service.errors.required" style="color:red">Service type is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Business Type
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Business" class="form-control" [(ngModel)]="businessType" [ngClass]="{ 'is-invalid': submitted && f.Business.errors }">
+                <option value="" disabled select>Select</option>
+                <option value="Door Step">B2B</option>
+                <option value="Store">B2C</option>
+              </select>
+              <div *ngIf="submitted && f.Business.errors" class="invalid-feedback">
+                <div *ngIf="f.Business.errors.required" style="color:red">Business type is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <div *ngIf="vehInfo">
   <div class="sales-tab">
@@ -191,195 +205,100 @@
   <div class="clear"></div>
 </div>
 <br>
-<div *ngIf="carUser">
-  <div class="vehicle-info">
-    <div class="container">
-      <div class="col-sm-6">
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Number
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <input type="text" name="vehicleno" maxlength="50" class="form-control" [(ngModel)]="nomineeName">
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Make
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Aston Martin</option>
-              <option value="license">Audi</option>
-              <option value="license">BMW</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Size
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="0" disabled select>Select</option>
-              <option value="s">Small</option>
-              <option value="m">Medium</option>
-              <option value="l">Large</option>
-              <option value="el">Extra Large</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Type
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Hatch</option>
-              <option value="license">Mid Sedan</option>
-              <option value="license">MUV</option>
-              <option value="license">SUV</option>
-              <option value="license">Sports</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Age
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">0-3 Months</option>
-              <option value="license">3-6 Months</option>
-              <option value="license">6-12 Months</option>
-              <option value="license">1 yr</option>
-              <option value="license">2 yr</option>
-            </select>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div *ngIf="bikeUser">
-  <div class="vehicle-info">
-    <div class="container">
-      <div class="col-sm-6">
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Number
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <input type="text" name="vehicleno" maxlength="50" class="form-control" [(ngModel)]="nomineeName">
+<div class="vehicle-information">
+  <form [formGroup]="vehicleForm">
+    <div *ngIf="carUser || bikeUser || commercialUser">
+      <div class="container">
+        <div class="col-sm-6">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Vehicle Number
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <input type="text" formControlName="Number" maxlength="50" class="form-control" [ngClass]="{ 'is-invalid': submitted && v.Number.errors }">
+              <div *ngIf="submitted && v.Number.errors" class="invalid-feedback">
+                <div *ngIf="v.Number.errors.required" style="color:red">Vehicle Number is required</div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Make
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Tvs</option>
-              <option value="license">Honda</option>
-              <option value="license">Hero</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Size
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Small</option>
-              <option value="license">Medium</option>
-              <option value="aadhar">Large</option>
-              <option value="license">Extra Large</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Type
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Scooter</option>
-              <option value="license">Motor Bike</option>
-              <option value="license">Premium</option>
-              <option value="license">Luxury</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Age
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">0-3 Months</option>
-              <option value="license">3-6 Months</option>
-              <option value="license">6-12 Months</option>
-              <option value="license">1 yr</option>
-              <option value="license">2 yr</option>
-            </select>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Vehicle Make
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Make" class="form-control" [ngClass]="{ 'is-invalid': submitted && v.Make.errors }">
+                <option value="" disabled select>Select</option>
+                <option *ngFor="let make of vehicleMake" [ngValue]="make.vehicle_make_id">{{make.make_name}}</option>
+              </select>
+              <div *ngIf="submitted && v.Make.errors" class="invalid-feedback">
+                <div *ngIf="v.Make.errors.required" style="color:red">Vehicle Make is required</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<div *ngIf="commercialUser">
-  <div class="vehicle-info">
-    <div class="container">
-      <div class="col-sm-6">
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Number
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <input type="text" name="vehicleno" maxlength="50" class="form-control" [(ngModel)]="nomineeName">
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Make
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Aston Martin</option>
-              <option value="license">Audi</option>
-              <option value="license">BMW</option>
-            </select>
-          </div>
-        </div>
-        <div class="row form-group">
-          <label class="col-sm-4 col-form-label required">Vehicle Size
-            <span style="color:red">*</span>
-          </label>
-          <div class="col-sm-5">
-            <select class="form-control" name="make" [(ngModel)]="addressProof" [ngClass]="{ 'is-invalid': submitted && f.addressProof.errors }">
-              <option value="" disabled select>Select</option>
-              <option value="aadhar">Small</option>
-              <option value="license">Medium</option>
-              <option value="aadhar">Large</option>
-              <option value="license">Extra Large</option>
-            </select>
+    <div *ngIf="carUser || commercialUser">
+      <div class="container">
+        <div class="col-sm-6">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Vehicle Size
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Size" class="form-control" name="size" [ngClass]="{ 'is-invalid': submitted && v.Size.errors }">
+                <option value="" disabled select>Select</option>
+                <option value="aadhar">Small</option>
+                <option value="license">Medium</option>
+                <option value="aadhar">Large</option>
+                <option value="license">Extra Large</option>
+              </select>
+              <div *ngIf="submitted && v.Size.errors" class="invalid-feedback">
+                <div *ngIf="v.Size.errors.required" style="color:red">Vehicle Size is required</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
+    <div *ngIf="carUser || bikeUser">
+      <div class="container">
+        <div class="col-sm-6">
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Vehicle Type
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Type" class="form-control" name="make" [ngClass]="{ 'is-invalid': submitted && v.Type.errors }">
+                <option value="" disabled select>Select</option>
+                <option *ngFor="let type of vehicleType" [ngValue]="type.vehicle_type_id">{{type.type_name}}</option>
+              </select>
+              <div *ngIf="submitted && v.Type.errors" class="invalid-feedback">
+                <div *ngIf="v.Type.errors.required" style="color:red">Vehicle Type is required</div>
+              </div>
+            </div>
+          </div>
+          <div class="row form-group">
+            <label class="col-sm-4 col-form-label required">Vehicle Age
+              <span style="color:red">*</span>
+            </label>
+            <div class="col-sm-5">
+              <select formControlName="Age" class="form-control" name="age" [ngClass]="{ 'is-invalid': submitted && v.Age.errors }">
+                <option value="" disabled select>Select</option>
+                <option *ngFor="let data of vehicleAge" [ngValue]="data.vehicle_age_id">{{data.age_name}}</option>
+              </select>
+              <div *ngIf="submitted && v.Age.errors" class="invalid-feedback">
+                <div *ngIf="v.Age.errors.required" style="color:red">Vehicle Age is required</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>
 
 <div *ngIf="vehservice">
@@ -391,24 +310,19 @@
           <span style="color:red">*</span>
         </label>
         <div class="col-sm-5">
-            <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
-            <p>Selected Cars: {{selectedCars1}}</p>
-      </div> 
-        
+          <p-multiSelect [options]="cars" [(ngModel)]="selectedCars1" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+          <p>Selected Cars: {{selectedCars1}}</p>
+        </div>
+
       </div>
     </div>
   </div>
 </div>
 
-<!-- <div *ngIf="carUser || bikeUser ||commercialUser"> -->
 <div class="row form-group">
   <div claas="container">
     <button type="submit" class="btn btn-warning" (click)="addUserInfoAndVehicle()" style="float:right;margin-right: 20%">Submit</button>
   </div>
 </div>
-<!-- </div> -->
-
-
-
 
 <footer></footer>

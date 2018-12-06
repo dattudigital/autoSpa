@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private router: Router, private loginService: LoginService) {
 
-    if (this.router.url == '/sale-dashboard') {
+    if (this.router.url == '/dashboard') {
       $(document).ready(function () {
         $("#__sale").addClass("active");
       });
@@ -101,7 +101,7 @@ export class HeaderComponent implements OnInit {
 
   redirectToDashbaord() {
     this.removeActiveClass();
-    this.router.navigate(['sale-dashboard']);
+    this.router.navigate(['dashboard']);
     $("#__sale").click(function () {
       $("#__sale").addClass("active");
     });
@@ -211,7 +211,7 @@ export class HeaderComponent implements OnInit {
           }
           if (this.redirect == 'inventory') {
             sessionStorage.setItem('inventory', JSON.stringify(loginData.json()));
-            this.router.navigate(['inventory']) 
+            this.router.navigate(['inventory'])
           }
           if (this.redirect == 'manager') {
             sessionStorage.setItem('manager', JSON.stringify(loginData.json()));

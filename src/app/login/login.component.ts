@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   alerts: any[] = [];
   errorMessage = false;
 
-  constructor(private http: HttpClient, private router: Router, private loginService:LoginService) { 
+  constructor(private http: HttpClient, private router: Router, private loginService: LoginService) {
   }
 
   ngOnInit() {
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
       password: this.password,
       email_id: this.mailId
     }
-    if (this.mailId && this.password) {    
+    if (this.mailId && this.password) {
       this.loginService.loginData(data).subscribe(loginData => {
         if (loginData.json().status == false) {
           this.errorMessage = true;
