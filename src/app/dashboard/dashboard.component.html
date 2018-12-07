@@ -250,10 +250,10 @@
             <div class="col-sm-5">
               <select formControlName="Size" class="form-control" name="size" [ngClass]="{ 'is-invalid': submitted && v.Size.errors }">
                 <option value="" disabled select>Select</option>
-                <option value="aadhar">Small</option>
-                <option value="license">Medium</option>
-                <option value="aadhar">Large</option>
-                <option value="license">Extra Large</option>
+                <option value="s">Small</option>
+                <option value="m">Medium</option>
+                <option value="l">Large</option>
+                <option value="xl">Extra Large</option>
               </select>
               <div *ngIf="submitted && v.Size.errors" class="invalid-feedback">
                 <div *ngIf="v.Size.errors.required" style="color:red">Vehicle Size is required</div>

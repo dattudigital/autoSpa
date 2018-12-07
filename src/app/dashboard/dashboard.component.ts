@@ -3,11 +3,13 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 import { Http } from '@angular/http';
 import { VehicleDetailsService } from '../services/vehicle-details.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
+
 export class DashboardComponent implements OnInit {
   //for validation
   salesForm: FormGroup;
@@ -73,19 +75,28 @@ export class DashboardComponent implements OnInit {
       { label: 'VW', value: 'VW' },
       { label: 'Volvo', value: 'Volvo' },
     ];
+
     this.vehicledetails.getVehicleAge().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleAge = res.json().result;
+      } else  {
+        this.vehicleAge = [];
       }
     });
+
     this.vehicledetails.getVehicleTypes().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleType = res.json().result;
+      } else  {
+        this.vehicleType = [];
       }
     });
+
     this.vehicledetails.getVehicleMake().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleMake = res.json().result;
+      } else  {
+        this.vehicleMake = [];
       }
     });
   }
@@ -140,7 +151,9 @@ export class DashboardComponent implements OnInit {
     if (this.vehicleForm.invalid) {
       return;
     }
-    alert('SUCCESS!! :-)')
+    var user = {
+      
+    }
 
   }
 
