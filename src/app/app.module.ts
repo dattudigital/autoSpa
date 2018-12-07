@@ -12,11 +12,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import {MultiSelectModule} from 'primeng/multiselect';
+import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
+import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -25,7 +28,8 @@ const routes: Routes = [
     LoginComponent,
     DashboardComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ListSalesComponent    
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard,VehicleServicesPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

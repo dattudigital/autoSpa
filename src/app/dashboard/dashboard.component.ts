@@ -3,6 +3,8 @@ import { SelectItem } from 'primeng/components/common/selectitem';
 import { Http } from '@angular/http';
 import { VehicleDetailsService } from '../services/vehicle-details.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { VehicleServicesPipe } from './../pipe/vehicle-services.pipe'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,8 +27,9 @@ export class DashboardComponent implements OnInit {
   bikeUser = false;
   commercialUser = false;
   //multiselect
-  cars: SelectItem[];
-  selectedCars1: string[] = [];
+  // carssss: SelectItem[];
+  serviceTableValue: any = [];
+  selectedServices: string[] = [];
   //personalinfo
   firstName: '';
   emailId: '';
@@ -35,13 +38,24 @@ export class DashboardComponent implements OnInit {
   address: '';
   sourceOfCust: '';
   serviceType: '';
+  sourceCustomer: '';
   businessType: '';
+
+  // vechile info
+  selectedVechile: any = 0;
+  selectedVechileNo: string;
+  selectedVechileMake: any;
+  selectedVechileSize: any;
+  selectedVechileAge: any;
+  selectedVechileType: any;
 
   vehicleAge: any = [];
   vehicleType: any = [];
   vehicleMake: any = [];
+  vehicleServices: any = [];
 
-  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder) { }
+  serviceId: string;
+  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router:Router) { }
 
   ngOnInit() {
     this.salesForm = this.formBuilder.group({
@@ -63,23 +77,10 @@ export class DashboardComponent implements OnInit {
       Age: ['', Validators.required]
     })
 
-    this.cars = [
-      { label: 'Audi', value: 'Audi' },
-      { label: 'BMW', value: 'BMW' },
-      { label: 'Fiat', value: 'Fiat' },
-      { label: 'Ford', value: 'Ford' },
-      { label: 'Honda', value: 'Honda' },
-      { label: 'Jaguar', value: 'Jaguar' },
-      { label: 'Mercedes', value: 'Mercedes' },
-      { label: 'Renault', value: 'Renault' },
-      { label: 'VW', value: 'VW' },
-      { label: 'Volvo', value: 'Volvo' },
-    ];
-
     this.vehicledetails.getVehicleAge().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleAge = res.json().result;
-      } else  {
+      } else {
         this.vehicleAge = [];
       }
     });
@@ -87,7 +88,7 @@ export class DashboardComponent implements OnInit {
     this.vehicledetails.getVehicleTypes().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleType = res.json().result;
-      } else  {
+      } else {
         this.vehicleType = [];
       }
     });
@@ -95,10 +96,38 @@ export class DashboardComponent implements OnInit {
     this.vehicledetails.getVehicleMake().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleMake = res.json().result;
-      } else  {
+      } else {
         this.vehicleMake = [];
       }
     });
+
+    this.vehicledetails.getVehicleServices().subscribe(res => {
+      if (res.json().status == true) {
+        this.vehicleServices = this.servicePipe.transform(res.json().result);
+      } else {
+        this.vehicleServices = [];
+      }
+    });
+  }
+
+  onChangeServices(val) {
+    // this.serviceTableValue = val;
+    this.getServiceId(this.selectedServices);
+  }
+
+  deleteService(index) {
+    this.selectedServices.splice(index, 1);
+    this.getServiceId(this.selectedServices);
+  }
+
+  getServiceId(val) {
+    this.serviceId = '';
+    console.log(val);
+    for (let i = 0; i < val.length; i++) {
+      this.serviceId = this.serviceId + val[i].service_id + " , ";
+    }
+    this.serviceId = this.serviceId.substring(0, this.serviceId.length - 2);
+    console.log(this.serviceId);
   }
 
   newUserClick() {
@@ -116,6 +145,7 @@ export class DashboardComponent implements OnInit {
   }
 
   carUserClick() {
+    this.selectedVechile = 0;
     this.vehInfo = true;
     this.carUser = true;
     this.vehservice = true;
@@ -124,6 +154,8 @@ export class DashboardComponent implements OnInit {
   }
 
   bikeUserClick() {
+    this.selectedVechile = 1;
+    this.selectedVechileSize = null;
     this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = true;
@@ -132,11 +164,18 @@ export class DashboardComponent implements OnInit {
   }
 
   commercialUserClick() {
+    this.selectedVechile = 2;
+    this.selectedVechileType = null;
+    this.selectedVechileAge = null;
     this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = false;
     this.commercialUser = true;
     this.vehservice = true;
+  }
+
+  redirectToSalesList(){
+    this.router.navigate(['list-sales']);
   }
 
   get f() { return this.salesForm.controls; }
@@ -151,10 +190,37 @@ export class DashboardComponent implements OnInit {
     if (this.vehicleForm.invalid) {
       return;
     }
-    var user = {
-      
+    var data = {
+      user: {
+        firstname: this.firstName,
+        email_id: this.emailId,
+        mobile: this.mobileNo,
+        profession: this.profession,
+        address: this.address,
+        source_customer: this.sourceCustomer,
+        service_type: this.serviceType,
+        business_type: this.businessType,
+        vehicle_type: this.selectedVechile
+      },
+      vechileInfo: {
+        vehicle_no: this.selectedVechileNo,
+        vehicle_make_id: this.selectedVechileMake,
+        vehicle_size: this.selectedVechileSize,
+        vehicle_type_id: this.selectedVechileType,
+        vehicle_age_id: this.selectedVechileAge
+      },
+      vechileServices: {
+        services: this.serviceId
+      }
     }
-
+    console.log("******************")
+    console.log(data)
+    this.vehicledetails.userVehicleService(data).subscribe(res => {
+      if (res.json().status == true) {
+        console.log("came to here ");
+      } else {
+        console.log("*****************");
+      }
+    });
   }
-
 }

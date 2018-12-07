@@ -11,10 +11,19 @@ export class VehicleDetailsService {
   public getVehicleAge() {
     return this.http.get(environment.host + 'ages')
   }
-  public getVehicleTypes(){
+  public getVehicleTypes() {
     return this.http.get(environment.host + 'vehicle-types')
   }
-  public getVehicleMake(){
+  public getVehicleMake() {
     return this.http.get(environment.host + 'vehicle-makes')
+  }
+  public getVehicleServices() {
+    return this.http.get(environment.host + 'services')
+  }
+  public userVehicleService(data: any) {
+    return this.http.post(environment.host + 'users/complete-sale', data)
+  }
+  public getUserDetails() {
+    return this.http.get(environment.host + 'users')
   }
 }

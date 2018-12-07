@@ -1,0 +1,14 @@
+
+<button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
+<table>
+  <tr>
+    <th>User Name</th>
+    <th>Email </th>
+    <th>Mobile No.</th>
+  </tr>
+  <tr *ngFor="let userDetailsData of userDetailsDatas">
+    <td>{{userDetailsData.firstname}}</td>
+    <td>{{userDetailsData.email_id}}</td>
+    <td>{{userDetailsData.mobile}}</td>
+  </tr>
+</table>
