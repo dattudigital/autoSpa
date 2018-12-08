@@ -11,15 +11,19 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
 import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
+import { ManagerComponent } from './manager/manager.component';
+import { AddEmployeeComponent } from './manager/add-employee/add-employee.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] }
+  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
+  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -29,7 +33,9 @@ const routes: Routes = [
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-    ListSalesComponent    
+    ListSalesComponent,
+    ManagerComponent,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,7 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true })
   ],
-  providers: [AuthGuard,VehicleServicesPipe],
+  providers: [AuthGuard, VehicleServicesPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

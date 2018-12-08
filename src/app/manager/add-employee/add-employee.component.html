@@ -1,0 +1,177 @@
+<div class="add-employee">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 style="font-weight:600; padding: 7px;">Employees Details</h3>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-2">
+      <button type="button" class="btn backBtn" (click)="backToManager()">Back</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10">
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addEmployee">ADD
+        NEW
+      </button>
+    </div>
+  </div>&nbsp;
+</div>
+
+<div class="modal fade" id="addEmployee" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="employeeForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="myModalLabel">Add New Employee</h3>
+        </div>
+        <div class="modal-body">
+          <br>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">First Name
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="employeeFirstName" class="form-control" placeholder="Enter First Name"
+                [(ngModel)]="employee.firstName" [ngClass]="{ 'is-invalid': submitted && f.employeeFirstName.errors }"
+                maxlength="50">
+              <div *ngIf="submitted && f.employeeFirstName.errors" class="invalid-feedback">
+                <div *ngIf="f.employeeFirstName.errors.required" style="color:red">First Name is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Last Name
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="employeeLastName" (keypress)="omit_special_char($event)" class="form-control"
+                placeholder="Enter Last Name" [ngClass]="{ 'is-invalid': submitted && f.employeeLastName.errors }"
+                [(ngModel)]="employee.lastName" maxlength="50">
+              <div *ngIf="submitted && f.employeeLastName.errors" class="invalid-feedback">
+                <div *ngIf="f.employeeLastName.errors.required" style="color:red">Last Name is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Email Id
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="Email" class="form-control" placeholder="Enter Email Id" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }"
+                [(ngModel)]="employee.emailId" maxlength="50">
+              <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+                <div *ngIf="f.Email.errors.required" style="color:red">Email is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Password
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="password" formControlName="Password" class="form-control" placeholder="Enter Password"
+                [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" [(ngModel)]="employee.password" maxlength="50">
+              <div *ngIf="submitted && f.Password.errors" class="invalid-feedback">
+                <div *ngIf="f.Password.errors.required" style="color:red">Password is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Employee Type
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6" *ngIf="empData">
+              <select class="form-control" formControlName="empType" [(ngModel)]="employee.employeeType" [ngClass]="{ 'is-invalid': submitted && f.empType.errors }">
+                <option *ngFor="let data of this.empData" [ngValue]=" data.id">{{data.emp_type}}</option>
+              </select>
+              <div *ngIf="submitted && f.empType.errors" class="invalid-feedback">
+                <div *ngIf="f.empType.errors.required" style="color:red">Employee Type Plz</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <select class="form-control" formControlName="employeeBranch" [(ngModel)]="employee.branch" [ngClass]="{ 'is-invalid': submitted && f.employeeBranch.errors }">
+                <option *ngFor="let data of this.brData" [ngValue]=" data.branch_id ">{{data.branch_name}}</option>
+              </select>
+              <div *ngIf="submitted && f.employeeBranch.errors" class="invalid-feedback">
+                <div *ngIf="f.employeeBranch.errors.required" style="color:red">Employee Branch Plz</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Phone Number
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="Phone" (keypress)="only_allow_number($event)" class="form-control"
+                placeholder="Enter Phone No." [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" [(ngModel)]="employee.phoneNumber"
+                oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="1onimn0" maxlength="50">
+              <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                <div *ngIf="f.Phone.errors.required" style="color:red">Phone Number is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Address
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="employeeAddress" class="form-control" placeholder="Enter Address"
+                [ngClass]="{ 'is-invalid': submitted && f.employeeAddress.errors }" [(ngModel)]="employee.address"
+                maxlength="1000">
+              <div *ngIf="submitted && f.employeeAddress.errors" class="invalid-feedback">
+                <div *ngIf="f.employeeAddress.errors.required" style="color:red">Employee Address is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Pincode
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="employeePinCode" (keypress)="only_allow_number($event)" class="form-control"
+                placeholder="Enter Pincode" [ngClass]="{ 'is-invalid': submitted && f.employeePinCode.errors }"
+                [(ngModel)]="employee.pincode" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                maxlength="1onimn0" maxlength="20">
+              <div *ngIf="submitted && f.employeePinCode.errors" class="invalid-feedback">
+                <div *ngIf="f.employeePinCode.errors.required" style="color:red">PinCode is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="addEmployee()">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

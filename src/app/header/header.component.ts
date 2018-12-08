@@ -141,7 +141,7 @@ export class HeaderComponent implements OnInit {
 
   redirectToManager() {
     this.removeActiveClass();
-    // this.router.navigate(['manager/add-employee'])
+    this.router.navigate(['manager'])
     $("#__manager").click(function () {
       $("#__manager").addClass("active");
     });
