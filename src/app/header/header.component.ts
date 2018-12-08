@@ -4,6 +4,7 @@ import { LoginService } from '../services/login.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -24,7 +25,7 @@ export class HeaderComponent implements OnInit {
   btnDisable = true;
   test1: any;
 
-  constructor(private router: Router, private loginService: LoginService,private spinner: NgxSpinnerService) {
+  constructor(private router: Router, private loginService: LoginService, private spinner: NgxSpinnerService) {
 
     if (this.router.url == '/dashboard') {
       this.removeActiveClass();
@@ -182,8 +183,7 @@ export class HeaderComponent implements OnInit {
     this.errorMessage = false;
     if (this.password && this.mailId) {
       this.btnDisable = false;
-    }
-    else {
+    } else {
       this.btnDisable = true;
     }
   }
@@ -209,7 +209,6 @@ export class HeaderComponent implements OnInit {
           this.password = "";
           this.mailId = "";
           if (this.redirect == 'setup') {
-            console.log("setuppppppppppppppppppp");
             sessionStorage.setItem('setup', JSON.stringify(loginData.json()));
             this.router.navigate(['setup'])
           }

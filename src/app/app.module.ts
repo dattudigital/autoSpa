@@ -19,6 +19,7 @@ import { AddEmployeeComponent } from './manager/add-employee/add-employee.compon
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SetupComponent } from './setup/setup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BranchComponent } from './setup/branch/branch.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,7 +28,11 @@ const routes: Routes = [
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] },
-  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] }
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] },
+  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -38,6 +43,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ListSalesComponent,
+    SetupComponent,
+    BranchComponent,    
     ManagerComponent,
     AddEmployeeComponent,
     SetupComponent    
