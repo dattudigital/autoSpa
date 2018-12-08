@@ -22,6 +22,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { BranchComponent } from './setup/branch/branch.component';
 import { TableModule } from 'primeng/table';
 import { ServicesComponent } from './manager/services/services.component';
+import { SaleUserDetailsPipe } from './pipe/sale-user-details.pipe';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -49,7 +50,8 @@ const routes: Routes = [
     ManagerComponent,
     AddEmployeeComponent,
     SetupComponent,
-    ServicesComponent
+    ServicesComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -64,7 +66,7 @@ const routes: Routes = [
     NgxSpinnerModule,
     TableModule
   ],
-  providers: [AuthGuard, VehicleServicesPipe],
+  providers: [AuthGuard, VehicleServicesPipe, SaleUserDetailsPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

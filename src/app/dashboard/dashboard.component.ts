@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit {
   existingDetail: string;
   serviceId: string;
 
-  userInfo: any=[];
+  userInfo: any = [];
 
   constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router) { }
 
@@ -127,14 +127,14 @@ export class DashboardComponent implements OnInit {
   }
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
-    this.firstName =this.selectedOption.firstname
-    this.emailId =this.selectedOption.email_id
-    this.mobileNo =this.selectedOption.mobile
-    this.profession =this.selectedOption.profession
-    this.address =this.selectedOption.address
-    this.sourceCustomer =this.selectedOption.source_customer
-    this.serviceType =this.selectedOption.service_type
-    this.businessType =this.selectedOption.business_type
+    this.firstName = this.selectedOption.firstname
+    this.emailId = this.selectedOption.email_id
+    this.mobileNo = this.selectedOption.mobile
+    this.profession = this.selectedOption.profession
+    this.address = this.selectedOption.address
+    this.sourceCustomer = this.selectedOption.source_customer
+    this.serviceType = this.selectedOption.service_type
+    this.businessType = this.selectedOption.business_type
 
   }
 
@@ -176,7 +176,23 @@ export class DashboardComponent implements OnInit {
     console.log(this.serviceId);
   }
 
+  clearUserdata(val) {
+    if (val == false) {
+      this.firstName = '';
+      this.emailId = '';
+      this.mobileNo = '';
+      this.profession = '';
+      this.address = '';
+      this.sourceCustomer = undefined;
+      this.serviceType = undefined;
+      this.businessType = undefined;
+      this.selectedVechile = undefined;
+    }
+  }
+
   newUserClick() {
+    console.log("click ")
+    this.clearUserdata(false);
     this.newUser = true;
     this.vehInfo = true;
     this.carUser = true;
