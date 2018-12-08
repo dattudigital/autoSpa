@@ -336,8 +336,8 @@
           <td *ngIf="selectedVechileSize == 'm'">{{item.service_price_medium}}</td>
           <td *ngIf="selectedVechileSize == 'l'">{{item.service_price_large}}</td>
           <td *ngIf="selectedVechileSize == 'xl'">{{item.service_price_xl}}</td>
-          <td>
-            <i class="fas fa-trash" (click)="deleteService(i)"> delete</i>
+          <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i)">
+            <i class="fa fa-trash"></i>
           </td>
         </tr>
       </table>
@@ -348,6 +348,24 @@
 <div class="row form-group">
   <div claas="container">
     <button type="submit" class="btn btn-warning" (click)="addUserInfoAndVehicle()" style="float:right;margin-right: 20%">Submit</button>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteServiceConformation" tabindex="-1" data-backdrop="static" role="dialog"
+  aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Are you sure you want to delete this service?</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="yesDeleteService()">Yes</button>
+      </div>
+    </div>
   </div>
 </div>
 

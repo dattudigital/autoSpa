@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
         if (loginData.json().status == false) {
           this.errorMessage = true;
         } else {
+          sessionStorage.removeItem('selectedUserEdit');
           sessionStorage.setItem('userSession', JSON.stringify(loginData.json()));
           this.router.navigate(['dashboard']);
           $('#loginModal').modal('hide');

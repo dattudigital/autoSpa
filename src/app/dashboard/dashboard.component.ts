@@ -6,7 +6,7 @@ import { VehicleDetailsService } from '../services/vehicle-details.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleServicesPipe } from './../pipe/vehicle-services.pipe'
 import { Router } from '@angular/router';
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-dashboard',
@@ -63,10 +63,11 @@ export class DashboardComponent implements OnInit {
 
   existingDetail: string;
   serviceId: string;
-
+  selectedUserEditSession: any;
   userInfo: any = [];
-
-  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router) { }
+  data: object;
+  deleteServiceIndex:any;
+  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.salesForm = this.formBuilder.group({
@@ -115,10 +116,55 @@ export class DashboardComponent implements OnInit {
     this.vehicledetails.getVehicleServices().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleServices = this.servicePipe.transform(res.json().result);
+        console.log(this.vehicleServices);
+        if (this.selectedUserEditSession) {
+          var temp = [];
+          var temp1 = [];
+          //selectedServices
+          console.log(this.vehicleServices);
+          temp1 = this.serviceId.split(",");
+          console.log("temp1111111111");
+          console.log(temp1);
+          console.log(this.serviceId);
+          this.vehicleServices.forEach(element => {
+            temp1.forEach(ele => {
+              console.log(ele)
+              if (element.value.service_id == ele.trim()) {
+                temp.push(element);
+                this.selectedServices.push(element.value);
+              }
+            })
+          });
+          this.spinner.hide();
+        }
       } else {
         this.vehicleServices = [];
       }
     });
+    this.checkUserEditSession();
+  }
+
+  checkUserEditSession() {
+    this.selectedUserEditSession = JSON.parse(sessionStorage.getItem('selectedUserEdit'));
+    if (this.selectedUserEditSession) {
+      this.spinner.show();
+      this.firstName = this.selectedUserEditSession.firstname;
+      this.emailId = this.selectedUserEditSession.email_id;
+      this.mobileNo = this.selectedUserEditSession.mobile;
+      this.profession = this.selectedUserEditSession.profession;
+      this.address = this.selectedUserEditSession.address;
+      this.sourceCustomer = this.selectedUserEditSession.source_customer;
+      this.serviceType = this.selectedUserEditSession.service_type;
+      this.businessType = this.selectedUserEditSession.business_type;
+
+      this.selectedVechile = this.selectedUserEditSession.vehicle_type;
+      this.selectedVechileNo = this.selectedUserEditSession.vehicle_no;
+      this.selectedVechileMake = this.selectedUserEditSession.vehicle_make_id;
+      this.selectedVechileSize = this.selectedUserEditSession.vehicle_size;
+      this.selectedVechileType = this.selectedUserEditSession.vehicle_type_id;
+      this.selectedVechileAge = this.selectedUserEditSession.vehicle_age_id;
+      this.serviceId = this.selectedUserEditSession.services;
+    }
   }
 
   onChangeServices(val) {
@@ -162,8 +208,13 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteService(index) {
-    this.selectedServices.splice(index, 1);
+    this.deleteServiceIndex = index ;    
+  }
+  
+  yesDeleteService(){
+    this.selectedServices.splice(this.deleteServiceIndex, 1);
     this.getServiceId(this.selectedServices);
+    this.deleteService = null;
   }
 
   getServiceId(val) {
@@ -237,6 +288,7 @@ export class DashboardComponent implements OnInit {
   }
 
   redirectToSalesList() {
+    sessionStorage.removeItem('selectedUserEdit');
     this.router.navigate(['list-sales']);
   }
 
@@ -252,8 +304,9 @@ export class DashboardComponent implements OnInit {
     if (this.vehicleForm.invalid) {
       return;
     }
-    var data = {
+    this.data = {
       user: {
+        sale_user_id: 1,
         firstname: this.firstName,
         email_id: this.emailId,
         mobile: this.mobileNo,
@@ -276,13 +329,13 @@ export class DashboardComponent implements OnInit {
       }
     }
     console.log("******************")
-    console.log(data)
-    this.vehicledetails.userVehicleService(data).subscribe(res => {
-      if (res.json().status == true) {
-        console.log("came to here ");
-      } else {
-        console.log("*****************");
-      }
-    });
+    console.log(this.data)
+    // this.vehicledetails.userVehicleService(data).subscribe(res => {
+    //   if (res.json().status == true) {
+    //     console.log("came to here ");
+    //   } else {
+    //     console.log("*****************");
+    //   }
+    // });
   }
 }
