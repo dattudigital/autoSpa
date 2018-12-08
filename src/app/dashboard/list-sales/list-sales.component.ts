@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 
 export class ListSalesComponent implements OnInit {
-
+  isHideOrShowUserVechileService:boolean= false;
   userDetailsDatas: any = [];
   constructor(private userListService: VehicleDetailsService,private router:Router) { }
 
@@ -25,6 +25,10 @@ export class ListSalesComponent implements OnInit {
 
   redirectToAddSale(){
     this.router.navigate(['dashboard']);
+  }
+
+  editUser(){
+    this.isHideOrShowUserVechileService = true;
   }
 
 }
