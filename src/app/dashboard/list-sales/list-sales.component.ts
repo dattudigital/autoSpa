@@ -29,8 +29,10 @@ export class ListSalesComponent implements OnInit {
     this.router.navigate(['dashboard']);
   }
 
-  editUser() {
-
+  editUser(val, i) {
+    val.index = i;
+    sessionStorage.setItem('selectedUserEdit', JSON.stringify(val));
+    this.router.navigate(['dashboard']);
   }
 
 }

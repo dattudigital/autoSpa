@@ -4,13 +4,29 @@
     <th>User Name</th>
     <th>Email </th>
     <th>Mobile No.</th>
-    <th></th>
+    <th>Address</th>
+    <th>Profession </th>
+    <th>Source Name</th>
+    <th>Service Name </th>
+    <th>Business Name</th>
+    <th>Age Name </th>
+    <th>Type Name</th>
+    <th>Make Name </th>
+    <th>Edit </th>
   </tr>
   <tr *ngFor="let userDetailsData of userDetailsDatas;let i = index">
     <td>{{userDetailsData.firstname}}</td>
     <td>{{userDetailsData.email_id}}</td>
     <td>{{userDetailsData.mobile}}</td>
-    <td (click)="editUser(userDetailsData,i)"> edit </td>
+    <td>{{userDetailsData.address}}</td>
+    <td>{{userDetailsData.profession}}</td>
+    <td>{{userDetailsData.source_name}}</td>
+    <td>{{userDetailsData.service_name}}</td>
+    <td>{{userDetailsData.business_name}}</td>
+    <td>{{userDetailsData.age_name}}</td>
+    <td>{{userDetailsData.type_name}}</td>
+    <td>{{userDetailsData.make_name}}</td>
+    <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
   </tr>
 </table>
 
