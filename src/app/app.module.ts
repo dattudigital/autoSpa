@@ -14,16 +14,26 @@ import { FooterComponent } from './footer/footer.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
 import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
+<<<<<<< HEAD
 import { ManagerComponent } from './manager/manager.component';
 import { AddEmployeeComponent } from './manager/add-employee/add-employee.component';
+=======
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { SetupComponent } from './setup/setup.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+>>>>>>> 696f23dc7a4bbf9e42009fd0f821095cf4e6bb5b
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
+<<<<<<< HEAD
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] }
+=======
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] }
+>>>>>>> 696f23dc7a4bbf9e42009fd0f821095cf4e6bb5b
 ]
 
 @NgModule({
@@ -34,8 +44,12 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ListSalesComponent,
+<<<<<<< HEAD
     ManagerComponent,
     AddEmployeeComponent
+=======
+    SetupComponent    
+>>>>>>> 696f23dc7a4bbf9e42009fd0f821095cf4e6bb5b
   ],
   imports: [
     BrowserModule,
@@ -45,7 +59,9 @@ const routes: Routes = [
     HttpModule,
     MultiSelectModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true }),
+    TypeaheadModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [AuthGuard, VehicleServicesPipe],
   bootstrap: [AppComponent]

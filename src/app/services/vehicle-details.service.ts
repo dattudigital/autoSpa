@@ -26,4 +26,7 @@ export class VehicleDetailsService {
   public getUserDetails() {
     return this.http.get(environment.host + 'users')
   }
+  public searchMobileOrEmailid(data:any) {
+    return this.http.get(environment.host + 'search/user/mobile-or-email/'+data)
+  }
 }

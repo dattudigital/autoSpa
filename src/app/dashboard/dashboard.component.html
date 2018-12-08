@@ -50,8 +50,12 @@
           <span style="color:red">*</span>
         </label>
         <div class="col-sm-5">
-          <input type="text" name="exDetail" maxlength="50" class="form-control" [(ngModel)]="existingDetail">
+          <!-- <input type="text" name="exDetail" maxlength="50" class="form-control" (ngModelChange)="searchUser()" [(ngModel)]="existingDetail"> -->
+          <input type="text" placeholder="Enter Engine Number" name="Engine" maxlength="50" [(ngModel)]="selectedValue" [(ngModel)]="existingDetail"
+						 (ngModelChange)='userSearch($event)' [typeahead]="userInfo" typeaheadOptionField="email_id" (typeaheadOnSelect)="onSelect($event)"
+						 class="form-control">
         </div>
+        <div style="color:red" *ngIf="noResult">No Results Found</div>
       </div>
     </div>
   </div>
