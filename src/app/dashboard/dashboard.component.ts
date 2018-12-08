@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleServicesPipe } from './../pipe/vehicle-services.pipe'
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -27,6 +28,11 @@ export class DashboardComponent implements OnInit {
   carUser = true;
   bikeUser = false;
   commercialUser = false;
+
+  // for typeahead
+  selectedValue: string;
+  selectedOption: any = '';
+
   //multiselect
   // carssss: SelectItem[];
   serviceTableValue: any = [];
@@ -58,7 +64,7 @@ export class DashboardComponent implements OnInit {
   existingDetail: string;
   serviceId: string;
 
-  userInfo: any[] = new Array();
+  userInfo: any=[];
 
   constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router) { }
 
@@ -120,6 +126,15 @@ export class DashboardComponent implements OnInit {
     this.getServiceId(this.selectedServices);
   }
   onSelect(event: TypeaheadMatch): void {
+    this.selectedOption = event.item;
+    this.firstName =this.selectedOption.firstname
+    this.emailId =this.selectedOption.email_id
+    this.mobileNo =this.selectedOption.mobile
+    this.profession =this.selectedOption.profession
+    this.address =this.selectedOption.address
+    this.sourceCustomer =this.selectedOption.source_customer
+    this.serviceType =this.selectedOption.service_type
+    this.businessType =this.selectedOption.business_type
 
   }
 
@@ -139,7 +154,7 @@ export class DashboardComponent implements OnInit {
     } else {
       this.noResult = false;
       this.userInfo = [];
-    }    
+    }
   }
 
   searchUser() {
