@@ -15,12 +15,15 @@ import {MultiSelectModule} from 'primeng/multiselect';
 import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
 import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { SetupComponent } from './setup/setup.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] }
+  { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -30,7 +33,8 @@ const routes: Routes = [
     DashboardComponent,
     HeaderComponent,
     FooterComponent,
-    ListSalesComponent    
+    ListSalesComponent,
+    SetupComponent    
   ],
   imports: [
     BrowserModule,
@@ -41,7 +45,8 @@ const routes: Routes = [
     MultiSelectModule,
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [AuthGuard,VehicleServicesPipe],
   bootstrap: [AppComponent]

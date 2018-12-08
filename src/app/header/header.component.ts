@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginService } from '../services/login.service'
-
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 @Component({
@@ -24,9 +24,10 @@ export class HeaderComponent implements OnInit {
   btnDisable = true;
   test1: any;
 
-  constructor(private router: Router, private loginService: LoginService) {
+  constructor(private router: Router, private loginService: LoginService,private spinner: NgxSpinnerService) {
 
     if (this.router.url == '/dashboard') {
+      this.removeActiveClass();
       $(document).ready(function () {
         $("#__sale").addClass("active");
       });
@@ -87,6 +88,8 @@ export class HeaderComponent implements OnInit {
 
   }
   removeActiveClass() {
+    this.password = "";
+    this.mailId = "";
     $(document).ready(function () {
       $("#__sale").removeClass("active");
       $("#__appt").removeClass("active");
@@ -167,7 +170,6 @@ export class HeaderComponent implements OnInit {
       $("#__setup").addClass("active");
     });
     $('#myModal').modal('show');
-    console.log("paramterrrrrrrrrrrrrrr")
     this.redirect = "setup";
     this.loginSubmite();
   }
@@ -195,7 +197,9 @@ export class HeaderComponent implements OnInit {
     sessionStorage.removeItem('inventory');
     sessionStorage.removeItem('manager');
     if (this.mailId && this.password) {
+      this.spinner.show();
       this.loginService.loginData(data).subscribe(loginData => {
+        this.spinner.hide();
         if (loginData.json().status == false) {
           this.errorMessage = true;
         } else {
