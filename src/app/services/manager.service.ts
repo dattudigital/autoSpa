@@ -11,4 +11,14 @@ export class ManagerService {
   public getEmployeeTypes() {
     return this.http.get(environment.host + 'emp-types')
   }
+
+  public addNewEmployee(data: any) {
+    return this.http.post(environment.host + 'employees', data)
+  }
+  public getEmployeeDetails() {
+    return this.http.get(environment.host + 'employees')
+  }
+  public getBranchDetails() {
+    return this.http.get(environment.host + 'branches')
+  }
 }

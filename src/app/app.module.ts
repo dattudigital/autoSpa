@@ -20,6 +20,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SetupComponent } from './setup/setup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BranchComponent } from './setup/branch/branch.component';
+import { TableModule } from 'primeng/table';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -44,10 +45,10 @@ const routes: Routes = [
     FooterComponent,
     ListSalesComponent,
     SetupComponent,
-    BranchComponent,    
+    BranchComponent,
     ManagerComponent,
     AddEmployeeComponent,
-    SetupComponent    
+    SetupComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +60,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     RouterModule.forRoot(routes, { useHash: true }),
     TypeaheadModule.forRoot(),
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    TableModule
   ],
   providers: [AuthGuard, VehicleServicesPipe],
   bootstrap: [AppComponent]
