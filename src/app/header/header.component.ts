@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { LoginService } from '../services/login.service'
+import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
 @Component({
@@ -23,7 +24,7 @@ export class HeaderComponent implements OnInit {
   btnDisable = true;
   test1: any;
 
-  constructor(private router: Router, private loginService: LoginService) {
+  constructor(private router: Router, private loginService: LoginService,private spinner: NgxSpinnerService) {
 
     if (this.router.url == '/dashboard') {
       this.removeActiveClass();
