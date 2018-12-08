@@ -21,4 +21,15 @@ export class ManagerService {
   public getBranchDetails() {
     return this.http.get(environment.host + 'branches')
   }
+  public getSubCategory() {
+    return this.http.get(environment.host + 'sub-categorys')
+  }
+  public getServiceDetails() {
+    return this.http.get(environment.host + 'services')
+  }
+
+  public saveServices(data: any) {
+    return this.http.post(environment.host + 'services', data)
+  }
+
 }

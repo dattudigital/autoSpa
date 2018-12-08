@@ -169,7 +169,13 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
-          <button type="button" class="btn btn-primary" (click)="addEmployee()">ADD</button>
+          &nbsp;&nbsp;
+          <span [style.visibility]="addEnableorDisable">
+            <button type="button" class="btn btn-primary" (click)="addEmployee()">ADD</button>
+          </span>
+          <span [style.visibility]="updateEnableorDisable">
+            <button type="button" class="btn btn-primary" (click)="updateEmployeeDetails()">Update</button>
+          </span>
         </div>
       </form>
     </div>
@@ -210,3 +216,24 @@
     </tr>
   </ng-template>
 </p-table>
+
+<div class="modal fade" id="deleteEmployee" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Are you Sure To Delete</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="yesEmployeeDelete()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#f5c585" type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
