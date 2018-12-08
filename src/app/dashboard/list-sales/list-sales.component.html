@@ -10,11 +10,11 @@
     <td>{{userDetailsData.firstname}}</td>
     <td>{{userDetailsData.email_id}}</td>
     <td>{{userDetailsData.mobile}}</td>
-    <td data-toggle="modal" data-target="#userModel" (click)="editUser(userDetailsData,i)"> edit </td>
+    <td (click)="editUser(userDetailsData,i)"> edit </td>
   </tr>
 </table>
 
-<div *ngIf="isHideOrShowUserVechileService">
+<!-- <div *ngIf="isHideOrShowUserVechileService">
   this is test
   <div class="modal fade" id="userModel">
     <div class="modal-dialog">
@@ -23,8 +23,7 @@
           <h4 class="modal-title">Modal Heading</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        <div class="modal-body">
-          <app-dashboard></app-dashboard>
+        <div class="modal-body">        
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -32,4 +31,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->

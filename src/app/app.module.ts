@@ -14,6 +14,7 @@ import { FooterComponent } from './footer/footer.component';
 import {MultiSelectModule} from 'primeng/multiselect';
 import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
 import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -39,7 +40,8 @@ const routes: Routes = [
     HttpModule,
     MultiSelectModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(routes, { useHash: true })
+    RouterModule.forRoot(routes, { useHash: true }),
+    TypeaheadModule.forRoot()
   ],
   providers: [AuthGuard,VehicleServicesPipe],
   bootstrap: [AppComponent]

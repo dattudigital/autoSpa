@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { Http } from '@angular/http';
 import { VehicleDetailsService } from '../services/vehicle-details.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,7 +18,7 @@ export class DashboardComponent implements OnInit {
   salesForm: FormGroup;
   vehicleForm: FormGroup;
   submitted = false;
-
+  noResult = false;
   //for design enable and disable
   newUser = true;
   vehInfo = true;
@@ -54,8 +55,12 @@ export class DashboardComponent implements OnInit {
   vehicleMake: any = [];
   vehicleServices: any = [];
 
+  existingDetail: string;
   serviceId: string;
-  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router:Router) { }
+
+  userInfo: any[] = new Array();
+
+  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router) { }
 
   ngOnInit() {
     this.salesForm = this.formBuilder.group({
@@ -113,6 +118,32 @@ export class DashboardComponent implements OnInit {
   onChangeServices(val) {
     // this.serviceTableValue = val;
     this.getServiceId(this.selectedServices);
+  }
+  onSelect(event: TypeaheadMatch): void {
+
+  }
+
+  userSearch(val) {
+    if (val.length > 2) {
+      this.vehicledetails.searchMobileOrEmailid(val).subscribe(res => {
+        let temp = [];
+        temp.push(res.json().result);
+        if (res.json().status == false) {
+          this.userInfo = [];
+          this.noResult = true;
+        } else {
+          this.noResult = false;
+          this.userInfo = temp.pop();
+        }
+      })
+    } else {
+      this.noResult = false;
+      this.userInfo = [];
+    }    
+  }
+
+  searchUser() {
+
   }
 
   deleteService(index) {
@@ -174,7 +205,7 @@ export class DashboardComponent implements OnInit {
     this.vehservice = true;
   }
 
-  redirectToSalesList(){
+  redirectToSalesList() {
     this.router.navigate(['list-sales']);
   }
 
