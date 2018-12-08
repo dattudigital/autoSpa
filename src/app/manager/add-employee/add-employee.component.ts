@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManagerService } from '../../services/manager.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 declare var $: any;
 @Component({
   selector: 'app-add-employee',
@@ -30,9 +32,16 @@ export class AddEmployeeComponent implements OnInit {
   branches: any[];
   editData: any = [];
   temp: any;
-  constructor(private formBuilder: FormBuilder, private service: ManagerService) { }
+  deleteData: any = [];
+  temp1: any;
+
+  addEnableorDisable = 'visible';
+  updateEnableorDisable = 'visible'
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService, private service: ManagerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.employeeForm = this.formBuilder.group({
       employeeFirstName: ['', Validators.required],
       employeeLastName: ['', Validators.required],
@@ -55,22 +64,32 @@ export class AddEmployeeComponent implements OnInit {
     this.service.getEmployeeTypes().subscribe(res => {
       if (res.json().status == true) {
         this.empData = res.json().result;
+      } else {
+        this.empData = [];
       }
     });
     this.service.getEmployeeDetails().subscribe(res => {
+      this.spinner.hide();
       if (res.json().status == true) {
         this.employees = res.json().result;
+      } else {
+        this.employees = [];
       }
     });
     this.service.getBranchDetails().subscribe(res => {
       if (res.json().status == true) {
         this.branches = res.json().result;
+      } else {
+        this.branches = [];
       }
     });
-
   }
-
+  backToManager() {
+    this.router.navigate(['manager']);
+  }
   removeFields() {
+    this.updateEnableorDisable = 'hidden';
+    this.addEnableorDisable = 'visible';
     this.submitted = false;
     this.employee.firstName = '';
     this.employee.lastName = '';
@@ -106,9 +125,11 @@ export class AddEmployeeComponent implements OnInit {
       this.employees.push(res.json().result);
       console.log(this.employees);
       $('#addEmployee').modal('hide');
-    })
+    });
   }
   editEmployee(data, index) {
+    this.addEnableorDisable = 'hidden';
+    this.updateEnableorDisable = 'visible'
     this.editData = data;
     data.index = index;
     this.temp = index;
@@ -124,6 +145,49 @@ export class AddEmployeeComponent implements OnInit {
       this.employee.password = this.editData[index].password
     this.employee.status = this.editData[index].rec_status
   }
+  updateEmployeeDetails() {
+    var data = {
+      employee_id: this.employee.employeeId,
+      employee_firstname: this.employee.firstName,
+      employee_lastname: this.employee.lastName,
+      employee_branch_id: this.employee.branch,
+      employee_address: this.employee.address,
+      employee_pincode: this.employee.pincode,
+      email_id: this.employee.emailId,
+      phone: this.employee.phoneNumber,
+      emp_type_id: this.employee.employeeType,
+      rec_status: this.employee.status
+    }
+    this.service.addNewEmployee(data).subscribe(res => {
+      this.employees[this.temp].employee_firstname = data.employee_firstname;
+      this.employees[this.temp].employee_lastname = data.employee_lastname;
+      this.employees[this.temp].employee_branch_id = data.employee_branch_id;
+      this.employees[this.temp].employee_address = data.employee_address;
+      this.employees[this.temp].employee_pincode = data.employee_pincode;
+      this.employees[this.temp].email_id = data.email_id;
+      this.employees[this.temp].phone = data.phone;
+      this.employees[this.temp].emp_type_id = data.emp_type_id
+      this.employees[this.temp].rec_status = data.rec_status;
+      this.temp = " ";
+    });
+    $('#addEmployee').modal('hide')
+  }
+  deleteEmployee(val, index) {
+    this.temp1 = index;
+    this.deleteData = val;
+    val.index = index;
+    this.employee.employeeId = this.deleteData[index].employee_id;
+  }
+  yesEmployeeDelete() {
+    this.employees.splice(this.temp1, 1)
+    var data = {
+      employee_id: this.employee.employeeId,
+      rec_status: "0"
+    }
+    this.service.addNewEmployee(data).subscribe(res => {
+    })
+  }
+
   omit_special_char(event) {
     var k;
     k = event.charCode;

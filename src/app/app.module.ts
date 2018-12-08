@@ -21,6 +21,7 @@ import { SetupComponent } from './setup/setup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { BranchComponent } from './setup/branch/branch.component';
 import { TableModule } from 'primeng/table';
+import { ServicesComponent } from './manager/services/services.component';
 import { SaleUserDetailsPipe } from './pipe/sale-user-details.pipe';
 
 const routes: Routes = [
@@ -31,10 +32,9 @@ const routes: Routes = [
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] },
   { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
-  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
   { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] },
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
-  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] }
+  { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -49,7 +49,8 @@ const routes: Routes = [
     BranchComponent,
     ManagerComponent,
     AddEmployeeComponent,
-    SetupComponent
+    SetupComponent,
+    ServicesComponent,
 
   ],
   imports: [

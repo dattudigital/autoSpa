@@ -14,4 +14,7 @@ export class ManagerComponent implements OnInit {
   redirectToNewEmployee() {
     this.router.navigate(['add-employee'])
   }
+  redirectToService() {
+    this.router.navigate(['manager/services'])
+  }
 }

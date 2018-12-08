@@ -1,0 +1,244 @@
+<div class="add-employee">
+  <div class="row">
+    <div class="col-sm-6">
+      <h3 style="font-weight:600; padding: 7px;">Services Details</h3>
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-2">
+      <button type="button" class="btn backBtn" (click)="backToManager()">Back</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-10">
+    </div>
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addServices">ADD
+        NEW
+      </button>
+    </div>
+  </div>&nbsp;
+</div>
+
+<div class="modal fade" id="addServices" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="servicesForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="myModalLabel">Add New Service</h3>
+        </div>
+        <div class="modal-body">
+          <br>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Sub Category
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <select class="form-control" formControlName="subCategory" [(ngModel)]="services.subcategory" [ngClass]="{ 'is-invalid': submitted && f.subCategory.errors }">
+                <option *ngFor="let data of subCategoryDetails" [ngValue]=" data.sub_cat_id">{{data.sub_category_name}}</option>
+              </select>
+              <div *ngIf="submitted && f.subCategory.errors" class="invalid-feedback">
+                <div *ngIf="f.subCategory.errors.required" style="color:red">Select Sub Category</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Name
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="serviceName" (keypress)="omit_special_char($event)" class="form-control"
+                placeholder="Enter service Name" [ngClass]="{ 'is-invalid': submitted && f.serviceName.errors }"
+                [(ngModel)]="services.serviceName" maxlength="50">
+              <div *ngIf="submitted && f.serviceName.errors" class="invalid-feedback">
+                <div *ngIf="f.serviceName.errors.required" style="color:red">Service Name is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Description
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <textarea class="form-control" formControlName="serviceDescription" placeholder="service description"
+                maxlength="1000" rows="2" name="address" style="padding-left:1.6em" [(ngModel)]="services.serviceDesc"
+                [ngClass]="{ 'is-invalid': submitted && f.serviceDescription.errors }"></textarea>
+              <div *ngIf="submitted && f.serviceDescription.errors" class="invalid-feedback">
+                <div *ngIf="f.serviceDescription.errors.required" style="color:red">Email is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Price
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="servicePrice" class="form-control" placeholder="Enter Service Price"
+                [ngClass]="{ 'is-invalid': submitted && f.servicePrice.errors }" [(ngModel)]="services.servicePrice"
+                maxlength="50">
+              <div *ngIf="submitted && f.servicePrice.errors" class="invalid-feedback">
+                <div *ngIf="f.servicePrice.errors.required" style="color:red">Service Price is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Medium Price
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="mediumPrice" class="form-control" placeholder="Enter Medium Price"
+                [ngClass]="{ 'is-invalid': submitted && f.mediumPrice.errors }" [(ngModel)]="services.serviceMediumPrice"
+                maxlength="50">
+              <div *ngIf="submitted && f.mediumPrice.errors" class="invalid-feedback">
+                <div *ngIf="f.mediumPrice.errors.required" style="color:red">Medium Price is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Small Price
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="smallPrice" class="form-control" placeholder="Enter Small Price"
+                [ngClass]="{ 'is-invalid': submitted && f.smallPrice.errors }" [(ngModel)]="services.serviceSmallPrice"
+                maxlength="50">
+              <div *ngIf="submitted && f.smallPrice.errors" class="invalid-feedback">
+                <div *ngIf="f.smallPrice.errors.required" style="color:red">Service Small Price is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Large Price
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="largePrice" class="form-control" placeholder="Enter Large Price"
+                [ngClass]="{ 'is-invalid': submitted && f.largePrice.errors }" [(ngModel)]="services.servicelargePrice"
+                maxlength="50">
+              <div *ngIf="submitted && f.largePrice.errors" class="invalid-feedback">
+                <div *ngIf="f.largePrice.errors.required" style="color:red">Service Large Price is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Extra Large Price
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="extraLargePrice" class="form-control" placeholder="Enter Extra Large Price"
+                [ngClass]="{ 'is-invalid': submitted && f.extraLargePrice.errors }" [(ngModel)]="services.serviceExtraLargePrice"
+                maxlength="50">
+              <div *ngIf="submitted && f.extraLargePrice.errors" class="invalid-feedback">
+                <div *ngIf="f.extraLargePrice.errors.required" style="color:red">Service Extra Large Price is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Duration
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="serviceDuration" class="form-control" placeholder="Enter duration"
+                [ngClass]="{ 'is-invalid': submitted && f.serviceDuration.errors }" [(ngModel)]="services.serviceDuration"
+                maxlength="50">
+              <div *ngIf="submitted && f.serviceDuration.errors" class="invalid-feedback">
+                <div *ngIf="f.serviceDuration.errors.required" style="color:red">Service Duration is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Tax
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="serviceTax" class="form-control" placeholder="Enter tax" [ngClass]="{ 'is-invalid': submitted && f.serviceTax.errors }"
+                [(ngModel)]="services.serviceTax" maxlength="50">
+              <div *ngIf="submitted && f.serviceTax.errors" class="invalid-feedback">
+                <div *ngIf="f.serviceTax.errors.required" style="color:red">Service Tax is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Service Visibility
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="number" formControlName="srviceVisibility" class="form-control" placeholder="Enter Visibility"
+                [ngClass]="{ 'is-invalid': submitted && f.srviceVisibility.errors }" [(ngModel)]="services.serviceVisibility"
+                maxlength="50">
+              <div *ngIf="submitted && f.srviceVisibility.errors" class="invalid-feedback">
+                <div *ngIf="f.srviceVisibility.errors.required" style="color:red">Service Visibility is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="addService()">ADD</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-table #dt [columns]="cols" [value]="serviceDetails" [paginator]="true" [rows]="4">
+  <ng-template pTemplate="caption">
+    <div style="text-align: right">
+      <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+      <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+        style="width:auto">
+    </div>
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+        {{col.header}}
+        <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+          ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+      </th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-i="rowIndex" let-service>
+    <tr>
+      <td *ngFor="let col of cols">
+        {{service[col.field]}}
+      </td>
+      <td href="#" data-toggle="modal" data-target="#addservice" (click)="editService(serviceDetails,i)">
+        <i class="fa fa-edit" style="color:orange"></i>
+      </td>
+      <td href="#" data-toggle="modal" data-target="#deleteservice" (click)="deleteService(serviceDetails,i)">
+        <i class="fa fa-trash"></i>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
