@@ -11,9 +11,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
-import {MultiSelectModule} from 'primeng/multiselect';
+import { MultiSelectModule } from 'primeng/multiselect';
 import { VehicleServicesPipe } from './pipe/vehicle-services.pipe';
 import { ListSalesComponent } from './dashboard/list-sales/list-sales.component';
+import { ManagerComponent } from './manager/manager.component';
+import { AddEmployeeComponent } from './manager/add-employee/add-employee.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SetupComponent } from './setup/setup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
@@ -25,7 +27,9 @@ const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
   { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
-  { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] }
+  { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] },
+  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -37,7 +41,10 @@ const routes: Routes = [
     FooterComponent,
     ListSalesComponent,
     SetupComponent,
-    BranchComponent    
+    BranchComponent,    
+    ManagerComponent,
+    AddEmployeeComponent,
+    SetupComponent    
   ],
   imports: [
     BrowserModule,
@@ -51,7 +58,7 @@ const routes: Routes = [
     TypeaheadModule.forRoot(),
     NgxSpinnerModule
   ],
-  providers: [AuthGuard,VehicleServicesPipe],
+  providers: [AuthGuard, VehicleServicesPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
