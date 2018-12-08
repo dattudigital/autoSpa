@@ -17,13 +17,15 @@ import { ListSalesComponent } from './dashboard/list-sales/list-sales.component'
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { SetupComponent } from './setup/setup.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { BranchComponent } from './setup/branch/branch.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
-  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] }
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -34,7 +36,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ListSalesComponent,
-    SetupComponent    
+    SetupComponent,
+    BranchComponent    
   ],
   imports: [
     BrowserModule,
