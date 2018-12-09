@@ -327,7 +327,7 @@
       <table>
         <tr>
           <th>Service Name </th>
-          <th>Cost </th>
+          <th *ngIf="selectedVechileSize">Cost </th>
           <th>Delete</th>
         </tr>
         <tr *ngFor="let item of selectedServices ; let i=index">
@@ -346,8 +346,11 @@
 </div>
 
 <div class="row form-group">
-  <div claas="container">
-    <button type="submit" class="btn btn-warning" (click)="addUserInfoAndVehicle()" style="float:right;margin-right: 20%">Submit</button>
+  <div claas="container">  
+    <button type="submit" class="btn btn-success" (click)="addUserInfoAndVehicle()" style="float: right;
+    margin-right: 12%;">Submit</button>
+      <button type="submit" class="btn btn-warning" (click)="resetCompleteUserVechileInfo()" style="float: right;
+      margin-right: 1%;">Reset</button>
   </div>
 </div>
 

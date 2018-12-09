@@ -66,7 +66,12 @@ export class DashboardComponent implements OnInit {
   selectedUserEditSession: any;
   userInfo: any = [];
   data: object;
-  deleteServiceIndex:any;
+  deleteServiceIndex: any;
+
+  saleUserId: any;
+  saleInfoId: any;
+  saleServiceId: any;
+
   constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
@@ -164,11 +169,23 @@ export class DashboardComponent implements OnInit {
       this.selectedVechileType = this.selectedUserEditSession.vehicle_type_id;
       this.selectedVechileAge = this.selectedUserEditSession.vehicle_age_id;
       this.serviceId = this.selectedUserEditSession.services;
+
+      this.saleUserId = this.selectedUserEditSession.sale_user_id;
+      this.saleInfoId = this.selectedUserEditSession.sale_vehicle_info_id;
+      this.saleServiceId = this.selectedUserEditSession.sale_user_service_id;
+    }
+  }
+
+  getServiceInvoiceCost(val){
+    let sum = 0;
+    for (let i = 0; i < val.length; i++) {
+      // this.serviceId = this.serviceId + val[i].service_id + " , ";      
     }
   }
 
   onChangeServices(val) {
     // this.serviceTableValue = val;
+    this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
   }
   onSelect(event: TypeaheadMatch): void {
@@ -208,10 +225,10 @@ export class DashboardComponent implements OnInit {
   }
 
   deleteService(index) {
-    this.deleteServiceIndex = index ;    
+    this.deleteServiceIndex = index;
   }
-  
-  yesDeleteService(){
+
+  yesDeleteService() {
     this.selectedServices.splice(this.deleteServiceIndex, 1);
     this.getServiceId(this.selectedServices);
     this.deleteService = null;
@@ -221,29 +238,45 @@ export class DashboardComponent implements OnInit {
     this.serviceId = '';
     console.log(val);
     for (let i = 0; i < val.length; i++) {
-      this.serviceId = this.serviceId + val[i].service_id + " , ";
+      this.serviceId = this.serviceId + val[i].service_id + " , ";      
     }
     this.serviceId = this.serviceId.substring(0, this.serviceId.length - 2);
     console.log(this.serviceId);
   }
 
   clearUserdata(val) {
-    if (val == false) {
-      this.firstName = '';
-      this.emailId = '';
-      this.mobileNo = '';
-      this.profession = '';
-      this.address = '';
-      this.sourceCustomer = undefined;
-      this.serviceType = undefined;
-      this.businessType = undefined;
-      this.selectedVechile = undefined;
+    this.firstName = '';
+    this.emailId = '';
+    this.mobileNo = '';
+    this.profession = '';
+    this.address = '';
+    this.sourceCustomer = undefined;
+    this.serviceType = undefined;
+    this.businessType = undefined;
+    this.selectedVechile = undefined;
+
+    if (val == 1) {
+      this.saleUserId = null;
+      this.selectedVechileNo = '';
+      this.selectedVechileMake = undefined;
+      this.selectedVechileSize = undefined;
+      this.selectedVechileType = undefined;
+      this.selectedVechileAge = undefined;
+      this.saleServiceId = null;
+      this.serviceId = '';
+      this.saleInfoId = null;
+      this.selectedServices = [];
     }
+    this.submitted = false;
+  }
+
+  resetCompleteUserVechileInfo() {
+    this.clearUserdata(1);
   }
 
   newUserClick() {
     console.log("click ")
-    this.clearUserdata(false);
+    this.clearUserdata(0);
     this.newUser = true;
     this.vehInfo = true;
     this.carUser = true;
@@ -306,7 +339,7 @@ export class DashboardComponent implements OnInit {
     }
     this.data = {
       user: {
-        sale_user_id: 1,
+        sale_user_id: this.saleUserId,
         firstname: this.firstName,
         email_id: this.emailId,
         mobile: this.mobileNo,
@@ -318,6 +351,7 @@ export class DashboardComponent implements OnInit {
         vehicle_type: this.selectedVechile
       },
       vechileInfo: {
+        sale_vehicle_info_id: this.saleInfoId,
         vehicle_no: this.selectedVechileNo,
         vehicle_make_id: this.selectedVechileMake,
         vehicle_size: this.selectedVechileSize,
@@ -325,17 +359,18 @@ export class DashboardComponent implements OnInit {
         vehicle_age_id: this.selectedVechileAge
       },
       vechileServices: {
+        sale_user_service_id: this.saleServiceId,
         services: this.serviceId
       }
     }
     console.log("******************")
     console.log(this.data)
-    // this.vehicledetails.userVehicleService(data).subscribe(res => {
-    //   if (res.json().status == true) {
-    //     console.log("came to here ");
-    //   } else {
-    //     console.log("*****************");
-    //   }
-    // });
+    this.vehicledetails.userVehicleService(this.data).subscribe(res => {
+      if (res.json().status == true) {
+        console.log("came to here ");
+      } else {
+        console.log("*****************");
+      }
+    });
   }
 }

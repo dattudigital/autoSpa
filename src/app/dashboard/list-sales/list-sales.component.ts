@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VehicleDetailsService } from './../../services/vehicle-details.service'
 import { Router } from '@angular/router';
 import { SaleUserDetailsPipe } from './../../pipe/sale-user-details.pipe'
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-list-sales',
@@ -10,16 +11,17 @@ import { SaleUserDetailsPipe } from './../../pipe/sale-user-details.pipe'
 })
 
 export class ListSalesComponent implements OnInit {
-  isHideOrShowUserVechileService: boolean = false;
   userDetailsDatas: any = [];
-  constructor(private userListService: VehicleDetailsService, private router: Router, private saleUserPipe: SaleUserDetailsPipe) { }
+  constructor(private userListService: VehicleDetailsService, private router: Router, private saleUserPipe: SaleUserDetailsPipe, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.userListService.getUserDetails().subscribe(res => {
       if (res.json().status == true) {
         this.userDetailsDatas = this.saleUserPipe.transform(res.json().result);
-        //  = res.json().result;
+        this.spinner.hide();
       } else {
+        this.spinner.hide();
         this.userDetailsDatas = [];
       }
     })
