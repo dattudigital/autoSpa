@@ -1,3 +1,35 @@
-<p>
-  branch works!
-</p>
+
+<p-table #dt [columns]="cols" [value]="branches" [paginator]="true" [rows]="4">
+    <ng-template pTemplate="caption">
+      <div style="text-align: right">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')"
+          style="width:auto">
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th *ngFor="let col of cols" [pSortableColumn]="col.field">
+          {{col.header}}
+          <p-sortIcon [field]="col.field" ariaLabel="Activate to sort" ariaLabelDesc="Activate to sort in descending order"
+            ariaLabelAsc="Activate to sort in ascending order"></p-sortIcon>
+        </th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </ng-template>
+  
+    <ng-template pTemplate="body" let-i="rowIndex" let-branch>
+      <tr>
+        <td *ngFor="let col of cols">
+          {{branch[col.field]}}
+        </td>
+        <td href="#" data-toggle="modal" data-target="#addOrEditBranch" (click)="addOrEditBranch(branch,i)">
+          <i class="fa fa-edit" style="color:orange"></i>
+        </td>
+        <td href="#" data-toggle="modal" data-target="#deleteBranch" (click)="deleteBranch(branch,i)">
+          <i class="fa fa-trash"></i>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
