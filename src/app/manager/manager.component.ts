@@ -17,4 +17,10 @@ export class ManagerComponent implements OnInit {
   redirectToService() {
     this.router.navigate(['manager/services'])
   }
+  redirectToCategory() {
+    this.router.navigate(['manager/catrgory'])
+  }
+  redirectToSubcategory() {
+    this.router.navigate(['manager/sub-catrgory'])
+  }
 }
