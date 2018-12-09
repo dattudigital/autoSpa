@@ -23,6 +23,8 @@ import { BranchComponent } from './setup/branch/branch.component';
 import { TableModule } from 'primeng/table';
 import { ServicesComponent } from './manager/services/services.component';
 import { SaleUserDetailsPipe } from './pipe/sale-user-details.pipe';
+import { CategoryComponent } from './manager/category/category.component';
+import { SubCategoryComponent } from './manager/sub-category/sub-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -34,7 +36,9 @@ const routes: Routes = [
   { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
   { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] },
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
-  { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] }
+  { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] },
+  { path: 'manager/catrgory', component: CategoryComponent, canActivate: [AuthGuard] },
+  { path: 'manager/sub-catrgory', component: SubCategoryComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -51,6 +55,8 @@ const routes: Routes = [
     AddEmployeeComponent,
     SetupComponent,
     ServicesComponent,
+    CategoryComponent,
+    SubCategoryComponent,
 
   ],
   imports: [
