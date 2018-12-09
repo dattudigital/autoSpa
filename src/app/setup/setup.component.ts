@@ -15,4 +15,20 @@ export class SetupComponent implements OnInit {
   redirectToBranch() {
     this.router.navigate(['branch']);
   }
+
+  redirectToVehicleColor(){
+    
+  }
+
+  redirectToVehicleModel(){
+    
+  }
+
+  redirectToVehicleMake(){
+    
+  }
+
+  redirectToPriceList(){
+    
+  }
 }
