@@ -3,7 +3,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ManagerService } from '../../services/manager.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Router } from '@angular/router';
+import { ExcelServiceService } from '../../services/excel-service.service';
+declare var jsPDF: any;
 declare var $: any;
+
 @Component({
   selector: 'app-add-employee',
   templateUrl: './add-employee.component.html',
@@ -38,7 +41,7 @@ export class AddEmployeeComponent implements OnInit {
   addEnableorDisable = 'visible';
   updateEnableorDisable = 'visible'
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService, private service: ManagerService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService, private service: ManagerService, private excelService: ExcelServiceService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -102,6 +105,34 @@ export class AddEmployeeComponent implements OnInit {
     this.employee.pincode = '';
   }
   get f() { return this.employeeForm.controls; }
+
+  pdfDownload() {
+    var columns = [
+      { title: "First Name", dataKey: "employee_firstname" },
+      { title: "Last Name", dataKey: "employee_lastname" },
+      { title: "Branch", dataKey: "branch_name" },
+      { title: "Address", dataKey: "employee_address" },
+      { title: "Email Id", dataKey: "email_id" },
+      { title: "Phone", dataKey: "phone" }
+    ];
+    var rows = this.employees;
+    var doc = new jsPDF('');
+    doc.autoTable(columns, rows, {
+      styles: { fillColor: [100, 255, 255] },
+      columnStyles: {
+        id: { fillColor: [255, 0, 0] }
+      },
+      margin: { top: 50 },
+      addPageContent: function () {
+        doc.text("Totalsale", 30, 30);
+      }
+    });
+    doc.save('Employee.pdf');
+  }
+
+  xlDownload() {
+    this.excelService.exportAsExcelFile(this.employees, 'Employee');
+  }
 
   addEmployee() {
     this.submitted = true;
