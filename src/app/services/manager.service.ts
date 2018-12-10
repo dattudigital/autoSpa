@@ -32,4 +32,8 @@ export class ManagerService {
     return this.http.post(environment.host + 'services', data)
   }
 
+  public getCategoryDetails() {
+    return this.http.get(environment.host + 'categorys')
+  }
+
 }
