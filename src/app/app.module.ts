@@ -25,6 +25,9 @@ import { ServicesComponent } from './manager/services/services.component';
 import { SaleUserDetailsPipe } from './pipe/sale-user-details.pipe';
 import { CategoryComponent } from './manager/category/category.component';
 import { SubCategoryComponent } from './manager/sub-category/sub-category.component';
+import { TimeClockComponent } from './time-clock/time-clock.component';
+import { MessageService } from 'primeng/api';
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -38,7 +41,9 @@ const routes: Routes = [
   { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
   { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] },
   { path: 'manager/catrgory', component: CategoryComponent, canActivate: [AuthGuard] },
-  { path: 'manager/sub-catrgory', component: SubCategoryComponent, canActivate: [AuthGuard] }
+  { path: 'manager/sutime-clocksb-catrgory', component: SubCategoryComponent, canActivate: [AuthGuard] },
+  { path: 'time-clocks', component: TimeClockComponent, canActivate: [AuthGuard] },
+
 ]
 
 @NgModule({
@@ -57,6 +62,7 @@ const routes: Routes = [
     ServicesComponent,
     CategoryComponent,
     SubCategoryComponent,
+    TimeClockComponent,
 
   ],
   imports: [
@@ -72,7 +78,7 @@ const routes: Routes = [
     NgxSpinnerModule,
     TableModule
   ],
-  providers: [AuthGuard, VehicleServicesPipe, SaleUserDetailsPipe],
+  providers: [AuthGuard, VehicleServicesPipe, MessageService, SaleUserDetailsPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

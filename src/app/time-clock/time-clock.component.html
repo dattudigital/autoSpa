@@ -1,0 +1,205 @@
+<!-- <div class="tabs-services">
+    
+  </div> -->
+  <div id="time-click-login" class="modal fade" role="dialog" data-backdrop="static">
+  
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form>
+          <div class="form-group">
+            <div class="col-md-4 col-sm-6 login_form-left">
+              <label>User Name</label>
+            </div>
+            <div class="col-md-8 col-sm-6 login_form-right">
+              <input type="text" class="form-control" [(ngModel)]="mailId" (ngModelChange)="errorClear()" name="some" placeholder="Employee Id">
+            </div>
+            <div class="clear"></div>
+          </div>
+          <div class="form-group" >
+            <div class="col-md-4 col-sm-6 login_form-left">
+              <label>Password</label>
+            </div>
+            <div class="col-md-8 col-sm-6 login_form-right">
+              <input type="password" class="form-control" [(ngModel)]="password" (ngModelChange)="errorClear()" name="password" placeholder="Employee Password">
+            </div>
+            <div class="form-group" style="text-align:center">
+                <label *ngIf="errorMessage" class="alertRed">Invalid Credentials</label>
+                </div>
+             
+            <div class="clear"></div>
+          </div>
+          <div class="login_form-submit">
+            <div class="row">
+              <div class="col-sm-4"></div>
+              <div class="col-sm-3">
+                <button type="submit" (click)="loginSubmit();"  class="btn btn-primary submit-button">Sign In</button>
+              </div>
+              <div class="col-sm-2">
+                <button type="submit" data-dismiss="modal"  class="btn btn-warning"  (click)="RedirectToHome()">Cancel</button>
+              </div>
+              <div class="col-sm-3"></div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="tableShow" [style.visibility]="titleStyle">
+    <div class="clock-in-services">
+      <div class="clock-in-services1">
+        <form>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-md-4 col-form-label">Employee Id </label>
+            <div class="col-md-8">
+              <input type="email" class="form-control" [(ngModel)]="mailId" [ngModelOptions]="{standalone: true}" placeholder="Employee Id">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-md-4 col-form-label">Employee Password </label>
+            <div class="col-md-8">
+              <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}" placeholder="Employee Password">
+            </div>
+          </div>
+          
+        </form>
+        <div class="clear"></div>
+        
+      </div>
+  
+      <div class="clock-in-services2">
+        <div class="clock-in-date">
+          <div class="col-md-4 col-sm-4 date-time-left">
+            <h3>Employee Name:{{mailId}}</h3>
+          </div>
+          <div class="col-md-4 col-sm-4 date-time-center">
+            <h3></h3>
+          </div>
+          <div class="col-md-4 col-sm-4 date-time-right">
+            <h3>Employee Id: {{this.data.emp_id}}</h3>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <!---employee data-->
+  
+        <div class="full-date">
+          <div class="col-md-6 col-sm-6 full-date-left">
+            <h4>Current Date: {{today | date:'fullDate'}}
+              <span id="demonew"></span>
+            </h4>
+          </div>
+          <div class="col-md-6 col-sm-6 full-date-right">
+            <h4>Current Time: {{today | date:'mediumTime'}}
+              <span id="demo"></span>
+            </h4>
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="col-md-3 col-sm-4 clock-in-services2-left">
+          <div class="cisl-buttons">
+            <button (click)="clockInTime();" [ngStyle]="{'background-color': buttonColorTimeIn}" [disabled]="disable_time_in ">Clock In</button>
+          </div>
+          <div class="cisl-buttons">
+            <button (click)="breakOutTime();" [ngStyle]="{'background-color': buttonColorBreakOut}" [disabled]="disable_break_out">Break Out</button>
+          </div>
+          <div class="cisl-buttons">
+            <button (click)="breakInTime(); " [ngStyle]="{'background-color': buttonColorBreakIn}" [disabled]="disable_break_in">Break In</button>
+          </div>
+          <div class="cisl-buttons">
+            <button (click)="clockOutTime();" [ngStyle]="{'background-color': buttonColorTimeOut}" [disabled]="disable_time_out">Clock Out</button>
+          </div>
+          <div class="cisl-buttons1">Total Hours Worked Today
+            <input type="text" name="name" value="" [(ngModel)]="finalHours">
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-4 clock-in-services2-center">
+          <h4>Clock In / Out</h4>
+          <table width="100%">
+            <tr>
+              <th width="25%"></th>
+              <th width="25%">Clock Time</th>
+              <th width="25%">Edited Time</th>
+              <th width="25%">Position</th>
+            </tr>
+            <tr>
+              <td>Check-In</td>
+              <td>{{data.check_in_time | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-1 Out</td>
+              <td>{{data.break_out1 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-1 In</td>
+              <td>{{data.break_in1 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-2 Out</td>
+              <td>{{data.break_out2 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-2 In</td>
+              <td>{{data.break_in2 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+  
+            <tr>
+              <td>Break-3 Out</td>
+              <td>{{data.break_out3 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-3 In</td>
+              <td>{{data.break_in3 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+  
+            <tr>
+              <td>Break-4 Out</td>
+              <td>{{data.break_out4 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+            <tr>
+              <td>Break-4 In</td>
+              <td>{{data.break_in4 | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+  
+            <tr>
+              <td>Check-Out</td>
+              <td>{{data.check_out_time | date:'mediumTime'}}</td>
+              <td>{{test}}</td>
+              <td>{{test}}</td>
+            </tr>
+          </table>
+        </div>
+
+        <button type="submit" style="float:right;" data-toggle="model" data-target="#myModal" (click)="RedirectToHome()">Logout</button>
+        <div class="clear"></div>
+      </div>
+  
+      <div class="clear"></div>
+    </div>
+  </div>
+  
+
+  <ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="medium"
+color="#f5c585"
+type="ball-scale-multiple">
+<p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>
+  
