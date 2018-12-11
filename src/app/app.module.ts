@@ -27,7 +27,7 @@ import { CategoryComponent } from './manager/category/category.component';
 import { SubCategoryComponent } from './manager/sub-category/sub-category.component';
 import { TimeClockComponent } from './time-clock/time-clock.component';
 import { MessageService } from 'primeng/api';
-
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -76,7 +76,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true }),
     TypeaheadModule.forRoot(),
     NgxSpinnerModule,
-    TableModule
+    TableModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [AuthGuard, VehicleServicesPipe, MessageService, SaleUserDetailsPipe],
   bootstrap: [AppComponent]

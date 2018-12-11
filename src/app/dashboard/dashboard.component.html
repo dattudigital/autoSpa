@@ -1,4 +1,5 @@
 <header></header>
+<simple-notifications [options]="options"></simple-notifications>
 <div class="tab-content" id="myTabContent">
   <div id="sales" role="tabpanel" aria-labelledby="sales-tab">
     <div class="sales-tab">
@@ -257,17 +258,14 @@
                       <span style="color:red">*</span>
                     </label>
                     <div class="col-sm-5">
-                      <select formControlName="Size" class="form-control" name="size" [(ngModel)]="selectedVechileSize"
-                        [ngClass]="{ 'is-invalid': submitted && v.Size.errors }" (ngModelChange)="totalServicePrice()">
+                      <select class="form-control" name="size" [(ngModel)]="selectedVechileSize" (ngModelChange)="totalServicePrice()"
+                        [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}">
                         <option value="undefined" disabled select>Select Size</option>
                         <option value="s">Small</option>
                         <option value="m">Medium</option>
                         <option value="l">Large</option>
                         <option value="xl">Extra Large</option>
                       </select>
-                      <div *ngIf="submitted && v.Size.errors" class="invalid-feedback">
-                        <div *ngIf="v.Size.errors.required" style="color:red">Vehicle Size is required</div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -281,14 +279,11 @@
                       <span style="color:red">*</span>
                     </label>
                     <div class="col-sm-5">
-                      <select formControlName="Type" class="form-control" name="make" [(ngModel)]="selectedVechileType"
-                        [ngClass]="{ 'is-invalid': submitted && v.Type.errors }">
+                      <select class="form-control" name="make" [(ngModel)]="selectedVechileType" [(ngModel)]="showMoreControls"
+                        [ngModelOptions]="{standalone: true}">
                         <option value="undefined" disabled select>Select Type</option>
                         <option *ngFor="let type of vehicleType" [ngValue]="type.vehicle_type_id">{{type.type_name}}</option>
                       </select>
-                      <div *ngIf="submitted && v.Type.errors" class="invalid-feedback">
-                        <div *ngIf="v.Type.errors.required" style="color:red">Vehicle Type is required</div>
-                      </div>
                     </div>
                   </div>
                   <div class="row form-group">
@@ -296,14 +291,12 @@
                       <span style="color:red">*</span>
                     </label>
                     <div class="col-sm-5">
-                      <select formControlName="Age" class="form-control" name="age" [(ngModel)]="selectedVechileAge"
-                        [ngClass]="{ 'is-invalid': submitted && v.Age.errors }">
+                      <select class="form-control" name="age" [(ngModel)]="selectedVechileAge" [(ngModel)]="showMoreControls"
+                        [ngModelOptions]="{standalone: true}">
                         <option value="undefined" disabled select>Select Age</option>
                         <option *ngFor="let data of vehicleAge" [ngValue]="data.vehicle_age_id">{{data.age_name}}</option>
                       </select>
-                      <div *ngIf="submitted && v.Age.errors" class="invalid-feedback">
-                        <div *ngIf="v.Age.errors.required" style="color:red">Vehicle Age is required</div>
-                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -334,7 +327,7 @@
         <table style="width:100%">
           <tr>
             <th>Service Name </th>
-            <th *ngIf="selectedVechileSize">Price </th>
+            <th *ngIf="selectedVechileSize ">Price </th>
             <th>Delete</th>
           </tr>
           <tr *ngFor="let item of selectedServices ; let i=index">
@@ -355,7 +348,7 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="text" class="form-control" name="total" [(ngModel)]="total">
+            <input type="text" class="form-control" name="price" [(ngModel)]="total" readonly>
           </div>
         </div>
       </div>
