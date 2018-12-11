@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SelectItem } from 'primeng/components/common/selectitem';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { Http } from '@angular/http';
@@ -71,10 +71,22 @@ export class DashboardComponent implements OnInit {
   saleUserId: any;
   saleInfoId: any;
   saleServiceId: any;
+  makeFor = '1';
+  typeFor = '1'
 
-  constructor(private http: Http, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
+
+  constructor(private http: Http, private cdr: ChangeDetectorRef, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
+
+
+  ngAfterViewChecked() {
+    this.cdr.detectChanges();
+  }
 
   ngOnInit() {
+    console.log(this.makeFor)
+    console.log(this.typeFor)
+    this.makeDetails(this.makeFor);
+    this.typeDetails(this.typeFor);
     this.salesForm = this.formBuilder.group({
       Name: ['', Validators.required],
       phone: ['', Validators.required],
@@ -99,22 +111,6 @@ export class DashboardComponent implements OnInit {
         this.vehicleAge = res.json().result;
       } else {
         this.vehicleAge = [];
-      }
-    });
-
-    this.vehicledetails.getVehicleTypes().subscribe(res => {
-      if (res.json().status == true) {
-        this.vehicleType = res.json().result;
-      } else {
-        this.vehicleType = [];
-      }
-    });
-
-    this.vehicledetails.getVehicleMake().subscribe(res => {
-      if (res.json().status == true) {
-        this.vehicleMake = res.json().result;
-      } else {
-        this.vehicleMake = [];
       }
     });
 
@@ -185,7 +181,7 @@ export class DashboardComponent implements OnInit {
   }
   total: any = '';
   totalServicePrice() {
-    this.total =0;
+    this.total = 0;
     console.log(this.selectedServices);
     for (let i = 0; i < this.selectedServices.length; i++) {
 
@@ -236,6 +232,7 @@ export class DashboardComponent implements OnInit {
         } else {
           this.noResult = false;
           this.userInfo = temp.pop();
+          console.log()
         }
       })
     } else {
@@ -313,8 +310,41 @@ export class DashboardComponent implements OnInit {
   existingUserClick() {
     this.existingInfo = true;
   }
-
-  carUserClick() {
+  makeDetails(val) {
+    this.makeFor = val;
+    if (this.makeFor) {
+      var url = ''
+      url = url + '?makefor=' + this.makeFor;
+      this.vehicledetails.getMakeDetails(url).subscribe(res => {
+        console.log(res.json());
+        if (res.json().status == true) {
+          this.vehicleMake = res.json().result;
+          console.log(this.vehicleMake)
+        } else {
+          this.vehicleMake = [];
+        }
+      });
+    }
+  }
+  typeDetails(val) {
+    this.typeFor = val;
+    if (this.typeFor) {
+      var url = ''
+      url = url + '?typefor=' + this.typeFor;
+      this.vehicledetails.getTypeDetails(url).subscribe(res => {
+        console.log(res.json());
+        if (res.json().status == true) {
+          this.vehicleType = res.json().result;
+          console.log(this.vehicleType)
+        } else {
+          this.vehicleType = [];
+        }
+      });
+    }
+  }
+  carUserClick(val) {
+    this.makeDetails(val);
+    this.typeDetails(val);
     this.selectedVechile = 0;
     this.vehInfo = true;
     this.carUser = true;
@@ -323,7 +353,9 @@ export class DashboardComponent implements OnInit {
     this.commercialUser = false;
   }
 
-  bikeUserClick() {
+  bikeUserClick(val) {
+    this.makeDetails(val);
+    this.typeDetails(val);
     this.selectedVechile = 1;
     this.selectedVechileSize = null;
     this.vehInfo = true;
@@ -333,7 +365,9 @@ export class DashboardComponent implements OnInit {
     this.commercialUser = false;
   }
 
-  commercialUserClick() {
+  commercialUserClick(val) {
+    this.makeDetails(val);
+    console.log(this.makeFor)
     this.selectedVechile = 2;
     this.selectedVechileType = null;
     this.selectedVechileAge = null;
