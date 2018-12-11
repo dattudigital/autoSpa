@@ -258,7 +258,7 @@
                     </label>
                     <div class="col-sm-5">
                       <select formControlName="Size" class="form-control" name="size" [(ngModel)]="selectedVechileSize"
-                        [ngClass]="{ 'is-invalid': submitted && v.Size.errors }">
+                        [ngClass]="{ 'is-invalid': submitted && v.Size.errors }" (ngModelChange)="totalServicePrice()">
                         <option value="undefined" disabled select>Select Size</option>
                         <option value="s">Small</option>
                         <option value="m">Medium</option>
@@ -325,8 +325,8 @@
               </label>
               <div class="col-sm-8">
                 <p-multiSelect [options]="vehicleServices" [(ngModel)]="selectedServices" [displaySelectedLabel]=false
-                  (ngModelChange)="onChangeServices(selectedServices)" [panelStyle]="{minWidth:'12em'}" [style]="{'width':'50%'}"
-                  defaultLabel="Choose Services"></p-multiSelect>
+                  (ngModelChange)="onChangeServices(selectedServices);totalServicePrice()" [panelStyle]="{minWidth:'12em'}"
+                  [style]="{'width':'50%'}" defaultLabel="Choose Services"></p-multiSelect>
               </div>
             </div>
           </div>
@@ -343,21 +343,24 @@
             <td *ngIf="selectedVechileSize == 'm'">{{item.service_price_medium}}</td>
             <td *ngIf="selectedVechileSize == 'l'">{{item.service_price_large}}</td>
             <td *ngIf="selectedVechileSize == 'xl'">{{item.service_price_xl}}</td>
-            <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i)">
+            <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i); totalServicePrice() ">
               <i class="fa fa-trash"></i>
             </td>
           </tr>
         </table>
+        <br><br>
+        <div class="row form-group">
+          <label class="col-sm-4 col-form-label required">Total
+            <span style="color:red">*</span>
+          </label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="total" [(ngModel)]="total">
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
 <div class="row form-group">
   <div claas="container">
     <button type="submit" class="btn btn-success" (click)="addUserInfoAndVehicle()" style="float: right;

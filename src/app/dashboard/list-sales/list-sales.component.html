@@ -1,45 +1,57 @@
-<button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
-<table>
-  <tr>
-    <th>User Name</th>
-    <th>Email </th>
-    <th>Mobile No.</th>
-    <th>Address</th>
-    <th>Profession </th>
-    <th>Source Name</th>
-    <th>Service Name </th>
-    <th>Business Name</th>
-    <th>Age Name </th>
-    <th>Type Name</th>
-    <th>Make Name </th>
-    <th>Edit </th>
-    <th>Print</th>
-  </tr>
-  <tr *ngFor="let userDetailsData of userDetailsDatas;let i = index">
-    <td>{{userDetailsData.firstname}}</td>
-    <td>{{userDetailsData.email_id}}</td>
-    <td>{{userDetailsData.mobile}}</td>
-    <td>{{userDetailsData.address}}</td>
-    <td>{{userDetailsData.profession}}</td>
-    <td>{{userDetailsData.source_name}}</td>
-    <td>{{userDetailsData.service_name}}</td>
-    <td>{{userDetailsData.business_name}}</td>
-    <td>{{userDetailsData.age_name}}</td>
-    <td>{{userDetailsData.type_name}}</td>
-    <td>{{userDetailsData.make_name}}</td>
-    <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
-    <td (click)="printInvoice('printlist')"> <i class="fas fa-print" style="color:red"></i></td>
-  </tr>
-</table>
+<div class="list-sale">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <table>
+        <tr>
+          <th>User Name</th>
+          <th>Email </th>
+          <th>Mobile No.</th>
+          <th>Address</th>
+          <th>Profession </th>
+          <th>Source Name</th>
+          <th>Service Name </th>
+          <th>Business Name</th>
+          <th>Age Name </th>
+          <th>Type Name</th>
+          <th>Make Name </th>
+          <th>Edit </th>
+          <th>Print</th>
+        </tr>
+        <tr *ngFor="let userDetailsData of userDetailsDatas;let i = index">
+          <td>{{userDetailsData.firstname}}</td>
+          <td>{{userDetailsData.email_id}}</td>
+          <td>{{userDetailsData.mobile}}</td>
+          <td>{{userDetailsData.address}}</td>
+          <td>{{userDetailsData.profession}}</td>
+          <td>{{userDetailsData.source_name}}</td>
+          <td>{{userDetailsData.service_name}}</td>
+          <td>{{userDetailsData.business_name}}</td>
+          <td>{{userDetailsData.age_name}}</td>
+          <td>{{userDetailsData.type_name}}</td>
+          <td>{{userDetailsData.make_name}}</td>
+          <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
+          <td (click)="printInvoice('printlist')"> <i class="fas fa-print" style="color:red"></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
 
 <div class="tableShow" id="printlist" [style.visibility]="printStyle" style="display:none">
   <div class="invoice-box">
     <table cellpadding="10" cellspacing="10" style="width:100%">
       <tr class="top" style="width:100%">
         <td class="title" style="width:50%;">
-          <img src="invoice-logo.png" style="width:100%; max-width:300px;">
+          <img src="assets/images/download.png" style="width:60%; max-width:200px;">
         </td>
-
         <td style="width:50%;">
           An ISO 9001:2008 Certified Company<br>
           Regd.Off:190, East Rigidview Venue, Newyork-10022<br>
@@ -71,14 +83,14 @@
     <br>
     <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
       <thead>
-      <tr style="border:2px solid #000;">
-        <th width="25%">S.No</th>
-        <th width="25%">Particular</th>
-        <th width="25%">Qty</th>
-        <th width="25%">Rate Per Unit</th>
-        <th width="25%">Amount</th>
-      </tr>
-    </thead>
+        <tr style="border:2px solid #000;">
+          <th width="25%">S.No</th>
+          <th width="25%">Particular</th>
+          <th width="25%">Qty</th>
+          <th width="25%">Rate Per Unit</th>
+          <th width="25%">Amount</th>
+        </tr>
+      </thead>
       <tr>
         <td></td>
         <td></td>
