@@ -137,6 +137,7 @@ export class DashboardComponent implements OnInit {
               if (element.value.service_id == ele.trim()) {
                 temp.push(element);
                 this.selectedServices.push(element.value);
+                console.log(this.selectedServices);
               }
             })
           });
@@ -176,14 +177,37 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getServiceInvoiceCost(val){
+  getServiceInvoiceCost(val) {
     let sum = 0;
     for (let i = 0; i < val.length; i++) {
       // this.serviceId = this.serviceId + val[i].service_id + " , ";      
     }
   }
+  total: any = '';
+  totalServicePrice() {
+    this.total =0;
+    console.log(this.selectedServices);
+    for (let i = 0; i < this.selectedServices.length; i++) {
 
+      console.log(this.selectedVechileSize)
+      if (this.selectedVechileSize == 's') {
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_small"]
+      }
+      if (this.selectedVechileSize == 'l') {
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_large"]
+      }
+      if (this.selectedVechileSize == 'm') {
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_medium"]
+      }
+      if (this.selectedVechileSize == 'xl') {
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_xl"]
+      }
+      console.log('total')
+      console.log(this.total)
+    }
+  }
   onChangeServices(val) {
+    this.total = 0;
     // this.serviceTableValue = val;
     this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
@@ -238,7 +262,7 @@ export class DashboardComponent implements OnInit {
     this.serviceId = '';
     console.log(val);
     for (let i = 0; i < val.length; i++) {
-      this.serviceId = this.serviceId + val[i].service_id + " , ";      
+      this.serviceId = this.serviceId + val[i].service_id + " , ";
     }
     this.serviceId = this.serviceId.substring(0, this.serviceId.length - 2);
     console.log(this.serviceId);

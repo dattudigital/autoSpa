@@ -124,7 +124,8 @@
               <span style="color:red">*</span>
             </label>
             <div class="col-sm-5">
-              <input type="text" formControlName="Address" class="form-control" [(ngModel)]="address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }">
+              <textarea class="form-control" formControlName="Address" placeholder="Enter Address" maxlength="1000"
+                rows="2" style="padding-left:1.6em" [(ngModel)]="address" [ngClass]="{ 'is-invalid': submitted && f.Address.errors }"></textarea>
               <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
                 <div *ngIf="f.Address.errors.required" style="color:red">Address is required</div>
               </div>
@@ -183,173 +184,188 @@
     </div>
   </div>
 </div>
-
-<div *ngIf="vehInfo">
-  <div class="sales-tab">
-    <div class="sales-tab1">
-      <div class="col-md-12 col-sm-12 sales-tab-left">
-        <br>
-        <div class="row">
-          <div class="container">
-            <h3>Vehicle Information</h3>
-            <div class="col-sm-3">
-              <input type="radio" name="optradio1" (click)="carUserClick()" checked>
-              <label style="font-size:16px">Car</label>
-            </div>
-            <div class="col-sm-3">
-              <input type="radio" name="optradio1" (click)="bikeUserClick()">
-              <label style="font-size:16px">Bike</label>
-            </div>
-            <div class="col-sm-3">
-              <input type="radio" name="optradio1" (click)="commercialUserClick()">
-              <label style="font-size:16px">Commercial</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="clear"></div>
-    </div>
-  </div>
-  <div class="clear"></div>
-</div>
-<br>
-
 <div class="vehicle-information">
-  <form [formGroup]="vehicleForm">
-    <div *ngIf="carUser || bikeUser || commercialUser">
-      <div class="container">
-        <div class="col-sm-6">
-          <div class="row form-group">
-            <label class="col-sm-4 col-form-label required">Vehicle Number
-              <span style="color:red">*</span>
-            </label>
-            <div class="col-sm-5">
-              <input type="text" formControlName="Number" maxlength="50" class="form-control" placeholder="Enter Vehicle No."
-                [(ngModel)]="selectedVechileNo" [ngClass]="{ 'is-invalid': submitted && v.Number.errors }">
-              <div *ngIf="submitted && v.Number.errors" class="invalid-feedback">
-                <div *ngIf="v.Number.errors.required" style="color:red">Vehicle Number is required</div>
-              </div>
-            </div>
-          </div>
-          <div class="row form-group">
-            <label class="col-sm-4 col-form-label required">Vehicle Make
-              <span style="color:red">*</span>
-            </label>
-            <div class="col-sm-5">
-              <select formControlName="Make" class="form-control" [(ngModel)]="selectedVechileMake" [ngClass]="{ 'is-invalid': submitted && v.Make.errors }">
-                <option value="undefined" disabled select>Select Make</option>
-                <option *ngFor="let make of vehicleMake" [ngValue]="make.vehicle_make_id">{{make.make_name}}</option>
-              </select>
-              <div *ngIf="submitted && v.Make.errors" class="invalid-feedback">
-                <div *ngIf="v.Make.errors.required" style="color:red">Vehicle Make is required</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="container">
+    <div class="col-sm-6">
+      <div *ngIf="vehInfo">
+        <div class="sales-tab">
+          <div class="sales-tab1">
+            <div class="col-md-12 col-sm-12 sales-tab-left">
+              <br>
+              <div class="row">
+                <div class="container">
+                  <h3>Vehicle Information</h3>
+                  <div class="col-sm-1">
+                    <input type="radio" name="optradio1" (click)="carUserClick()" checked>
+                    <label style="font-size:16px">Car</label>
+                  </div>
+                  <div class="col-sm-1">
+                    <input type="radio" name="optradio1" (click)="bikeUserClick()">
+                    <label style="font-size:16px">Bike</label>
+                  </div>
+                  <div class="col-sm-2">
+                    <input type="radio" name="optradio1" (click)="commercialUserClick()">
+                    <label style="font-size:16px">Commercial</label>
+                  </div>
 
-    <div *ngIf="carUser || commercialUser">
-      <div class="container">
-        <div class="col-sm-6">
-          <div class="row form-group">
-            <label class="col-sm-4 col-form-label required">Vehicle Size
-              <span style="color:red">*</span>
-            </label>
-            <div class="col-sm-5">
-              <select formControlName="Size" class="form-control" name="size" [(ngModel)]="selectedVechileSize"
-                [ngClass]="{ 'is-invalid': submitted && v.Size.errors }">
-                <option value="undefined" disabled select>Select Size</option>
-                <option value="s">Small</option>
-                <option value="m">Medium</option>
-                <option value="l">Large</option>
-                <option value="xl">Extra Large</option>
-              </select>
-              <div *ngIf="submitted && v.Size.errors" class="invalid-feedback">
-                <div *ngIf="v.Size.errors.required" style="color:red">Vehicle Size is required</div>
+                </div>
               </div>
+              <div class="clear"></div>
             </div>
           </div>
+          <div class="clear"></div>
+        </div>
+        <div class="veh-information">
+          <form [formGroup]="vehicleForm">
+            <div *ngIf="carUser || bikeUser || commercialUser">
+              <div class="container">
+                <div class="col-sm-6">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label required">Vehicle Number
+                      <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-5">
+                      <input type="text" formControlName="Number" maxlength="50" class="form-control" placeholder="Enter Vehicle No."
+                        [(ngModel)]="selectedVechileNo" [ngClass]="{ 'is-invalid': submitted && v.Number.errors }">
+                      <div *ngIf="submitted && v.Number.errors" class="invalid-feedback">
+                        <div *ngIf="v.Number.errors.required" style="color:red">Vehicle Number is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label required">Vehicle Make
+                      <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-5">
+                      <select formControlName="Make" class="form-control" [(ngModel)]="selectedVechileMake" [ngClass]="{ 'is-invalid': submitted && v.Make.errors }">
+                        <option value="undefined" disabled select>Select Make</option>
+                        <option *ngFor="let make of vehicleMake" [ngValue]="make.vehicle_make_id">{{make.make_name}}</option>
+                      </select>
+                      <div *ngIf="submitted && v.Make.errors" class="invalid-feedback">
+                        <div *ngIf="v.Make.errors.required" style="color:red">Vehicle Make is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="carUser || commercialUser">
+              <div class="container">
+                <div class="col-sm-6">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label required">Vehicle Size
+                      <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-5">
+                      <select formControlName="Size" class="form-control" name="size" [(ngModel)]="selectedVechileSize"
+                        [ngClass]="{ 'is-invalid': submitted && v.Size.errors }" (ngModelChange)="totalServicePrice()">
+                        <option value="undefined" disabled select>Select Size</option>
+                        <option value="s">Small</option>
+                        <option value="m">Medium</option>
+                        <option value="l">Large</option>
+                        <option value="xl">Extra Large</option>
+                      </select>
+                      <div *ngIf="submitted && v.Size.errors" class="invalid-feedback">
+                        <div *ngIf="v.Size.errors.required" style="color:red">Vehicle Size is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="carUser || bikeUser">
+              <div class="container">
+                <div class="col-sm-6">
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label required">Vehicle Type
+                      <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-5">
+                      <select formControlName="Type" class="form-control" name="make" [(ngModel)]="selectedVechileType"
+                        [ngClass]="{ 'is-invalid': submitted && v.Type.errors }">
+                        <option value="undefined" disabled select>Select Type</option>
+                        <option *ngFor="let type of vehicleType" [ngValue]="type.vehicle_type_id">{{type.type_name}}</option>
+                      </select>
+                      <div *ngIf="submitted && v.Type.errors" class="invalid-feedback">
+                        <div *ngIf="v.Type.errors.required" style="color:red">Vehicle Type is required</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row form-group">
+                    <label class="col-sm-4 col-form-label required">Vehicle Age
+                      <span style="color:red">*</span>
+                    </label>
+                    <div class="col-sm-5">
+                      <select formControlName="Age" class="form-control" name="age" [(ngModel)]="selectedVechileAge"
+                        [ngClass]="{ 'is-invalid': submitted && v.Age.errors }">
+                        <option value="undefined" disabled select>Select Age</option>
+                        <option *ngFor="let data of vehicleAge" [ngValue]="data.vehicle_age_id">{{data.age_name}}</option>
+                      </select>
+                      <div *ngIf="submitted && v.Age.errors" class="invalid-feedback">
+                        <div *ngIf="v.Age.errors.required" style="color:red">Vehicle Age is required</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-
-    <div *ngIf="carUser || bikeUser">
-      <div class="container">
-        <div class="col-sm-6">
-          <div class="row form-group">
-            <label class="col-sm-4 col-form-label required">Vehicle Type
-              <span style="color:red">*</span>
-            </label>
-            <div class="col-sm-5">
-              <select formControlName="Type" class="form-control" name="make" [(ngModel)]="selectedVechileType"
-                [ngClass]="{ 'is-invalid': submitted && v.Type.errors }">
-                <option value="undefined" disabled select>Select Type</option>
-                <option *ngFor="let type of vehicleType" [ngValue]="type.vehicle_type_id">{{type.type_name}}</option>
-              </select>
-              <div *ngIf="submitted && v.Type.errors" class="invalid-feedback">
-                <div *ngIf="v.Type.errors.required" style="color:red">Vehicle Type is required</div>
-              </div>
-            </div>
-          </div>
-          <div class="row form-group">
-            <label class="col-sm-4 col-form-label required">Vehicle Age
-              <span style="color:red">*</span>
-            </label>
-            <div class="col-sm-5">
-              <select formControlName="Age" class="form-control" name="age" [(ngModel)]="selectedVechileAge" [ngClass]="{ 'is-invalid': submitted && v.Age.errors }">
-                <option value="undefined" disabled select>Select Age</option>
-                <option *ngFor="let data of vehicleAge" [ngValue]="data.vehicle_age_id">{{data.age_name}}</option>
-              </select>
-              <div *ngIf="submitted && v.Age.errors" class="invalid-feedback">
-                <div *ngIf="v.Age.errors.required" style="color:red">Vehicle Age is required</div>
+    <div class="col-sm-6">
+      <div class="service-info">
+        <div *ngIf="vehservice">
+          <div class="row">
+            <h3>Services</h3>
+            <div class="row form-group">
+              <div class="col-sm-1"></div>
+              <label class="col-sm-3 col-form-label required">Services List
+                <span style="color:red">*</span>
+              </label>
+              <div class="col-sm-8">
+                <p-multiSelect [options]="vehicleServices" [(ngModel)]="selectedServices" [displaySelectedLabel]=false
+                  (ngModelChange)="onChangeServices(selectedServices);totalServicePrice()" [panelStyle]="{minWidth:'12em'}"
+                  [style]="{'width':'50%'}" defaultLabel="Choose Services"></p-multiSelect>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </form>
-</div>
-<div *ngIf="vehservice">
-  <div class="veh-services">
-    <div class="container">
-      <h3>Services</h3>
-      <div class="row form-group">
-        <label class="col-sm-4 col-form-label required">Services List
-          <span style="color:red">*</span>
-        </label>
-        <div class="col-sm-5">
-          <p-multiSelect [options]="vehicleServices" [(ngModel)]="selectedServices" [displaySelectedLabel]=false
-            (ngModelChange)="onChangeServices(selectedServices)" [panelStyle]="{minWidth:'12em'}"></p-multiSelect>
+        <table style="width:100%">
+          <tr>
+            <th>Service Name </th>
+            <th *ngIf="selectedVechileSize">Cost </th>
+            <th>Delete</th>
+          </tr>
+          <tr *ngFor="let item of selectedServices ; let i=index">
+            <td>{{item.service_name}}</td>
+            <td *ngIf="selectedVechileSize == 's'">{{item.service_price_small}}</td>
+            <td *ngIf="selectedVechileSize == 'm'">{{item.service_price_medium}}</td>
+            <td *ngIf="selectedVechileSize == 'l'">{{item.service_price_large}}</td>
+            <td *ngIf="selectedVechileSize == 'xl'">{{item.service_price_xl}}</td>
+            <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i); totalServicePrice() ">
+              <i class="fa fa-trash"></i>
+            </td>
+          </tr>
+        </table>
+        <br><br>
+        <div class="row form-group">
+          <label class="col-sm-4 col-form-label required">Total
+            <span style="color:red">*</span>
+          </label>
+          <div class="col-sm-5">
+            <input type="text" class="form-control" name="total" [(ngModel)]="total">
+          </div>
         </div>
       </div>
-      <table>
-        <tr>
-          <th>Service Name </th>
-          <th *ngIf="selectedVechileSize">Cost </th>
-          <th>Delete</th>
-        </tr>
-        <tr *ngFor="let item of selectedServices ; let i=index">
-          <td>{{item.service_name}}</td>
-          <td *ngIf="selectedVechileSize == 's'">{{item.service_price_small}}</td>
-          <td *ngIf="selectedVechileSize == 'm'">{{item.service_price_medium}}</td>
-          <td *ngIf="selectedVechileSize == 'l'">{{item.service_price_large}}</td>
-          <td *ngIf="selectedVechileSize == 'xl'">{{item.service_price_xl}}</td>
-          <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i)">
-            <i class="fa fa-trash"></i>
-          </td>
-        </tr>
-      </table>
     </div>
   </div>
 </div>
-
 <div class="row form-group">
-  <div claas="container">  
+  <div claas="container">
     <button type="submit" class="btn btn-success" (click)="addUserInfoAndVehicle()" style="float: right;
     margin-right: 12%;">Submit</button>
-      <button type="submit" class="btn btn-warning" (click)="resetCompleteUserVechileInfo()" style="float: right;
+    <button type="submit" class="btn btn-warning" (click)="resetCompleteUserVechileInfo()" style="float: right;
       margin-right: 1%;">Reset</button>
   </div>
 </div>

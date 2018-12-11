@@ -1,34 +1,174 @@
-<button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
-<table>
-  <tr>
-    <th>User Name</th>
-    <th>Email </th>
-    <th>Mobile No.</th>
-    <th>Address</th>
-    <th>Profession </th>
-    <th>Source Name</th>
-    <th>Service Name </th>
-    <th>Business Name</th>
-    <th>Age Name </th>
-    <th>Type Name</th>
-    <th>Make Name </th>
-    <th>Edit </th>
-  </tr>
-  <tr *ngFor="let userDetailsData of userDetailsDatas;let i = index">
-    <td>{{userDetailsData.firstname}}</td>
-    <td>{{userDetailsData.email_id}}</td>
-    <td>{{userDetailsData.mobile}}</td>
-    <td>{{userDetailsData.address}}</td>
-    <td>{{userDetailsData.profession}}</td>
-    <td>{{userDetailsData.source_name}}</td>
-    <td>{{userDetailsData.service_name}}</td>
-    <td>{{userDetailsData.business_name}}</td>
-    <td>{{userDetailsData.age_name}}</td>
-    <td>{{userDetailsData.type_name}}</td>
-    <td>{{userDetailsData.make_name}}</td>
-    <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
-  </tr>
-</table>
+<div class="list-sale">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-1">
+        <button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <table>
+        <tr>
+          <th>User Name</th>
+          <th>Email </th>
+          <th>Mobile No.</th>
+          <th>Address</th>
+          <th>Profession </th>
+          <th>Source Name</th>
+          <th>Service Name </th>
+          <th>Business Name</th>
+          <th>Age Name </th>
+          <th>Type Name</th>
+          <th>Make Name </th>
+          <th>Edit </th>
+          <th>Print</th>
+        </tr>
+        <tr *ngFor="let userDetailsData of userDetailsDatas;let i = index">
+          <td>{{userDetailsData.firstname}}</td>
+          <td>{{userDetailsData.email_id}}</td>
+          <td>{{userDetailsData.mobile}}</td>
+          <td>{{userDetailsData.address}}</td>
+          <td>{{userDetailsData.profession}}</td>
+          <td>{{userDetailsData.source_name}}</td>
+          <td>{{userDetailsData.service_name}}</td>
+          <td>{{userDetailsData.business_name}}</td>
+          <td>{{userDetailsData.age_name}}</td>
+          <td>{{userDetailsData.type_name}}</td>
+          <td>{{userDetailsData.make_name}}</td>
+          <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
+          <td (click)="printInvoice('printlist')"> <i class="fas fa-print" style="color:red"></i></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="tableShow" id="printlist" [style.visibility]="printStyle" style="display:none">
+  <div class="invoice-box">
+    <table cellpadding="10" cellspacing="10" style="width:100%">
+      <tr class="top" style="width:100%">
+        <td class="title" style="width:50%;">
+          <img src="assets/images/download.png" style="width:60%; max-width:200px;">
+        </td>
+        <td style="width:50%;">
+          An ISO 9001:2008 Certified Company<br>
+          Regd.Off:190, East Rigidview Venue, Newyork-10022<br>
+          H no:190, East Rigidview Venue, Newyork-10022<br>
+          Phone: +91 34273-48009, EMail: san784@network.com
+        </td>
+      </tr>
+      <tr>
+        <table style="width:100%;border:1px solid black" cellpadding="10" cellspacing="10">
+          <tr>
+            <td>
+              <b>To</b><br>
+              <b>Digital Rupay</b><br>
+              12345 Sunny Road<br>
+              Sunnyville, CA 12345<br>
+              Location:Begumpet
+            </td>
+            <td>
+              INVOICE NO: <br>
+              Date: <br>
+              CAR No: <br>
+              JOB CARD NO:
+            </td>
+          </tr>
+
+        </table>
+      </tr>
+    </table>
+    <br>
+    <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
+      <thead>
+        <tr style="border:2px solid #000;">
+          <th width="25%">S.No</th>
+          <th width="25%">Particular</th>
+          <th width="25%">Qty</th>
+          <th width="25%">Rate Per Unit</th>
+          <th width="25%">Amount</th>
+        </tr>
+      </thead>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>VAT @5%</td>
+        <td></td>
+        <td>Total</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>SERVICE TAX @15%</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td>GRAND TOTAL</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    <br>
+    <span>Note:All Disputes and Claims will be Settled Within the Jurisdiction of Hyderabad only.</span> &nbsp;
+    <br><br>
+    <span>
+      Declaration:I/We hereby certify that my/our Registration Certificate the value Added Tax,2005 is inforce as
+      on the day of sale of goods specified in this has been made by me/us and that the transaction of Sale
+      covered by this invoice has been effected by me/us
+    </span>
+    <hr>
+    <table cellpadding="10" cellspacing="10" style="width:100%">
+      <tr class="top" style="width:100%">
+        <td class="title" style="width:40%;">
+          Receiver's Signature
+        </td>
+        <td style="width:30%;"></td>
+
+        <td style="width:30%;">
+          For AMIGO AUTUS
+        </td>
+      </tr>
+      <tr class="top" style="width:100%">
+        <td class="title" style="width:40%;">
+
+        </td>
+        <td style="width:30%;"></td>
+
+        <td style="width:30%;">
+          Authorised Signatory
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>
 
 <!-- <div *ngIf="isHideOrShowUserVechileService">
   this is test
