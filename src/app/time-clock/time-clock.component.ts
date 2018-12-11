@@ -254,11 +254,11 @@ export class TimeClockComponent implements OnInit {
       this.totalMin = (60 * this.totalHours) - finaltotal;
     }
     this.finalHours = this.totalHours + ":" + this.totalMin;
-    console.log("total hrs")
-    this.data.total_hours = this.finalHours;
-    console.log(this.data.total_hours)
-    this.service.saveInandOutTime(this.data.total_hours).subscribe(response => {
-    });
+    // console.log("total hrs")
+    // this.data.total_hours = this.finalHours;
+    // console.log(this.data.total_hours)
+    // this.service.saveInandOutTime(this.data.total_hours).subscribe(response => {
+    // });
   }
 
   getFormattedDate(_date) {
