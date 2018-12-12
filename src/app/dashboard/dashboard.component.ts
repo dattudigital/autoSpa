@@ -208,6 +208,7 @@ export class DashboardComponent implements OnInit {
     }
   }
   onChangeServices(val) {
+    console.log(this.selectedVechileSize)
     // this.serviceTableValue = val;
     this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
@@ -341,6 +342,8 @@ export class DashboardComponent implements OnInit {
     }
   }
   carUserClick(val) {
+    this.selectedVechileSize = undefined;
+    this.selectedVechileAge = undefined;
     this.makeDetails(val);
     this.typeDetails(val);
     this.selectedVechile = 0;
@@ -362,14 +365,15 @@ export class DashboardComponent implements OnInit {
     this.vehservice = true;
     this.commercialUser = false;
     this.selectedVechileMake = undefined;
+    this.selectedVechileAge = undefined;
     this.selectedVechileType = undefined;
   }
 
   commercialUserClick(val) {
     this.makeDetails(val);
     this.selectedVechile = 2;
-    this.selectedVechileType = null;
-    this.selectedVechileAge = null;
+    this.selectedVechileType = undefined;
+    this.selectedVechileAge = undefined;
     this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = false;
