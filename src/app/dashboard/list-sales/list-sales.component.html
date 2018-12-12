@@ -1,5 +1,6 @@
 <div class="list-sale">
-  <div class="container">
+  <div style="padding-right: 30px;
+  padding-left: 30px;">
     <div class="row">
       <div class="col-sm-1">
         <button class="btn btn-success" value="View Sale" (click)="redirectToAddSale()">Add Sale</button>
@@ -20,6 +21,9 @@
           <th>Age </th>
           <th>Vehicle Type </th>
           <th>Vehicle Make  </th>
+          <th>Vehicle Category</th>
+          <th>Invoice No.</th>
+          <th>Bill Amount</th>
           <th>Edit </th>
           <th>Print</th>
         </tr>
@@ -35,6 +39,9 @@
           <td>{{userDetailsData.age_name}}</td>
           <td>{{userDetailsData.type_name}}</td>
           <td>{{userDetailsData.make_name}}</td>
+          <td>{{userDetailsData.vehicl_name}}</td>
+          <td>{{userDetailsData.invoice_num}}</td>
+          <td>{{userDetailsData.invoice_total}}</td>
           <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
           <td (click)="printInvoice('printlist')"> <i class="fas fa-print" style="color:red"></i></td>
         </tr>

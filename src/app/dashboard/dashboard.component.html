@@ -197,15 +197,15 @@
                 <div class="container">
                   <h3>Vehicle Information</h3>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" (click)="carUserClick('1')" checked>
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '0' "  (click)="carUserClick('1')">
                     <label style="font-size:16px">Car</label>
                   </div>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" (click)="bikeUserClick('2')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '1'"  (click)="bikeUserClick('2')">
                     <label style="font-size:16px">Bike</label>
                   </div>
                   <div class="col-sm-2">
-                    <input type="radio" name="optradio1" (click)="commercialUserClick('3')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '2' "  (click)="commercialUserClick('3')">
                     <label style="font-size:16px">Commercial</label>
                   </div>
 
@@ -336,7 +336,7 @@
             <td *ngIf="selectedVechileSize == 'm'">{{item.service_price_medium}}</td>
             <td *ngIf="selectedVechileSize == 'l'">{{item.service_price_large}}</td>
             <td *ngIf="selectedVechileSize == 'xl'">{{item.service_price_xl}}</td>
-            <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i); totalServicePrice() ">
+            <td href="#" data-toggle="modal" data-target="#deleteServiceConformation" (click)="deleteService(i); ">
               <i class="fa fa-trash"></i>
             </td>
           </tr>

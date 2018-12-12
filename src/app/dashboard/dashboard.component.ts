@@ -78,8 +78,8 @@ export class DashboardComponent implements OnInit {
   makeFor = '1';
   typeFor = '1'
   invoiceNo: any;
-
-
+  // growl options
+  public options = { position: ["top", "right"] }
   constructor(private http: Http, private notif: NotificationsService, private cdr: ChangeDetectorRef, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngAfterViewChecked() {
@@ -161,6 +161,13 @@ export class DashboardComponent implements OnInit {
       this.businessType = this.selectedUserEditSession.business_type;
 
       this.selectedVechile = this.selectedUserEditSession.vehicle_type;
+      if (this.selectedVechile == '0') {
+        this.carUserClick('1');
+      } else if (this.selectedVechile == '1') {
+        this.bikeUserClick('2');
+      } else if (this.selectedVechile == '2') {
+        this.commercialUserClick('3');
+      }
       this.selectedVechileNo = this.selectedUserEditSession.vehicle_no;
       this.selectedVechileMake = this.selectedUserEditSession.vehicle_make_id;
       this.selectedVechileSize = this.selectedUserEditSession.vehicle_size;
@@ -185,12 +192,7 @@ export class DashboardComponent implements OnInit {
   totalServicePrice() {
 
     this.total = 0;
-    console.log("************* test");
-    console.log(this.selectedVechileSize);
-    console.log(this.selectedServices);
     for (let i = 0; i < this.selectedServices.length; i++) {
-      console.log("****************************((((((((")
-      console.log(this.selectedServices[i]["service_price_small"]);
       if (this.selectedVechileSize == 's') {
         this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_small"]
       }
@@ -203,8 +205,6 @@ export class DashboardComponent implements OnInit {
       if (this.selectedVechileSize == 'xl') {
         this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_xl"]
       }
-      console.log('total')
-      console.log(this.total)
     }
   }
   onChangeServices(val) {
@@ -254,8 +254,9 @@ export class DashboardComponent implements OnInit {
 
   yesDeleteService() {
     this.selectedServices.splice(this.deleteServiceIndex, 1);
-    this.getServiceId(this.selectedServices);
+    this.getServiceId(this.selectedServices);    
     this.deleteService = null;
+    this.totalServicePrice()
   }
 
   getServiceId(val) {
@@ -394,11 +395,7 @@ export class DashboardComponent implements OnInit {
     if (this.vehicleForm.invalid) {
       return;
     }
-    console.log(this.selectedVechileSize)
-    console.log(this.selectedVechile)
-
     if (this.selectedVechileSize == undefined && (this.selectedVechile == 0 || this.selectedVechile == 2)) {
-      console.log('*****')
       this.notif.error(
         'error',
         'Please Select Vehicle Size ',
@@ -417,7 +414,7 @@ export class DashboardComponent implements OnInit {
       this.invoiceNo = this.selectedUserEditSession.invoice_num
     } else {
       this.invoiceNo = Math.floor(Math.random() * 899999 + 100000)
-      
+
     }
 
     this.data = {
@@ -454,9 +451,22 @@ export class DashboardComponent implements OnInit {
 
     console.log("******************")
     console.log(this.data)
+    this.spinner.show();
     this.vehicledetails.userVehicleService(this.data).subscribe(res => {
+      this.spinner.hide();
       if (res.json().status == true) {
         console.log("came to here ");
+        this.notif.success(
+          'Success',
+          'Successfully Done',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 50
+          }
+        )            
       } else {
         console.log("*****************");
       }
