@@ -469,7 +469,17 @@ export class DashboardComponent implements OnInit {
           }
         )            
       } else {
-        console.log("*****************");
+        this.notif.error(
+          'error',
+          'Something Went Wrong',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 50
+          }
+        )
       }
     });
   }
