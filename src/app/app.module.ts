@@ -30,6 +30,7 @@ import { MessageService } from 'primeng/api';
 import { PriceListComponent } from './manager/price-list/price-list.component';
 import { PackagesComponent } from './manager/packages/packages.component';
 
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -80,7 +81,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true }),
     TypeaheadModule.forRoot(),
     NgxSpinnerModule,
-    TableModule
+    TableModule,
+    SimpleNotificationsModule.forRoot()
   ],
   providers: [AuthGuard, VehicleServicesPipe, MessageService, SaleUserDetailsPipe],
   bootstrap: [AppComponent]
