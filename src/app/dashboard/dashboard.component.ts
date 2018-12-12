@@ -295,6 +295,7 @@ export class DashboardComponent implements OnInit {
 
   resetCompleteUserVechileInfo() {
     this.clearUserdata(1);
+    this.total = 0;
   }
 
   newUserClick() {
