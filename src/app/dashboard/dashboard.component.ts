@@ -417,7 +417,7 @@ export class DashboardComponent implements OnInit {
       this.invoiceNo = this.selectedUserEditSession.invoice_num
     } else {
       this.invoiceNo = Math.floor(Math.random() * 899999 + 100000)
-      return;
+      
     }
 
     this.data = {
