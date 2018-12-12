@@ -27,6 +27,10 @@ export class ManagerService {
   public getSubCategory() {
     return this.http.get(environment.host + 'sub-categorys')
   }
+
+  public saveSubCategory(data: any) {
+    return this.http.post(environment.host + 'sub-categorys', data)
+  }
   
   public getServiceDetails() {
     return this.http.get(environment.host + 'services')
@@ -42,6 +46,14 @@ export class ManagerService {
 
   public saveCategoryDetails(data: any) {
     return this.http.post(environment.host + 'categorys', data)
+  }
+
+  public getPackages() {
+    return this.http.get(environment.host + 'packages')
+  }
+
+  public savePackages(data: any) {
+    return this.http.post(environment.host + 'packages', data)
   }
 
 }
