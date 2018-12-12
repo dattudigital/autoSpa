@@ -209,6 +209,20 @@ export class DashboardComponent implements OnInit {
   }
   onChangeServices(val) {
     console.log(this.selectedVechileSize)
+    console.log(!this.selectedVechileSize)
+    if(!this.selectedVechileSize){
+      this.notif.warn(
+        'Warning',
+        'Please Select Vehicle Size',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      )
+    }
     // this.serviceTableValue = val;
     this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
