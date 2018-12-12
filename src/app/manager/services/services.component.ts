@@ -75,10 +75,9 @@ export class ServicesComponent implements OnInit {
     this.cols = [
       { field: 'service_name', header: 'Service Name' },
       { field: 'service_description', header: 'Description' },
-      { field: 'service_price', header: 'Service Price' },
+      { field: 'service_price_small', header: 'Small Price' },  
       { field: 'service_price_medium', header: 'Medium Price' },
       { field: 'service_price_large', header: 'Large Price' },
-      { field: 'service_price_small', header: 'Small Price' },
       { field: 'service_price_xl', header: 'Extra Large Price' },
     ];
   }
@@ -102,6 +101,7 @@ export class ServicesComponent implements OnInit {
     this.services.serviceVisibility = '';
   }
   get f() { return this.servicesForm.controls; }
+  
   addService() {
     this.submitted = true;
     if (this.servicesForm.invalid) {

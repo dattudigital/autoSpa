@@ -13,7 +13,7 @@ export class SetupComponent implements OnInit {
   }
 
   redirectToBranch() {
-    this.router.navigate(['branch']);
+    this.router.navigate(['setup/branch']);
   }
 
   redirectToVehicleColor(){
