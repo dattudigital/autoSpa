@@ -15,15 +15,19 @@ export class ManagerService {
   public addNewEmployee(data: any) {
     return this.http.post(environment.host + 'employees', data)
   }
+
   public getEmployeeDetails() {
     return this.http.get(environment.host + 'employees')
   }
+
   public getBranchDetails() {
     return this.http.get(environment.host + 'branches')
   }
+
   public getSubCategory() {
     return this.http.get(environment.host + 'sub-categorys')
   }
+  
   public getServiceDetails() {
     return this.http.get(environment.host + 'services')
   }
@@ -34,6 +38,10 @@ export class ManagerService {
 
   public getCategoryDetails() {
     return this.http.get(environment.host + 'categorys')
+  }
+
+  public saveCategoryDetails(data: any) {
+    return this.http.post(environment.host + 'categorys', data)
   }
 
 }

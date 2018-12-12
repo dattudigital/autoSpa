@@ -27,6 +27,9 @@ import { CategoryComponent } from './manager/category/category.component';
 import { SubCategoryComponent } from './manager/sub-category/sub-category.component';
 import { TimeClockComponent } from './time-clock/time-clock.component';
 import { MessageService } from 'primeng/api';
+import { PriceListComponent } from './manager/price-list/price-list.component';
+import { PackagesComponent } from './manager/packages/packages.component';
+
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Routes = [
@@ -34,16 +37,16 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'list-sales', component: ListSalesComponent, canActivate: [AuthGuard] },
-  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
-  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] },
-  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
-  { path: 'branch', component: BranchComponent, canActivate: [AuthGuard] },
-  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
-  { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] },
-  { path: 'manager/catrgory', component: CategoryComponent, canActivate: [AuthGuard] },
-  { path: 'manager/sutime-clocksb-catrgory', component: SubCategoryComponent, canActivate: [AuthGuard] },
   { path: 'time-clocks', component: TimeClockComponent, canActivate: [AuthGuard] },
-
+  { path: 'manager', component: ManagerComponent, canActivate: [AuthGuard] },
+  { path: 'manager/add-employee', component: AddEmployeeComponent, canActivate: [AuthGuard] },
+  { path: 'manager/price-list', component: PriceListComponent, canActivate: [AuthGuard] },
+  { path: 'manager/category', component: CategoryComponent, canActivate: [AuthGuard] },
+  { path: 'manager/sub-category', component: SubCategoryComponent, canActivate: [AuthGuard] },
+  { path: 'manager/services', component: ServicesComponent, canActivate: [AuthGuard] },
+  { path: 'manager/packages', component: PackagesComponent, canActivate: [AuthGuard] },
+  { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
+  { path: 'setup/branch', component: BranchComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({
@@ -63,6 +66,8 @@ const routes: Routes = [
     CategoryComponent,
     SubCategoryComponent,
     TimeClockComponent,
+    PriceListComponent,
+    PackagesComponent,
 
   ],
   imports: [

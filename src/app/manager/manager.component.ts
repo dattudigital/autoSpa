@@ -12,15 +12,21 @@ export class ManagerComponent implements OnInit {
   ngOnInit() {
   }
   redirectToNewEmployee() {
-    this.router.navigate(['add-employee'])
+    this.router.navigate(['manager/add-employee'])
+  }
+  redirectToPriceList(){
+    this.router.navigate(['manager/price-list'])
+  }
+  redirectToCategory() {
+    this.router.navigate(['manager/category'])
+  }
+  redirectToSubCategory() {
+    this.router.navigate(['manager/sub-category'])
   }
   redirectToService() {
     this.router.navigate(['manager/services'])
   }
-  redirectToCategory() {
-    this.router.navigate(['manager/catrgory'])
-  }
-  redirectToSubcategory() {
-    this.router.navigate(['manager/sub-catrgory'])
+  redirectToPackage(){
+    this.router.navigate(['manager/packages'])
   }
 }
