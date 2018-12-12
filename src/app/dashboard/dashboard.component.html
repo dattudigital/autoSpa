@@ -53,7 +53,7 @@
         </label>
         <div class="col-sm-5">
           <!-- <input type="text" name="exDetail" maxlength="50" class="form-control" (ngModelChange)="searchUser()" [(ngModel)]="existingDetail"> -->
-          <input type="text" placeholder="Enter Engine Number" name="Engine" maxlength="50" [(ngModel)]="selectedValue"
+          <input type="text" placeholder="Enter Number/EmailID" name="Engine" maxlength="50" [(ngModel)]="selectedValue"
             [(ngModel)]="existingDetail" (ngModelChange)='userSearch($event)' [typeahead]="userInfo"
             typeaheadOptionField="email_id" (typeaheadOnSelect)="onSelect($event)" class="form-control">
         </div>
