@@ -149,6 +149,7 @@ export class ServicesComponent implements OnInit {
       this.services.serviceVisibility = this.editData[index].service_visibility,
       this.services.status = this.editData[index].rec_status
   }
+  
   updateService() {
     var data = {
       service_id: this.services.serviceId,

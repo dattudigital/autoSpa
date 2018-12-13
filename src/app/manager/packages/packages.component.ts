@@ -16,6 +16,7 @@ export class PackagesComponent implements OnInit {
   packageData: any[];
   cols: any[];
   package: any = {
+    'packageId': '',
     'packageType': '',
     'packageName': '',
     'packagePrice': '',
@@ -101,25 +102,117 @@ export class PackagesComponent implements OnInit {
       return;
     }
     var data = {
-      // sub_cat_id: this.package.subcategory,
-      package_name: this.package.serviceName,
-      package_description: this.package.serviceDescription,
-      package_price: this.package.servicePrice,
-      service_price_medium: this.package.serviceMediumPrice,
-      service_price_large: this.package.servicelargePrice,
-      service_price_small: this.package.serviceSmallPrice,
-      service_price_xl: this.package.serviceExtraLargePrice,
-      service_duration: this.package.serviceDuration,
-      service_tax: this.package.serviceTax,
-      service_visibility: this.package.serviceVisibility,
+      package_name: this.package.packageName,
+      package_description: this.package.packageDescription,
+      package_price: this.package.packagePrice,
+      package_price_small: this.package.packagePriceSmall,
+      package_price_medium: this.package.packagePriceMedium,
+      package_price_large: this.package.packagePriceLarge,
+      package_price_xlarge: this.package.packagePriceXlarge,
+      package_validity_days: this.package.packageValidity,
+      package_services: this.package.packageServices,
+      package_visibility: this.package.packageVisibility,
       rec_status: 1
     }
-    this.managerservice.saveServices(data).subscribe(res => {
-      console.log(res.json());
-      this.packageData.push(res.json().result);
-      console.log(this.packageData);
-      $('#addServices').modal('hide');
+    this.managerservice.savePackages(data).subscribe(res => {
+    console.log(res.json());
+    this.packageData.push(res.json().result);
+    console.log(this.packageData);
+    $('#addPackage').modal('hide');
     });
+  }
+
+  editPackage(data, index)  {
+    this.addEnableorDisable = 'hidden';
+    this.updateEnableorDisable = 'visible'
+    this.editData = data;
+    data.index = index;
+    this.temp = index;
+    this.package.packageId = this.editData[index].package_id,
+    this.package.packageType = this.editData[index].package_type,
+    this.package.packageName = this.editData[index].package_name,
+    this.package.packageDescription = this.editData[index].package_description,
+    this.package.packagePrice = this.editData[index].package_price,
+    this.package.packagePriceSmall = this.editData[index].package_price_small,
+    this.package.packagePriceMedium = this.editData[index].package_price_medium,
+    this.package.packagePriceLarge = this.editData[index].package_price_large,
+    this.package.packagePriceXlarge = this.editData[index].package_price_xlarge,
+    this.package.packageValidity = this.editData[index].package_validity_days,
+    this.package.packageServices = this.editData[index].package_services,
+    this.package.packageVisibility = this.editData[index].package_visibility,
+    this.package.status = this.editData[index].rec_status
+  }
+
+  updatePackage() {
+    var data = {
+      package_id: this.package.packageId,
+      package_type: this.package.packageType,
+      package_name: this.package.packageName,
+      package_description: this.package.packageDescription,
+      package_price: this.package.packagePrice,
+      package_price_small: this.package.packagePriceSmall,
+      package_price_medium: this.package.packagePriceMedium,
+      package_price_large: this.package.packagePriceLarge,
+      package_price_xlarge: this.package.packagePriceXlarge,
+      package_validity_days: this.package.packageValidity,
+      package_services: this.package.packageServices,
+      package_visibility: this.package.packageVisibility,
+      rec_status: this.package.status
+    }
+    this.managerservice.savePackages(data).subscribe(res => {
+        this.packageData[this.temp].package_id = data.package_id,
+        this.packageData[this.temp].package_type = data.package_type,
+        this.packageData[this.temp].package_name = data.package_name,
+        this.packageData[this.temp].package_description = data.package_description,
+        this.packageData[this.temp].package_price = data.package_price,
+        this.packageData[this.temp].package_price_small = data.package_price_small,
+        this.packageData[this.temp].package_price_medium = data.package_price_medium,
+        this.packageData[this.temp].package_price_large = data.package_price_large,
+        this.packageData[this.temp].package_price_xlarge = data.package_price_xlarge,
+        this.packageData[this.temp].package_validity_days = data.package_validity_days,
+        this.packageData[this.temp].package_services = data.package_services,
+        this.packageData[this.temp].package_visibility = data.package_visibility,
+        this.packageData[this.temp].rec_status = data.rec_status,
+        this.temp = " "
+    });
+    $('#addPackage').modal('hide')
+  }
+
+  deletePackage(val, index) {
+    this.temp1 = index;
+    this.deleteData = val;
+    val.index = index;
+    this.package.packageId = this.deleteData[index].package_id
+  }
+  yesPackageDelete() {
+    this.packageData.splice(this.temp1, 1)
+    var data = {
+      package_id: this.package.packageId,
+      rec_status: "0"
+    }
+    this.managerservice.savePackages(data).subscribe(res => {
+    })
+  }
+
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
+  }
+
+  //This Method  allow Numbers
+  only_allow_number(event) {
+    var n;
+    n = event.charCode
+    return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
+  }
+
+  //this method allow both numbers and alphabets
+  allow_numbers_alphabets(event) {
+    var a;
+    a = event.charCode
+    return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
   }
 
 

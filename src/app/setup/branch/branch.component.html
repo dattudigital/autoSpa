@@ -1,27 +1,27 @@
 <div class="container" style="width: 1330px">
-<div class="add-branch">
-  <div class="row">
-    <div class="col-sm-6">
-      <h3 style="font-weight:600; padding: 7px;">Branch Details</h3>
+  <div class="add-branch">
+    <div class="row">
+      <div class="col-sm-6">
+        <h3 style="font-weight:600; padding: 7px;">Branch Details</h3>
+      </div>
+      <div class="col-sm-4"></div>
+      <div class="col-sm-2">
+        <button type="button" class="btn backBtn" (click)="backToSetup()">Back</button>
+      </div>
     </div>
-    <div class="col-sm-4"></div>
-    <div class="col-sm-2">
-      <button type="button" class="btn backBtn" (click)="backToSetup()">Back</button>
-    </div>
+    <div class="row">
+      <div class="col-sm-10">
+      </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addBranch">ADD
+          NEW
+        </button>
+      </div>
+    </div>&nbsp;
   </div>
-  <div class="row">
-    <div class="col-sm-10">
-    </div>
-    <div class="col-sm-2">
-      <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addServices">ADD
-        NEW
-      </button>
-    </div>
-  </div>&nbsp;
-</div>
 
 
-<p-table #dt [columns]="cols" [value]="branches" [paginator]="true" [rows]="4">
+  <p-table #dt [columns]="cols" [value]="branches" [paginator]="true" [rows]="4">
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -40,19 +40,164 @@
         <th>Delete</th>
       </tr>
     </ng-template>
-  
+
     <ng-template pTemplate="body" let-i="rowIndex" let-branch>
       <tr>
         <td *ngFor="let col of cols">
           {{branch[col.field]}}
         </td>
-        <td href="#" data-toggle="modal" data-target="#addOrEditBranch" (click)="addOrEditBranch(branch,i)">
+        <td href="#" data-toggle="modal" data-target="#addBranch" (click)="editBranch(branches,i)">
           <i class="fa fa-edit" style="color:orange"></i>
         </td>
-        <td href="#" data-toggle="modal" data-target="#deleteBranch" (click)="deleteBranch(branch,i)">
+        <td href="#" data-toggle="modal" data-target="#deleteBranch" (click)="deleteBranch(branches,i)">
           <i class="fa fa-trash"></i>
         </td>
       </tr>
     </ng-template>
   </p-table>
+</div>
+
+<div class="modal fade" id="addBranch" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form [formGroup]="branchForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="myModalLabel">Add New Branch</h3>
+        </div>
+        <div class="modal-body">
+          <br>
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch Name
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="branchName" class="form-control"
+                placeholder="Enter Branch Name" [ngClass]="{ 'is-invalid': submitted && f.branchName.errors }"
+                [(ngModel)]="branch.branchName" maxlength="50">
+              <div *ngIf="submitted && f.branchName.errors" class="invalid-feedback">
+                <div *ngIf="f.branchName.errors.required" style="color:red">Branch Name is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch Address
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="branchAddress" class="form-control" placeholder="Enter Branch Address"
+                [ngClass]="{ 'is-invalid': submitted && f.branchAddress.errors }" [(ngModel)]="branch.branchAddress"
+                maxlength="50">
+              <div *ngIf="submitted && f.branchAddress.errors" class="invalid-feedback">
+                <div *ngIf="f.branchAddress.errors.required" style="color:red">Branch Address is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch Area
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="branchArea" class="form-control" placeholder="Enter Branch Area"
+                [ngClass]="{ 'is-invalid': submitted && f.branchArea.errors }" [(ngModel)]="branch.branchArea"
+                maxlength="50">
+              <div *ngIf="submitted && f.branchArea.errors" class="invalid-feedback">
+                <div *ngIf="f.branchArea.errors.required" style="color:red">Branch Area is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch Location
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="branchLocation" class="form-control" placeholder="Enter Branch Location"
+                [ngClass]="{ 'is-invalid': submitted && f.branchLocation.errors }" [(ngModel)]="branch.branchLocation"
+                maxlength="50">
+              <div *ngIf="submitted && f.branchLocation.errors" class="invalid-feedback">
+                <div *ngIf="f.branchLocation.errors.required" style="color:red">Branch Location is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-1"></div>
+            <label for="input" class="col-md-3 control-label">Branch Email
+              <a style="color:red">*</a>
+            </label>
+            <div class="col-md-6">
+              <input type="text" formControlName="branchEmail" class="form-control" placeholder="Enter Email Id"
+                placeholder="Enter Branch Location" [ngClass]="{ 'is-invalid': submitted && f.branchEmail.errors }"
+                [(ngModel)]="branch.branchEmail" maxlength="50">
+              <div *ngIf="submitted && f.branchEmail.errors" class="invalid-feedback">
+                <div *ngIf="f.branchEmail.errors.required" style="color:red">Branch Email is required</div>
+              </div>
+            </div>
+            <div class="clear"></div>
+          </div>
+
+          <div class="form-group">
+              <div class="col-md-1"></div>
+              <label for="input" class="col-md-3 control-label">Phone Number
+                <a style="color:red">*</a>
+              </label>
+              <div class="col-md-6">
+                <input type="text" formControlName="Phone" (keypress)="only_allow_number($event)" class="form-control"
+                  placeholder="Enter Phone No." [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" [(ngModel)]="branch.phoneNumber"
+                  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                  maxlength="1onimn0" maxlength="50">
+                <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                  <div *ngIf="f.Phone.errors.required" style="color:red">Phone Number is required</div>
+                </div>
+              </div>
+              <div class="clear"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
+            &nbsp;&nbsp;
+            <span [style.visibility]="addEnableorDisable">
+              <button type="button" class="btn btn-primary" (click)="addBranch()">ADD</button>
+            </span>
+            <span [style.visibility]="updateEnableorDisable">
+              <button type="button" class="btn btn-primary" (click)="updateBranch()">Update</button>
+            </span>
+          </div>
+      </form>
+    </div>
   </div>
+</div>
+
+<div class="modal fade" id="deleteBranch" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h3 class="modal-title" id="myModalLabel">Are you Sure To Delete</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="yesBranchDelete()">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#f5c585" type="ball-scale-multiple">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
