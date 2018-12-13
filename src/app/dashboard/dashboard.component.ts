@@ -210,7 +210,7 @@ export class DashboardComponent implements OnInit {
   onChangeServices(val) {
     console.log(this.selectedVechileSize)
     console.log(!this.selectedVechileSize)
-    if(!this.selectedVechileSize){
+    if (!this.selectedVechileSize) {
       this.notif.warn(
         'Warning',
         'Please Select Vehicle Size',
@@ -269,7 +269,7 @@ export class DashboardComponent implements OnInit {
 
   yesDeleteService() {
     this.selectedServices.splice(this.deleteServiceIndex, 1);
-    this.getServiceId(this.selectedServices);    
+    this.getServiceId(this.selectedServices);
     this.deleteService = null;
     this.totalServicePrice()
   }
@@ -288,7 +288,7 @@ export class DashboardComponent implements OnInit {
     this.mobileNo = '';
     this.profession = '';
     this.address = '';
-    this.total ='';
+    this.total = '';
     this.sourceCustomer = undefined;
     this.serviceType = undefined;
     this.businessType = undefined;
@@ -430,7 +430,7 @@ export class DashboardComponent implements OnInit {
       )
       return;
     }
-    if(this.selectedServices.length == 0){
+    if (this.selectedServices.length == 0) {
       this.notif.error(
         'Error',
         'Please Select Atleast One Services ',
@@ -502,7 +502,7 @@ export class DashboardComponent implements OnInit {
             clickToClose: true,
             maxLength: 50
           }
-        )            
+        )
       } else {
         this.notif.error(
           'Error',
@@ -516,6 +516,8 @@ export class DashboardComponent implements OnInit {
           }
         )
       }
+      this.router.navigate(['list-sales'])
     });
+
   }
 }
