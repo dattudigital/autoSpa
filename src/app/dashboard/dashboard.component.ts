@@ -273,6 +273,7 @@ export class DashboardComponent implements OnInit {
     this.mobileNo = '';
     this.profession = '';
     this.address = '';
+    this.total ='';
     this.sourceCustomer = undefined;
     this.serviceType = undefined;
     this.businessType = undefined;
