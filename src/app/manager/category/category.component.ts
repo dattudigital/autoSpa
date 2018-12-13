@@ -13,7 +13,7 @@ export class CategoryComponent implements OnInit {
   categoryData: any = [];
   cols: any[];
   category: any = {
-    'catId':'',
+    'catId': '',
     'name': '',
     'status': ''
   }
@@ -108,5 +108,5 @@ export class CategoryComponent implements OnInit {
     })
   }
 
-  
+
 }

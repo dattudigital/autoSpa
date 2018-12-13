@@ -13,7 +13,7 @@
     <div class="col-sm-10">
     </div>
     <div class="col-sm-2">
-      <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addEmployee">ADD
+      <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addSubCategory">ADD
         NEW
       </button>
     </div>
@@ -45,13 +45,78 @@
       <td *ngFor="let col of cols">
         {{subcategory[col.field]}}
       </td>
-      <td href="#" data-toggle="modal" data-target="#addEmployee" (click)="editEmployee(employees,i)">
+      <td href="#" data-toggle="modal" data-target="#addSubCategory" (click)="editSubCategory(subCategoryData,i)">
         <i class="fa fa-edit" style="color:orange"></i>
       </td>
-      <td href="#" data-toggle="modal" data-target="#deleteEmployee" (click)="deleteEmployee(employees,i)">
+      <td href="#" data-toggle="modal" data-target="#deleteSubCategory" (click)="deleteSubCategory(subCategoryData,i)">
         <i class="fa fa-trash"></i>
       </td>
     </tr>
   </ng-template>
 </p-table>
+</div>
+
+<div class="modal fade" id="addSubCategory" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Add New Category</h3>
+      </div>
+      <div class="modal-body">
+        <br>
+        <div class="form-group">
+          <div class="col-md-1"></div>
+          <label for="input" class="col-md-3 control-label">Sub Category Name
+            <a style="color:red">*</a>
+          </label>
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="Enter Category Name" [(ngModel)]="subCategory.name">
+          </div>
+          <div class="clear"></div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-1"></div>
+          <label for="input" class="col-md-3 control-label">Category Name
+            <a style="color:red">*</a>
+          </label>
+          <div class="col-md-6" *ngIf="categoryData">
+            <select class="form-control" [(ngModel)]="subCategory.catId">
+              <option *ngFor="let data of this.categoryData" [ngValue]=" data.cat_id">{{data.category_name}}</option>
+            </select>
+          </div>
+          <div class="clear"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
+        &nbsp;&nbsp;
+        <span [style.visibility]="addEnableorDisable">
+          <button type="button" class="btn btn-primary" (click)="addSubCategory()">ADD</button>
+        </span>
+        <span [style.visibility]="updateEnableorDisable">
+          <button type="button" class="btn btn-primary" (click)="updateSubCategory()">Update</button>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteSubCategory" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h3 class="modal-title" id="myModalLabel">Are you Sure To Delete</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal" (click)="yesSubCategoryDelete()">Yes</button>
+      </div>
+    </div>
+  </div>
 </div>

@@ -208,6 +208,21 @@ export class DashboardComponent implements OnInit {
     }
   }
   onChangeServices(val) {
+    console.log(this.selectedVechileSize)
+    console.log(!this.selectedVechileSize)
+    if(!this.selectedVechileSize){
+      this.notif.warn(
+        'Warning',
+        'Please Select Vehicle Size',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      )
+    }
     // this.serviceTableValue = val;
     this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
@@ -342,6 +357,8 @@ export class DashboardComponent implements OnInit {
     }
   }
   carUserClick(val) {
+    this.selectedVechileSize = undefined;
+    this.selectedVechileAge = undefined;
     this.makeDetails(val);
     this.typeDetails(val);
     this.selectedVechile = 0;
@@ -363,14 +380,15 @@ export class DashboardComponent implements OnInit {
     this.vehservice = true;
     this.commercialUser = false;
     this.selectedVechileMake = undefined;
+    this.selectedVechileAge = undefined;
     this.selectedVechileType = undefined;
   }
 
   commercialUserClick(val) {
     this.makeDetails(val);
     this.selectedVechile = 2;
-    this.selectedVechileType = null;
-    this.selectedVechileAge = null;
+    this.selectedVechileType = undefined;
+    this.selectedVechileAge = undefined;
     this.vehInfo = true;
     this.carUser = false;
     this.bikeUser = false;
@@ -389,6 +407,7 @@ export class DashboardComponent implements OnInit {
   get v() { return this.vehicleForm.controls; }
 
   addUserInfoAndVehicle() {
+    console.log(this.selectedServices.length);
     this.submitted = true;
     // stop here if form is invalid
     if (this.salesForm.invalid) {
@@ -399,7 +418,7 @@ export class DashboardComponent implements OnInit {
     }
     if (this.selectedVechileSize == undefined && (this.selectedVechile == 0 || this.selectedVechile == 2)) {
       this.notif.error(
-        'error',
+        'Error',
         'Please Select Vehicle Size ',
         {
           timeOut: 3000,
@@ -411,6 +430,21 @@ export class DashboardComponent implements OnInit {
       )
       return;
     }
+    if(this.selectedServices.length == 0){
+      this.notif.error(
+        'Error',
+        'Please Select Atleast One Services ',
+        {
+          timeOut: 3000,
+          showProgressBar: true,
+          pauseOnHover: false,
+          clickToClose: true,
+          maxLength: 50
+        }
+      )
+      return;
+    }
+
 
     if (this.selectedUserEditSession) {
       this.invoiceNo = this.selectedUserEditSession.invoice_num
@@ -470,7 +504,17 @@ export class DashboardComponent implements OnInit {
           }
         )            
       } else {
-        console.log("*****************");
+        this.notif.error(
+          'Error',
+          'Something Went Wrong',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 50
+          }
+        )
       }
     });
   }
