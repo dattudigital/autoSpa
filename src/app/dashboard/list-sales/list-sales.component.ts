@@ -3,6 +3,8 @@ import { VehicleDetailsService } from './../../services/vehicle-details.service'
 import { Router } from '@angular/router';
 import { SaleUserDetailsPipe } from './../../pipe/sale-user-details.pipe'
 import { NgxSpinnerService } from 'ngx-spinner';
+import { Http } from '@angular/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-list-sales',
@@ -13,7 +15,26 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class ListSalesComponent implements OnInit {
   userDetailsDatas: any = [];
   printStyle = "hidden";
-  constructor(private userListService: VehicleDetailsService, private router: Router, private saleUserPipe: SaleUserDetailsPipe, private spinner: NgxSpinnerService) { }
+  editData: any = [];
+  //to display branch details on print form
+  branchAddress: '';
+  branchArea: '';
+  branchLocation: '';
+  branchContact: ''
+  //to print invoice details
+  userAddress: '';
+  invoiceNo: '';
+  invoiceTotal: any;
+  invoiceDate: '';
+  vehicleNo: '';
+  vatCalculate: any;
+  serviceTax: any;
+  totalWithTax: any;
+  servicesData: any
+  servicePrice: any;
+  vehicleSize: any;
+
+  constructor(private userListService: VehicleDetailsService, private http: Http, private router: Router, private saleUserPipe: SaleUserDetailsPipe, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -25,7 +46,7 @@ export class ListSalesComponent implements OnInit {
         this.spinner.hide();
         this.userDetailsDatas = [];
       }
-    })
+    });
   }
 
   redirectToAddSale() {
@@ -37,23 +58,55 @@ export class ListSalesComponent implements OnInit {
     sessionStorage.setItem('selectedUserEdit', JSON.stringify(val));
     this.router.navigate(['dashboard']);
   }
-  printInvoice(printlist) {
+
+
+  mouseEnterOnPrint(rowData, index) {
+    this.http.get(environment.host + 'branches/' + rowData.branchid).subscribe(res => {
+      this.branchAddress = res.json().result[0].branch_address
+      this.branchArea = res.json().result[0].branch_area
+      this.branchLocation = res.json().result[0].branch_location
+      this.branchContact = res.json().result[0].branch_contact_number
+    });
+
+    this.http.get(environment.host + 'users/' + rowData.services).subscribe(res => {
+      this.servicesData = res.json().result;
+      this.vehicleSize = rowData.vehicle_size
+    });
+
+    this.userAddress = rowData.address;
+    this.invoiceNo = rowData.invoice_num;
+    this.invoiceTotal = rowData.invoice_total;
+    if (this.invoiceTotal) {
+      // this.vatCalculate = 0;
+      this.serviceTax = 0;
+      this.totalWithTax = 0;
+      // this.vatCalculate = this.vatCalculate + this.invoiceTotal * (5 / 100)
+      // this.vatCalculate = Math.floor(this.vatCalculate)
+      this.serviceTax = this.serviceTax + this.invoiceTotal * (18 / 100)
+      this.serviceTax = Math.floor(this.serviceTax)
+      this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;
+    }
+    this.invoiceDate = rowData.ceraeddate
+    this.vehicleNo = rowData.vehicle_no
+  }
+
+  printInvoice(printlist, val, i) {
+    val.index = i;
     this.printStyle = "visible";
     let printContents = document.getElementById(printlist).innerHTML;
     const popupWin = window.open();
     popupWin.document.open();
     popupWin.document.write(`
-<html>
+  <html>
     <head>
         <title>INVOICE FORM</title>           
     </head>
     <body onload="window.print(); window.close()">
         ${printContents}
     </body>
-</html>
-`  );
+  </html>
+  `  );
     popupWin.document.close();
     this.printStyle = "hidden";
   }
-
 }

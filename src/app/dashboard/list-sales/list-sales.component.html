@@ -20,7 +20,7 @@
           <th>Business Name</th>
           <th>Age </th>
           <th>Vehicle Type </th>
-          <th>Vehicle Make  </th>
+          <th>Vehicle Make </th>
           <th>Vehicle Category</th>
           <th>Invoice No.</th>
           <th>Bill Amount</th>
@@ -43,14 +43,13 @@
           <td>{{userDetailsData.invoice_num}}</td>
           <td>{{userDetailsData.invoice_total}}</td>
           <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
-          <td (click)="printInvoice('printlist')"> <i class="fas fa-print" style="color:red"></i></td>
+          <td (mouseenter)="mouseEnterOnPrint(userDetailsData,i) " (click)="printInvoice('printlist',userDetailsData,i)">
+            <i class="fas fa-print" style="color:red"></i></td>
         </tr>
       </table>
     </div>
   </div>
 </div>
-
-
 
 <div class="tableShow" id="printlist" [style.visibility]="printStyle" style="display:none">
   <div class="invoice-box">
@@ -60,87 +59,85 @@
           <img src="assets/images/download.png" style="width:60%; max-width:200px;">
         </td>
         <td style="width:50%;">
-          An ISO 9001:2008 Certified Company<br>
-          Regd.Off:190, East Rigidview Venue, Newyork-10022<br>
-          H no:190, East Rigidview Venue, Newyork-10022<br>
-          Phone: +91 34273-48009, EMail: san784@network.com
+          <br> {{branchAddress}}
+          <br> {{branchArea}},
+          <br>{{branchLocation}},
+          <br>Phone:{{branchContact}}
         </td>
       </tr>
       <tr>
         <table style="width:100%;border:1px solid black" cellpadding="10" cellspacing="10">
           <tr>
             <td>
-              <b>To</b><br>
-              <b>Digital Rupay</b><br>
-              12345 Sunny Road<br>
-              Sunnyville, CA 12345<br>
-              Location:Begumpet
+              <b></b><br>
+              {{userAddress}}
             </td>
             <td>
-              INVOICE NO: <br>
-              Date: <br>
-              CAR No: <br>
-              JOB CARD NO:
+              INVOICE NO:{{invoiceNo}} <br>
+              DATE: {{invoiceDate | date: 'dd/MM/yyyy'}} <br>
+              VEHICLE No: {{vehicleNo}}<br>
+              JOB CARD NO: 98765
             </td>
           </tr>
-
         </table>
       </tr>
     </table>
     <br>
+
     <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
       <thead>
         <tr style="border:2px solid #000;">
-          <th width="25%">S.No</th>
-          <th width="25%">Particular</th>
-          <th width="25%">Qty</th>
-          <th width="25%">Rate Per Unit</th>
-          <th width="25%">Amount</th>
+          <th width="15%">S.No</th>
+          <th width="30%">Particular</th>
+          <th width="20%">Qty</th>
+          <th width="20%">Rate Per Unit</th>
+          <th width="20%">Amount</th>
         </tr>
       </thead>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
+      <tbody>
+        <tr *ngFor="let data of servicesData;let i = index">
+          <td width="20%">{{i+1}}</td>
+          <td>{{data.service_name}}</td>
+          <td width="20%">{{1}}</td>
+          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+
+          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total</td>
+          <td>{{invoiceTotal}}</td>
+        </tr>
+        <!-- <tr>
         <td></td>
         <td>VAT @5%</td>
         <td></td>
-        <td>Total</td>
         <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>SERVICE TAX @15%</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-
-      <tr>
-        <td></td>
-        <td>GRAND TOTAL</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+        <td> {{vatCalculate}}</td>
+      </tr> -->
+        <tr>
+          <td></td>
+          <td>GST @18%</td>
+          <td></td>
+          <td></td>
+          <td>{{serviceTax}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>GRAND TOTAL</td>
+          <td></td>
+          <td></td>
+          <td>{{totalWithTax}}</td>
+        </tr>
+      </tbody>
     </table>
     <br>
     <span>Note:All Disputes and Claims will be Settled Within the Jurisdiction of Hyderabad only.</span> &nbsp;
@@ -173,25 +170,5 @@
         </td>
       </tr>
     </table>
-
   </div>
 </div>
-
-<!-- <div *ngIf="isHideOrShowUserVechileService">
-  this is test
-  <div class="modal fade" id="userModel">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        <div class="modal-body">        
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
