@@ -77,14 +77,14 @@ export class ListSalesComponent implements OnInit {
     this.invoiceNo = rowData.invoice_num;
     this.invoiceTotal = rowData.invoice_total;
     if (this.invoiceTotal) {
-      this.vatCalculate = 0;
+      // this.vatCalculate = 0;
       this.serviceTax = 0;
       this.totalWithTax = 0;
-      this.vatCalculate = this.vatCalculate + this.invoiceTotal * (5 / 100)
-      this.vatCalculate = Math.floor(this.vatCalculate)
-      this.serviceTax = this.serviceTax + this.invoiceTotal * (15 / 100)
+      // this.vatCalculate = this.vatCalculate + this.invoiceTotal * (5 / 100)
+      // this.vatCalculate = Math.floor(this.vatCalculate)
+      this.serviceTax = this.serviceTax + this.invoiceTotal * (18 / 100)
       this.serviceTax = Math.floor(this.serviceTax)
-      this.totalWithTax = this.invoiceTotal * 1 + this.vatCalculate * 1 + this.serviceTax * 1;
+      this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;
     }
     this.invoiceDate = rowData.ceraeddate
     this.vehicleNo = rowData.vehicle_no

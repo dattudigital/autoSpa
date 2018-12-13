@@ -87,55 +87,57 @@
     <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
       <thead>
         <tr style="border:2px solid #000;">
-          <th width="25%">S.No</th>
-          <th width="25%">Particular</th>
-          <th width="25%">Qty</th>
-          <th width="25%">Rate Per Unit</th>
-          <th width="25%">Amount</th>
+          <th width="15%">S.No</th>
+          <th width="30%">Particular</th>
+          <th width="20%">Qty</th>
+          <th width="20%">Rate Per Unit</th>
+          <th width="20%">Amount</th>
         </tr>
       </thead>
-      <tr *ngFor="let data of servicesData;let i = index">
-        <td>{{i+1}}</td>
-        <td>{{data.service_name}}</td>
-        <td>{{1}}</td>
-        <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
-        <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
-        <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
-        <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+      <tbody>
+        <tr *ngFor="let data of servicesData;let i = index">
+          <td width="20%">{{i+1}}</td>
+          <td>{{data.service_name}}</td>
+          <td width="20%">{{1}}</td>
+          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
 
-        <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
-        <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
-        <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
-        <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>Total</td>
-        <td>{{invoiceTotal}}</td>
-      </tr>
-      <tr>
+          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>Total</td>
+          <td>{{invoiceTotal}}</td>
+        </tr>
+        <!-- <tr>
         <td></td>
         <td>VAT @5%</td>
         <td></td>
         <td></td>
         <td> {{vatCalculate}}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>SERVICE TAX @15%</td>
-        <td></td>
-        <td></td>
-        <td>{{serviceTax}}</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>GRAND TOTAL</td>
-        <td></td>
-        <td></td>
-        <td>{{totalWithTax}}</td>
-      </tr>
+      </tr> -->
+        <tr>
+          <td></td>
+          <td>GST @18%</td>
+          <td></td>
+          <td></td>
+          <td>{{serviceTax}}</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>GRAND TOTAL</td>
+          <td></td>
+          <td></td>
+          <td>{{totalWithTax}}</td>
+        </tr>
+      </tbody>
     </table>
     <br>
     <span>Note:All Disputes and Claims will be Settled Within the Jurisdiction of Hyderabad only.</span> &nbsp;
