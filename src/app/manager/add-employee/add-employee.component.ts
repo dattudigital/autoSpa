@@ -203,12 +203,14 @@ export class AddEmployeeComponent implements OnInit {
     });
     $('#addEmployee').modal('hide')
   }
+
   deleteEmployee(val, index) {
     this.temp1 = index;
     this.deleteData = val;
     val.index = index;
     this.employee.employeeId = this.deleteData[index].employee_id;
   }
+  
   yesEmployeeDelete() {
     this.employees.splice(this.temp1, 1)
     var data = {
