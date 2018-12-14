@@ -38,4 +38,8 @@ export class VehicleDetailsService {
     return this.http.get(environment.host + 'vehicle-types' + url)
   }
 
+  public getPaymentTypes() {
+    return this.http.get(environment.host + 'payment-types')
+  }
+
 }

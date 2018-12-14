@@ -470,11 +470,7 @@
               <div class="col-sm-5">
                 <select name="state" class="form-control">
                   <option value="" disabled select>Select</option>
-                  <option value="Paytm">Paytm</option>
-                  <option value="Mobikwik ">Mobikwik </option>
-                  <option value="PayUmoney">PayUmoney</option>
-                  <option value="phone">phone pe </option>
-                  <option value="gpay">gpay</option>
+                  <option *ngFor="let data of paymentTypes" [ngValue]="data.payment_type_id">{{data.payment_name}}</option>
                 </select>
               </div>
             </div>

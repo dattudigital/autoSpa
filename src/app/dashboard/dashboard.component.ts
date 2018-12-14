@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
   invoiceNo: any;
   // growl options
   public options = { position: ["top", "right"] }
-
+  //payment mode Details
   public date3: any;
   payment: any = {
     'cashSelect': '',
@@ -107,6 +107,7 @@ export class DashboardComponent implements OnInit {
   disableOther = 'hidden';
 
   cashTotal = 0;
+  paymentTypes: any = []
   constructor(private http: Http, private notif: NotificationsService, private cdr: ChangeDetectorRef, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngAfterViewChecked() {
@@ -134,6 +135,13 @@ export class DashboardComponent implements OnInit {
       // Type: ['', Validators.required],
       // Age: ['', Validators.required]
     });
+    this.vehicledetails.getPaymentTypes().subscribe(res => {
+      if (res.json().status == true) {
+        this.paymentTypes = res.json().result;
+      } else {
+        this.paymentTypes = [];
+      }
+    })
 
     this.loginData = JSON.parse(sessionStorage.getItem('userSession'));
     this.empId = this.loginData._results.employee_id
