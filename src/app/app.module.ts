@@ -29,7 +29,7 @@ import { TimeClockComponent } from './time-clock/time-clock.component';
 import { MessageService } from 'primeng/api';
 import { PriceListComponent } from './manager/price-list/price-list.component';
 import { PackagesComponent } from './manager/packages/packages.component';
-
+import { CalendarModule } from 'primeng/calendar';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 const routes: Routes = [
@@ -82,7 +82,8 @@ const routes: Routes = [
     TypeaheadModule.forRoot(),
     NgxSpinnerModule,
     TableModule,
-    SimpleNotificationsModule.forRoot()
+    SimpleNotificationsModule.forRoot(),
+    CalendarModule
   ],
   providers: [AuthGuard, VehicleServicesPipe, MessageService, SaleUserDetailsPipe],
   bootstrap: [AppComponent]

@@ -80,6 +80,33 @@ export class DashboardComponent implements OnInit {
   invoiceNo: any;
   // growl options
   public options = { position: ["top", "right"] }
+
+  public date3: any;
+  payment: any = {
+    'cashSelect': '',
+    'cashAmount': '',
+    'chequeSelect': '',
+    'chequeAmount': '',
+    'chequeNo': '',
+    'chequeDate': '',
+    'bankName': '',
+    'creditcardSelect': '',
+    'creditcardAmount': '',
+    'creditTransId': '',
+    'accountTranferSelect': '',
+    'accounttranferAmount': '',
+    'accountTranferId': '',
+    'othersSelect': '',
+    'othersAmount': ''
+
+  }
+  disableCash = 'hidden';
+  isDisabled = 'hidden';
+  disableCredit = 'hidden';
+  disableTransfer = 'hidden';
+  disableOther = 'hidden';
+
+  cashTotal = 0;
   constructor(private http: Http, private notif: NotificationsService, private cdr: ChangeDetectorRef, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
 
   ngAfterViewChecked() {
@@ -402,7 +429,70 @@ export class DashboardComponent implements OnInit {
     sessionStorage.removeItem('selectedUserEdit');
     this.router.navigate(['list-sales']);
   }
+  cashChangeEvent() {
+    console.log(this.payment.cashSelect)
+    if (this.payment.cashSelect == false) {
+      this.disableCash = 'hidden';
+      this.payment.cashAmount = null;
+    } else {
+      this.disableCash = 'visible';
+    }
+  }
+  triggerSomeEvent() {
+    if (this.payment.chequeSelect == false) {
+      this.isDisabled = 'hidden';
+      this.payment.chequeAmount = null;
+      this.payment.chequeNo = null;
 
+    } else {
+      this.isDisabled = 'visible';
+    }
+  }
+  tranferEvent() {
+    if (this.payment.accountTranferSelect == false) {
+      this.disableTransfer = 'hidden';
+      this.payment.accountTranferId = null;
+      this.payment.accounttranferAmount = null;
+    } else {
+      this.disableTransfer = 'visible';
+    }
+  }
+  creditCardEvent() {
+    if (this.payment.creditcardSelect == false) {
+      this.disableCredit = 'hidden';
+      this.payment.creditcardAmount = '';
+      this.payment.creditTransId = null;
+    } else {
+      this.disableCredit = 'visible';
+    }
+  }
+  otherEvent() {
+    if (this.payment.othersSelect == false) {
+      this.disableOther = 'hidden';
+      this.payment.othersAmount = null;
+      this.payment.othersSelect = '';
+    } else {
+      this.disableOther = 'visible';
+    }
+  }
+  addTotalAmount() {
+    this.cashTotal = 0;
+    if (this.payment.chequeAmount && this.payment.chequeSelect) {
+      this.cashTotal = this.cashTotal + this.payment.chequeAmount;
+    }
+    if (this.payment.cashAmount && this.payment.cashSelect) {
+      this.cashTotal = this.cashTotal + this.payment.cashAmount
+    }
+    if (this.payment.creditcardAmount && this.payment.creditcardSelect) {
+      this.cashTotal = this.cashTotal + this.payment.creditcardAmount
+    }
+    if (this.payment.accounttranferAmount && this.payment.accountTranferSelect) {
+      this.cashTotal = this.cashTotal + this.payment.accounttranferAmount;
+    }
+    if (this.payment.othersAmount && this.payment.othersSelect) {
+      this.cashTotal = this.cashTotal + this.payment.othersAmount
+    }
+  }
   get f() { return this.salesForm.controls; }
   get v() { return this.vehicleForm.controls; }
 
@@ -518,6 +608,25 @@ export class DashboardComponent implements OnInit {
       }
       this.router.navigate(['list-sales'])
     });
+  }
+  //this method  allow alphabets 
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
+  }
 
+  //This Method  allow Numbers
+  only_allow_number(event) {
+    var n;
+    n = event.charCode
+    return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
+  }
+
+  //this method allow bothe numbers and alphabets
+  allow_numbers_alphabets(event) {
+    var a;
+    a = event.charCode
+    return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
   }
 }

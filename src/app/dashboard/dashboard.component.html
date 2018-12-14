@@ -197,15 +197,15 @@
                 <div class="container">
                   <h3>Vehicle Information</h3>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '0' "  (click)="carUserClick('1')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '0' " (click)="carUserClick('1')">
                     <label style="font-size:16px">Car</label>
                   </div>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '1'"  (click)="bikeUserClick('2')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '1'" (click)="bikeUserClick('2')">
                     <label style="font-size:16px">Bike</label>
                   </div>
                   <div class="col-sm-2">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '2' "  (click)="commercialUserClick('3')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '2' " (click)="commercialUserClick('3')">
                     <label style="font-size:16px">Commercial</label>
                   </div>
 
@@ -349,6 +349,151 @@
           </label>
           <div class="col-sm-5">
             <input type="text" class="form-control" name="price" [(ngModel)]="total" readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="payment-mode">
+  <div class="container">
+    <div class="col-sm-12">
+      <h3>Payment Details</h3>
+    </div>
+    <div class="col-sm-12">
+      <div class="row form-group">
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="cash" [(ngModel)]="payment.cashSelect" (change)="cashChangeEvent();addTotalAmount()" />
+          <label>Cash</label>
+          <div class="tableShow" [style.visibility]="disableCash">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" name="cash" id="cash" (keypress)="only_allow_number($event)" value="" [(ngModel)]="payment.cashAmount"
+                  (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="myTxt" [(ngModel)]="payment.chequeSelect" (change)="triggerSomeEvent();addTotalAmount()" />
+          <label>Cheque</label>
+          <div class="tableShow" [style.visibility]="isDisabled">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" min="0" name="myTxt" id="myTxt" (keypress)="only_allow_number($event)" value=""
+                  [(ngModel)]="payment.chequeAmount" (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+            <div class="row form-group">
+              <span class="col-sm-4  required">Cheque No
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="text" (keypress)="only_allow_number($event)" name="chequeNo" [(ngModel)]="payment.chequeNo">
+              </div>
+            </div>
+            <div class="row form-group">
+              <span class="col-sm-4  required">Bank Name
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="text" (keypress)="allow_numbers_alphabets($event)" name="bank" [(ngModel)]="payment.bankName">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="credit" [(ngModel)]="payment.creditcardSelect" (change)="creditCardEvent();addTotalAmount()" />
+          <label>Credit Card</label>
+          <div class="tableShow" [style.visibility]="disableCredit">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" min="0" name="credit" (keypress)="only_allow_number($event)" id="credit" value=""
+                  [(ngModel)]="payment.creditcardAmount" (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+            <div class="row form-group">
+              <span class="col-sm-4  required">Transaction Id
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="text" name="transactionId" (keypress)="allow_numbers_alphabets($event)" value=""
+                  [(ngModel)]="payment.creditTransId">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row form-group">
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="bank" [(ngModel)]="payment.accountTranferSelect" (change)="tranferEvent();addTotalAmount()" />
+          <label>Account Transfer</label>
+          <div class="tableShow" [style.visibility]="disableTransfer">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" min="0" name="credit" (keypress)="only_allow_number($event)" id="bank" value=""
+                  [(ngModel)]="payment.accounttranferAmount" (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+            <div class="row form-group">
+              <span class="col-sm-4  required">Transaction Id
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="text" name="id" value="" (keypress)="allow_numbers_alphabets($event)" [(ngModel)]="payment.accountTranferId">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="other" [(ngModel)]="payment.othersSelect" (change)="otherEvent();addTotalAmount()" />
+          <label>Other</label>
+          <div class="tableShow" [style.visibility]="disableOther">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Mobile wallet
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <select name="state" class="form-control">
+                  <option value="" disabled select>Select</option>
+                  <option value="Paytm">Paytm</option>
+                  <option value="Mobikwik ">Mobikwik </option>
+                  <option value="PayUmoney">PayUmoney</option>
+                  <option value="phone">phone pe </option>
+                  <option value="gpay">gpay</option>
+                </select>
+              </div>
+            </div>
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" min="0" (keypress)="only_allow_number($event)" name="other" id="other" value=""
+                  [(ngModel)]="payment.othersAmount" (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="input-group">
+            <input type="number" min="0" name="total" maxlength="50" class="form-control" [(ngModel)]="cashTotal"
+              readonly>
+            <span>Total</span>
           </div>
         </div>
       </div>
