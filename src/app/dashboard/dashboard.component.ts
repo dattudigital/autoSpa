@@ -8,6 +8,7 @@ import { VehicleServicesPipe } from './../pipe/vehicle-services.pipe'
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificationsService } from 'angular2-notifications';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -75,20 +76,21 @@ export class DashboardComponent implements OnInit {
   saleUserId: any;
   saleInfoId: any;
   saleServiceId: any;
+  salePaymentId: any;
   makeFor = '1';
   typeFor = '1'
   invoiceNo: any;
   // growl options
   public options = { position: ["top", "right"] }
   //payment mode Details
-  public date3: any;
+  public date2: any;
   payment: any = {
     'cashSelect': '',
     'cashAmount': '',
     'chequeSelect': '',
     'chequeAmount': '',
     'chequeNo': '',
-    'chequeDate': '',
+    'chequeDate': null,
     'bankName': '',
     'creditcardSelect': '',
     'creditcardAmount': '',
@@ -97,8 +99,8 @@ export class DashboardComponent implements OnInit {
     'accounttranferAmount': '',
     'accountTranferId': '',
     'othersSelect': '',
+    'mobileWallet': '',
     'othersAmount': ''
-
   }
   disableCash = 'hidden';
   isDisabled = 'hidden';
@@ -339,6 +341,7 @@ export class DashboardComponent implements OnInit {
       this.saleServiceId = null;
       this.serviceId = '';
       this.saleInfoId = null;
+      this.salePaymentId = null;
       this.selectedServices = [];
     }
     this.submitted = false;
@@ -348,6 +351,11 @@ export class DashboardComponent implements OnInit {
     this.clearUserdata(1);
     this.total = 0;
   }
+  getChequedate() {
+    let newDate = moment(this.payment.chequeDate).format('YYYY-MM-DD').toString();
+    this.payment.chequeDate = newDate;
+  }
+
 
   newUserClick() {
     this.clearUserdata(0);
@@ -550,6 +558,33 @@ export class DashboardComponent implements OnInit {
       this.invoiceNo = Math.floor(Math.random() * 899999 + 100000)
 
     }
+    if (this.payment.chequeSelect == true) {
+      this.payment.chequeSelect = '1'
+    } else {
+      this.payment.chequeSelect = '0'
+    }
+
+    if (this.payment.cashSelect == true) {
+      this.payment.cashSelect = '1'
+    } else {
+      this.payment.cashSelect = '0'
+    }
+    if (this.payment.creditcardSelect == true) {
+      this.payment.creditcardSelect = '1'
+    } else {
+      this.payment.creditcardSelect = '0'
+    }
+    if (this.payment.accountSelect == true) {
+      this.payment.accountSelect = '1'
+    } else {
+      this.payment.accountSelect = '0'
+    }
+
+    if (this.payment.othersSelect == true) {
+      this.payment.otherSelect = '1'
+    } else {
+      this.payment.otherSelect = '0'
+    }
 
     this.data = {
       user: {
@@ -580,9 +615,28 @@ export class DashboardComponent implements OnInit {
       vechileServices: {
         sale_user_service_id: this.saleServiceId,
         services: this.serviceId
+      },
+
+      payment: {
+        sale_user_vechile_payment_id: this.salePaymentId,
+        cheque: this.payment.chequeSelect,
+        cheque_no: this.payment.chequeNo,
+        cheque_date: this.payment.chequeDate,
+        cheque_amt: this.payment.chequeAmount,
+        cheque_bank: this.payment.bankName,
+        cash: this.payment.cashSelect,
+        cash_amount: this.payment.cashAmount,
+        credit_card: this.payment.creditcardSelect,
+        credit_card_tranactionid: this.payment.creditTransId,
+        credit_card_amt: this.payment.creditcardAmount,
+        account_transfer: this.payment.accountSelect,
+        account_trasaction_id: this.payment.accountTranferId,
+        account_transfer_amt: this.payment.accounttranferAmount,
+        other: this.payment.otherSelect,
+        others_type: this.payment.mobileWallet,
+        others_amt: this.payment.othersAmount,
       }
     }
-
     console.log("******************")
     console.log(this.data)
     this.spinner.show();

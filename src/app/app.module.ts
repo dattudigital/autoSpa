@@ -31,6 +31,8 @@ import { PriceListComponent } from './manager/price-list/price-list.component';
 import { PackagesComponent } from './manager/packages/packages.component';
 import { CalendarModule } from 'primeng/calendar';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { ReportsComponent } from './reports/reports.component';
+import { ViewSalesComponent } from './reports/view-sales/view-sales.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -47,6 +49,8 @@ const routes: Routes = [
   { path: 'manager/packages', component: PackagesComponent, canActivate: [AuthGuard] },
   { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
   { path: 'setup/branch', component: BranchComponent, canActivate: [AuthGuard] },
+  { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
+  { path: 'reports/view-sales', component: ViewSalesComponent, canActivate: [AuthGuard] },
 ]
 
 @NgModule({
@@ -68,6 +72,8 @@ const routes: Routes = [
     TimeClockComponent,
     PriceListComponent,
     PackagesComponent,
+    ReportsComponent,
+    ViewSalesComponent,
 
   ],
   imports: [

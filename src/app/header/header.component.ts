@@ -85,7 +85,7 @@ export class HeaderComponent implements OnInit {
 
   }
   ngOnInit() {
-    
+
   }
   removeActiveClass() {
     this.password = "";
@@ -116,6 +116,9 @@ export class HeaderComponent implements OnInit {
     $("#__reports").click(function () {
       $("#__reports").addClass("active");
     });
+    $('#myModal').modal('show');
+    this.redirect = "reports";
+    this.loginSubmite();
   }
 
   redirectToTimeClocks() {
@@ -166,6 +169,7 @@ export class HeaderComponent implements OnInit {
 
   redirectToSetup() {
     this.removeActiveClass();
+    this.router.navigate(['setup'])
     $("#__setup").click(function () {
       $("#__setup").addClass("active");
     });

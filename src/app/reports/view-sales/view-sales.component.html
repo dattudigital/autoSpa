@@ -1,0 +1,53 @@
+<div class="list-sale">
+  <div style="padding-right: 30px;
+    padding-left: 30px;">
+    <div class="row">
+      <div class="container">
+        <span (click)="xlDownload();" class="printOptions" title="Export to Excel">
+          <i class="far fa-file-excel"></i>
+        </span>
+
+        <span (click)="pdfDownload()" class="printOptions" title="Export to PDF">
+          <i class="fas fa-file-pdf"></i>
+        </span>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <table>
+        <tr>
+          <th>User Name</th>
+          <th>Email </th>
+          <th>Mobile No.</th>
+          <th>Address</th>
+          <th>Profession </th>
+          <th>Source Name</th>
+          <th>Service Name </th>
+          <th>Business Name</th>
+          <th>Age </th>
+          <th>Vehicle Type </th>
+          <th>Vehicle Make </th>
+          <th>Vehicle Category</th>
+          <th>Invoice No.</th>
+          <th>Bill Amount</th>
+        </tr>
+        <tr *ngFor="let userDetailsData of userDetailsData;let i = index">
+          <td>{{userDetailsData.firstname}}</td>
+          <td>{{userDetailsData.email_id}}</td>
+          <td>{{userDetailsData.mobile}}</td>
+          <td>{{userDetailsData.address}}</td>
+          <td>{{userDetailsData.profession}}</td>
+          <td>{{userDetailsData.source_name}}</td>
+          <td>{{userDetailsData.service_name}}</td>
+          <td>{{userDetailsData.business_name}}</td>
+          <td>{{userDetailsData.age_name}}</td>
+          <td>{{userDetailsData.type_name}}</td>
+          <td>{{userDetailsData.make_name}}</td>
+          <td>{{userDetailsData.vehicl_name}}</td>
+          <td>{{userDetailsData.invoice_num}}</td>
+          <td>{{userDetailsData.invoice_total}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

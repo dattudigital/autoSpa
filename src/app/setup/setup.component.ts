@@ -7,28 +7,31 @@ import { Router } from '@angular/router'
 })
 export class SetupComponent implements OnInit {
 
+  setupStyle = 'hidden'
+
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.setupStyle = "visible";
   }
 
   redirectToBranch() {
     this.router.navigate(['setup/branch']);
   }
 
-  redirectToVehicleColor(){
-    
+  redirectToVehicleColor() {
+
   }
 
-  redirectToVehicleModel(){
-    
+  redirectToVehicleModel() {
+
   }
 
-  redirectToVehicleMake(){
-    
+  redirectToVehicleMake() {
+
   }
 
-  redirectToPriceList(){
-    
+  redirectToPriceList() {
+
   }
 }

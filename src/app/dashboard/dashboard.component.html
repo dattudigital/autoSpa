@@ -399,6 +399,16 @@
               </div>
             </div>
             <div class="row form-group">
+              <span class="col-sm-4  required">Cheque Date :
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+
+                <p-calendar [(ngModel)]="date2" name="chequedate" [monthNavigator]="true" [yearNavigator]="true"
+                  yearRange="1940:2030" [(ngModel)]="payment.chequeDate" dateFormat="dd-mm-yy" (ngModelChange)=" getChequedate($event)"></p-calendar>
+              </div>
+            </div>
+            <div class="row form-group">
               <span class="col-sm-4  required">Bank Name
                 <span style="color:red">*</span>
               </span>
@@ -467,8 +477,8 @@
               <span class="col-sm-4  required">Mobile wallet
                 <span style="color:red">*</span>
               </span>
-              <div class="col-sm-5">
-                <select name="state" class="form-control">
+              <div class="col-sm-6">
+                <select name="state" class="form-control" [(ngModel)]="payment.mobileWallet">
                   <option value="" disabled select>Select</option>
                   <option *ngFor="let data of paymentTypes" [ngValue]="data.payment_type_id">{{data.payment_name}}</option>
                 </select>
