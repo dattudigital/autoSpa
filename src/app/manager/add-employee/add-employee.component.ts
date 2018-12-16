@@ -135,6 +135,18 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   addEmployee() {
+    console.log("check")
+    console.log(this.employee.branch.branch_name)
+    // this.employees.push( {"employee_id": 2,
+    //   "emp_type_id": 1,
+    //   "employee_firstname": "dathu",
+    //   "employee_lastname": "dathu",
+    //   "employee_branch_id":1,
+    //   "employee_address": "Hyderabad",
+    //   "email_id": "car@gmail.com",
+    //   "phone": "9876543210",
+    //   "rec_status": "1",
+    //   "branch_name": "ammerpet"});
     this.submitted = true;
     if (this.employeeForm.invalid) {
       return;
@@ -142,7 +154,7 @@ export class AddEmployeeComponent implements OnInit {
     var data = {
       employee_firstname: this.employee.firstName,
       employee_lastname: this.employee.lastName,
-      employee_branch_id: this.employee.branch,
+      employee_branch_id: this.employee.branch.branch_id,
       employee_address: this.employee.address,
       employee_pincode: this.employee.pincode,
       email_id: this.employee.emailId,
@@ -151,11 +163,18 @@ export class AddEmployeeComponent implements OnInit {
       password: this.employee.password,
       rec_status: 1
     }
+    console.log(data)
+
     this.service.addNewEmployee(data).subscribe(res => {
-      console.log(res.json());
-      this.employees.push(res.json().result);
-      console.log(this.employees);
-      $('#addEmployee').modal('hide');
+      let emp: object;
+      if (res.json().status == true) {
+        emp = res.json().result;
+        emp["branch_name"] = this.employee.branch.branch_name;
+        this.employees.push(emp);
+        this.employees = this.employees.slice();
+        $('#addEmployee').modal('hide');
+        console.log(this.employees);
+      }
     });
   }
   editEmployee(data, index) {
@@ -210,9 +229,10 @@ export class AddEmployeeComponent implements OnInit {
     val.index = index;
     this.employee.employeeId = this.deleteData[index].employee_id;
   }
-  
+
   yesEmployeeDelete() {
-    this.employees.splice(this.temp1, 1)
+    this.employees.splice(this.temp1, 1);
+    this.employees = this.employees.slice();
     var data = {
       employee_id: this.employee.employeeId,
       rec_status: "0"

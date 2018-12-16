@@ -21,7 +21,7 @@
   </div>
 
 
-  <p-table #dt [columns]="cols" [value]="employees" [paginator]="true" [rows]="4">
+  <p-table #dt [columns]="cols" [value]="employees" [paginator]="true" [rows]="4"   [rowsPerPageOptions]='[4,8,12]' >
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -149,7 +149,7 @@
             </label>
             <div class="col-md-6">
               <select class="form-control" formControlName="employeeBranch" [(ngModel)]="employee.branch" [ngClass]="{ 'is-invalid': submitted && f.employeeBranch.errors }">
-                <option *ngFor="let data of this.branches" [ngValue]=" data.branch_id ">{{data.branch_name}}</option>
+                <option *ngFor="let data of this.branches" [ngValue]=" data ">{{data.branch_name}}</option>
               </select>
               <div *ngIf="submitted && f.employeeBranch.errors" class="invalid-feedback">
                 <div *ngIf="f.employeeBranch.errors.required" style="color:red">Employee Branch Plz</div>
