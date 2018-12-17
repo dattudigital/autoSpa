@@ -14,7 +14,6 @@
       </div>
       <div class="col-sm-2">
         <button type="button" class="btn btn-success" (click)="removeFields()" data-toggle="modal" data-target="#addEmployee">ADD
-          NEW
         </button>
       </div>
     </div>&nbsp;
@@ -63,7 +62,12 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <h3 class="modal-title" id="myModalLabel">Add New Employee</h3>
+          <span [style.visibility]="addEnableorDisable">
+            <h3 class="modal-title" id="myModalLabel">Add Employee</h3>
+          </span>
+          <span [style.visibility]="updateEnableorDisable">
+            <h3 class="modal-title" id="myModalLabel">Edit Employee</h3>
+          </span>
         </div>
         <div class="modal-body">
           <br>

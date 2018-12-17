@@ -173,7 +173,9 @@ export class AddEmployeeComponent implements OnInit {
   editEmployee(data, index) {
     this.addEnableorDisable = 'hidden';
     this.updateEnableorDisable = 'visible';
+    console.log(index)
     this.temp = index
+    
     this.employee.employeeId = data[index].employee_id,
       this.employee.firstName = data[index].employee_firstname,
       this.employee.lastName = data[index].employee_lastname,
@@ -211,11 +213,13 @@ export class AddEmployeeComponent implements OnInit {
       this.employees[this.temp].phone = data.phone;
       this.employees[this.temp].emp_type_id = data.emp_type_id
       this.employees[this.temp].rec_status = data.rec_status;
-      this.temp = " ";
       if (data.rec_status == '0') {
+        console.log(this.temp)
         this.employees.splice(this.temp, 1);
         this.employees = this.employees.slice();
       }
+      this.temp = " ";
+     
     });
     $('#addEmployee').modal('hide')
   }
