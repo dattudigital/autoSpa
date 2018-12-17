@@ -19,14 +19,8 @@ export class FooterComponent implements OnInit {
   }
 
   logOutClick() {
-    window.sessionStorage.removeItem('userSession');
-    sessionStorage.removeItem('setup');
-    sessionStorage.removeItem('selectedUserEdit');
-    sessionStorage.removeItem('inventory');
-    sessionStorage.removeItem('manager');
     window.sessionStorage.clear()
     this.router.navigate(['login'])
-
   }
 
 }
