@@ -62,10 +62,10 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
-          <span [style.visibility]="addEnableorDisable">
+          <span *ngIf="!this.employee.employeeId">
             <h3 class="modal-title" id="myModalLabel">Add Employee</h3>
           </span>
-          <span [style.visibility]="updateEnableorDisable">
+          <span *ngIf="this.employee.employeeId">
             <h3 class="modal-title" id="myModalLabel">Edit Employee</h3>
           </span>
         </div>
@@ -206,7 +206,7 @@
             </div>
             <div class="clear"></div>
           </div>
-          <div [style.visibility]="updateEnableorDisable">
+          <div *ngIf="this.employee.employeeId">
             <div class="form-group">
               <div class="col-md-1"></div>
               <label for="input" class="col-md-3 control-label">Status
@@ -226,10 +226,10 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
           &nbsp;&nbsp;
-          <span [style.visibility]="addEnableorDisable">
+          <span *ngIf="!this.employee.employeeId">
             <button type="button" class="btn btn-primary" (click)="addEmployee()">ADD</button>
           </span>
-          <span [style.visibility]="updateEnableorDisable">
+          <span *ngIf="this.employee.employeeId">
             <button type="button" class="btn btn-primary" (click)="updateEmployeeDetails()">Update</button>
           </span>
         </div>

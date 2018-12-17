@@ -35,8 +35,6 @@ export class AddEmployeeComponent implements OnInit {
   branches: any[];
   temp: any;
   temp1: any;
-  addEnableorDisable = 'visible';
-  updateEnableorDisable = 'visible'
 
   constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService, private service: ManagerService, private excelService: ExcelServiceService) { }
 
@@ -96,9 +94,8 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   removeFields() {
-    this.updateEnableorDisable = 'hidden';
-    this.addEnableorDisable = 'visible';
     this.submitted = false;
+    this.employee.employeeId = '';
     this.employee.firstName = '';
     this.employee.lastName = '';
     this.employee.emailId = '';
@@ -171,11 +168,7 @@ export class AddEmployeeComponent implements OnInit {
   }
 
   editEmployee(data, index) {
-    this.addEnableorDisable = 'hidden';
-    this.updateEnableorDisable = 'visible';
-    console.log(index)
     this.temp = index
-    
     this.employee.employeeId = data[index].employee_id,
       this.employee.firstName = data[index].employee_firstname,
       this.employee.lastName = data[index].employee_lastname,
@@ -219,7 +212,7 @@ export class AddEmployeeComponent implements OnInit {
         this.employees = this.employees.slice();
       }
       this.temp = " ";
-     
+
     });
     $('#addEmployee').modal('hide')
   }
