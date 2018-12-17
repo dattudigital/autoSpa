@@ -12,8 +12,8 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
 
-
   }
+
   newSaleClick() {
     this.router.navigate(['dashboard']);
   }

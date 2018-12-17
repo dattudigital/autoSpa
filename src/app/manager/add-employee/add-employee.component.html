@@ -20,8 +20,7 @@
     </div>&nbsp;
   </div>
 
-
-  <p-table #dt [columns]="cols" [value]="employees" [paginator]="true" [rows]="4"   [rowsPerPageOptions]='[4,8,12]' >
+  <p-table #dt [columns]="cols" [value]="employees" [paginator]="true" [rows]="4" [rowsPerPageOptions]='[4,8,12]'>
     <ng-template pTemplate="caption">
       <div style="text-align: right">
         <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
@@ -40,7 +39,6 @@
         <th>Delete</th>
       </tr>
     </ng-template>
-
     <ng-template pTemplate="body" let-i="rowIndex" let-employee>
       <tr>
         <td *ngFor="let col of cols">
@@ -75,8 +73,8 @@
               <a style="color:red">*</a>
             </label>
             <div class="col-md-6">
-              <input type="text" formControlName="employeeFirstName" class="form-control" placeholder="Enter First Name"
-                [(ngModel)]="employee.firstName" [ngClass]="{ 'is-invalid': submitted && f.employeeFirstName.errors }"
+              <input type="text" formControlName="employeeFirstName" (keypress)="omit_special_char($event)" class="form-control"
+                placeholder="Enter First Name" [(ngModel)]="employee.firstName" [ngClass]="{ 'is-invalid': submitted && f.employeeFirstName.errors }"
                 maxlength="50">
               <div *ngIf="submitted && f.employeeFirstName.errors" class="invalid-feedback">
                 <div *ngIf="f.employeeFirstName.errors.required" style="color:red">First Name is required</div>
@@ -204,6 +202,22 @@
             </div>
             <div class="clear"></div>
           </div>
+          <div [style.visibility]="updateEnableorDisable">
+            <div class="form-group">
+              <div class="col-md-1"></div>
+              <label for="input" class="col-md-3 control-label">Status
+                <a style="color:red">*</a>
+              </label>
+              <div class="col-md-6">
+                <select class="form-control" name="vehicletype1" [(ngModel)]="employee.status" [(ngModel)]="showMoreControls"
+                  [ngModelOptions]="{standalone: true}">
+                  <option value="1">Active</option>
+                  <option value="0">Inactive</option>
+                </select>
+              </div>
+              <div class="clear"></div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal" (click)="removeFields()">Cancel</button>
@@ -225,13 +239,11 @@
     <span (click)="xlDownload();" class="printOptions" title="Export to Excel">
       <i class="far fa-file-excel"></i>
     </span>
-
     <span (click)="pdfDownload()" class="printOptions" title="Export to PDF">
       <i class="fas fa-file-pdf"></i>
     </span>
   </div>
 </div>
-
 
 <div class="modal fade" id="deleteEmployee" tabindex="-1" data-backdrop="static" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">

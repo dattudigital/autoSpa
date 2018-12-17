@@ -39,11 +39,10 @@ export class ListSalesComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.userListService.getUserDetails().subscribe(res => {
+      this.spinner.hide();
       if (res.json().status == true) {
         this.userDetailsDatas = this.saleUserPipe.transform(res.json().result);
-        this.spinner.hide();
       } else {
-        this.spinner.hide();
         this.userDetailsDatas = [];
       }
     });
@@ -58,7 +57,6 @@ export class ListSalesComponent implements OnInit {
     sessionStorage.setItem('selectedUserEdit', JSON.stringify(val));
     this.router.navigate(['dashboard']);
   }
-
 
   mouseEnterOnPrint(rowData, index) {
     this.http.get(environment.host + 'branches/' + rowData.branchid).subscribe(res => {
@@ -77,11 +75,8 @@ export class ListSalesComponent implements OnInit {
     this.invoiceNo = rowData.invoice_num;
     this.invoiceTotal = rowData.invoice_total;
     if (this.invoiceTotal) {
-      // this.vatCalculate = 0;
       this.serviceTax = 0;
       this.totalWithTax = 0;
-      // this.vatCalculate = this.vatCalculate + this.invoiceTotal * (5 / 100)
-      // this.vatCalculate = Math.floor(this.vatCalculate)
       this.serviceTax = this.serviceTax + this.invoiceTotal * (18 / 100)
       this.serviceTax = Math.floor(this.serviceTax)
       this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;

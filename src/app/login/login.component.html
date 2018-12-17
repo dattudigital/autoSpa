@@ -9,7 +9,7 @@
                 <label>Employee Id</label>
               </div>
               <div class="col-md-8 col-sm-6 login_form-right">
-                <input type="text" class="form-control" [(ngModel)]="mailId"  name="some" placeholder="Employee Id">
+                <input type="text" class="form-control" [(ngModel)]="mailId" name="some" placeholder="Employee Id">
               </div>
               <div class="clear"></div>
             </div>
@@ -21,8 +21,8 @@
                 <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Employee Password">
               </div>
               <div class="form-group">
-                  <label *ngIf="errorMessage" class="alertRed">Invalid Credentials</label>
-                </div>
+                <label *ngIf="errorMessage" class="alertRed">Invalid Credentials</label>
+              </div>
               <div class="clear"></div>
             </div>
             <div class="login_form-submit">

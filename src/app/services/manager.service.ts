@@ -12,7 +12,7 @@ export class ManagerService {
     return this.http.get(environment.host + 'emp-types')
   }
 
-  public addNewEmployee(data: any) {
+  public addOrUpdateEmployee(data: any) {
     return this.http.post(environment.host + 'employees', data)
   }
 

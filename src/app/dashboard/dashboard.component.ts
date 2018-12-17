@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { SelectItem } from 'primeng/components/common/selectitem';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 import { Http } from '@angular/http';
 import { VehicleDetailsService } from '../services/vehicle-details.service';
@@ -30,13 +29,10 @@ export class DashboardComponent implements OnInit {
   carUser = true;
   bikeUser = false;
   commercialUser = false;
-
   // for typeahead
   selectedValue: string;
   selectedOption: any = '';
-
   //multiselect
-  // carssss: SelectItem[];
   serviceTableValue: any = [];
   selectedServices: string[] = [];
   //personalinfo
@@ -49,7 +45,6 @@ export class DashboardComponent implements OnInit {
   serviceType: '';
   sourceCustomer: '';
   businessType: '';
-
   // vechile info
   selectedVechile: any = 0;
   selectedVechileNo: string;
@@ -69,7 +64,6 @@ export class DashboardComponent implements OnInit {
   loginData: any;
   empId: '';
   branchId: '';
-
   userInfo: any = [];
   data: object;
   deleteServiceIndex: any;
@@ -133,10 +127,8 @@ export class DashboardComponent implements OnInit {
     this.vehicleForm = this.formBuilder.group({
       Number: ['', Validators.required],
       Make: ['', Validators.required]
-      // Size: ['', Validators.required]
-      // Type: ['', Validators.required],
-      // Age: ['', Validators.required]
     });
+
     this.vehicledetails.getPaymentTypes().subscribe(res => {
       if (res.json().status == true) {
         this.paymentTypes = res.json().result;
@@ -180,7 +172,6 @@ export class DashboardComponent implements OnInit {
         this.vehicleServices = [];
       }
     });
-
     this.checkUserEditSession();
   }
 
@@ -196,7 +187,6 @@ export class DashboardComponent implements OnInit {
       this.sourceCustomer = this.selectedUserEditSession.source_customer;
       this.serviceType = this.selectedUserEditSession.service_type;
       this.businessType = this.selectedUserEditSession.business_type;
-
       this.selectedVechile = this.selectedUserEditSession.vehicle_type;
       if (this.selectedVechile == '0') {
         this.carUserClick('1');
@@ -211,7 +201,6 @@ export class DashboardComponent implements OnInit {
       this.selectedVechileType = this.selectedUserEditSession.vehicle_type_id;
       this.selectedVechileAge = this.selectedUserEditSession.vehicle_age_id;
       this.serviceId = this.selectedUserEditSession.services;
-
       this.saleUserId = this.selectedUserEditSession.sale_user_id;
       this.saleInfoId = this.selectedUserEditSession.sale_vehicle_info_id;
       this.saleServiceId = this.selectedUserEditSession.sale_user_service_id;
@@ -219,15 +208,14 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  getServiceInvoiceCost(val) {
-    let sum = 0;
-    for (let i = 0; i < val.length; i++) {
-      // this.serviceId = this.serviceId + val[i].service_id + " , ";      
-    }
-  }
+  // getServiceInvoiceCost(val) {
+  //   let sum = 0;
+  //   for (let i = 0; i < val.length; i++) {
+  //    this.serviceId = this.serviceId + val[i].service_id + " , ";      
+  //   }
+  // }
 
   totalServicePrice() {
-
     this.total = 0;
     for (let i = 0; i < this.selectedServices.length; i++) {
       if (this.selectedVechileSize == 's') {
@@ -244,9 +232,8 @@ export class DashboardComponent implements OnInit {
       }
     }
   }
+
   onChangeServices(val) {
-    console.log(this.selectedVechileSize)
-    console.log(!this.selectedVechileSize)
     if (!this.selectedVechileSize) {
       this.notif.warn(
         'Warning',
@@ -260,10 +247,9 @@ export class DashboardComponent implements OnInit {
         }
       )
     }
-    // this.serviceTableValue = val;
-    this.getServiceInvoiceCost(this.selectedServices);
     this.getServiceId(this.selectedServices);
   }
+
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
     this.firstName = this.selectedOption.firstname
@@ -274,7 +260,6 @@ export class DashboardComponent implements OnInit {
     this.sourceCustomer = this.selectedOption.source_customer
     this.serviceType = this.selectedOption.service_type
     this.businessType = this.selectedOption.business_type
-
   }
 
   userSearch(val) {
@@ -294,10 +279,6 @@ export class DashboardComponent implements OnInit {
       this.noResult = false;
       this.userInfo = [];
     }
-  }
-
-  searchUser() {
-
   }
 
   deleteService(index) {
@@ -356,7 +337,6 @@ export class DashboardComponent implements OnInit {
     this.payment.chequeDate = newDate;
   }
 
-
   newUserClick() {
     this.clearUserdata(0);
     this.newUser = true;
@@ -385,6 +365,7 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
   typeDetails(val) {
     this.typeFor = val;
     if (this.typeFor) {
@@ -399,6 +380,7 @@ export class DashboardComponent implements OnInit {
       });
     }
   }
+
   carUserClick(val) {
     this.selectedVechileSize = undefined;
     this.selectedVechileAge = undefined;
@@ -445,6 +427,7 @@ export class DashboardComponent implements OnInit {
     sessionStorage.removeItem('selectedUserEdit');
     this.router.navigate(['list-sales']);
   }
+
   cashChangeEvent() {
     console.log(this.payment.cashSelect)
     if (this.payment.cashSelect == false) {
@@ -454,6 +437,7 @@ export class DashboardComponent implements OnInit {
       this.disableCash = 'visible';
     }
   }
+
   triggerSomeEvent() {
     if (this.payment.chequeSelect == false) {
       this.isDisabled = 'hidden';
@@ -464,6 +448,7 @@ export class DashboardComponent implements OnInit {
       this.isDisabled = 'visible';
     }
   }
+
   tranferEvent() {
     if (this.payment.accountTranferSelect == false) {
       this.disableTransfer = 'hidden';
@@ -473,6 +458,7 @@ export class DashboardComponent implements OnInit {
       this.disableTransfer = 'visible';
     }
   }
+
   creditCardEvent() {
     if (this.payment.creditcardSelect == false) {
       this.disableCredit = 'hidden';
@@ -482,6 +468,7 @@ export class DashboardComponent implements OnInit {
       this.disableCredit = 'visible';
     }
   }
+
   otherEvent() {
     if (this.payment.othersSelect == false) {
       this.disableOther = 'hidden';
@@ -491,6 +478,7 @@ export class DashboardComponent implements OnInit {
       this.disableOther = 'visible';
     }
   }
+
   addTotalAmount() {
     this.cashTotal = 0;
     if (this.payment.chequeAmount && this.payment.chequeSelect) {
@@ -509,6 +497,7 @@ export class DashboardComponent implements OnInit {
       this.cashTotal = this.cashTotal + this.payment.othersAmount
     }
   }
+
   get f() { return this.salesForm.controls; }
   get v() { return this.vehicleForm.controls; }
 
@@ -551,12 +540,10 @@ export class DashboardComponent implements OnInit {
       return;
     }
 
-
     if (this.selectedUserEditSession) {
       this.invoiceNo = this.selectedUserEditSession.invoice_num
     } else {
       this.invoiceNo = Math.floor(Math.random() * 899999 + 100000)
-
     }
     if (this.payment.chequeSelect == true) {
       this.payment.chequeSelect = '1'
@@ -671,6 +658,7 @@ export class DashboardComponent implements OnInit {
       this.router.navigate(['list-sales'])
     });
   }
+
   //this method  allow alphabets 
   omit_special_char(event) {
     var k;
