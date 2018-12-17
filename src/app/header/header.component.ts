@@ -4,20 +4,18 @@ import { LoginService } from '../services/login.service'
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var $: any;
 
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
 
+export class HeaderComponent implements OnInit {
   typeData: any[];
   makeData: any[];
   modelData: any[];
   colorData: any[];
   redirect: any;
-
   password = "";
   mailId = "";
   titleStyle = "hidden";
@@ -75,18 +73,19 @@ export class HeaderComponent implements OnInit {
         $("#__inventory").addClass("active");
       });
     }
+
     if (this.router.url == '/setup') {
       this.removeActiveClass();
       $(document).ready(function () {
         $("#__setup").addClass("active");
       });
     }
-
-
   }
+
   ngOnInit() {
 
   }
+
   removeActiveClass() {
     this.password = "";
     this.mailId = "";

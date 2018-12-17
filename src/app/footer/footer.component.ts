@@ -12,8 +12,8 @@ export class FooterComponent implements OnInit {
 
   ngOnInit() {
 
-
   }
+
   newSaleClick() {
     this.router.navigate(['dashboard']);
   }
@@ -26,7 +26,6 @@ export class FooterComponent implements OnInit {
     sessionStorage.removeItem('manager');
     window.sessionStorage.clear()
     this.router.navigate(['login'])
-
   }
 
 }
