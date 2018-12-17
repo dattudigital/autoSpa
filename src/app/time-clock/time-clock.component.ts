@@ -193,6 +193,7 @@ export class TimeClockComponent implements OnInit {
     this.disable_time_in = true;
     this.disable_break_out = false;
     this.disable_time_out = false;
+
     this.buttonColorTimeIn = '#345465';
     this.buttonColorTimeOut = '#e4e9ef';
     this.buttonColorBreakIn = '#345465';
@@ -239,6 +240,7 @@ export class TimeClockComponent implements OnInit {
     var dt8 = new Date(BreakIn4);
     let difference4 = dt8.getTime() - dt7.getTime();
     let resultInMinutes4 = Math.round(difference4 / 60000);
+
     var timeDiffTotal = resultInMinutes1 + resultInMinutes2 + resultInMinutes3 + resultInMinutes4;
     let TimeIn = this.getFormattedDate(this.data.check_in_time);
     let TimeOut = this.getFormattedDate(this.data.check_out_time);
@@ -268,6 +270,16 @@ export class TimeClockComponent implements OnInit {
     return str;
   }
 
+  commonBreakOutCode(){
+    this.service.saveInandOutTime(this.data).subscribe(response => {
+    });
+    this.disable_break_out = true;
+    this.disable_break_in = false;
+
+    this.buttonColorBreakIn = '#e4e9ef';
+    this.buttonColorBreakOut = '#345465';
+  }
+
   breakOutTime() {
     console.log('#######')
     console.log(this.data)
@@ -275,98 +287,58 @@ export class TimeClockComponent implements OnInit {
     if (this.data.break_out1 === null) {
       this.data.break_out1 = Date.now();
       console.log(this.data.break_out1);
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = true;
-      this.disable_break_in = false;
-
-      this.buttonColorBreakIn = '#e4e9ef';
-      this.buttonColorBreakOut = '#345465';
+      this.commonBreakOutCode();
       return true;
     }
     if (this.data.break_out2 === null) {
       this.data.break_out2 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = true;
-      this.disable_break_in = false;
-
-      this.buttonColorBreakIn = '#e4e9ef';
-      this.buttonColorBreakOut = '#345465';
+      this.commonBreakOutCode();
       return true;
     }
     if (this.data.break_out3 === null) {
       this.data.break_out3 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = true;
-      this.disable_break_in = false;
-
-      this.buttonColorBreakIn = '#e4e9ef';
-      this.buttonColorBreakOut = '#345465';
+      this.commonBreakOutCode();
       return true;
     }
     if (this.data.break_out4 === null) {
       this.data.break_out4 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = true;
-      this.disable_break_in = false;
-
-      this.buttonColorBreakIn = '#e4e9ef';
-      this.buttonColorBreakOut = '#345465';
+      this.commonBreakOutCode();
       return true;
     }
+  }
+
+  commonBreakInCode() {
+    this.service.saveInandOutTime(this.data).subscribe(response => {
+    });
+    this.disable_break_out = false;
+    this.disable_break_in = true;
+
+    this.buttonColorBreakIn = '#345465';
+    this.buttonColorBreakOut = '#e4e9ef';
   }
 
   breakInTime() {
     console.log(this.data)
     if (this.data.break_in1 === null) {
       this.data.break_in1 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = false;
-      this.disable_break_in = true;
-
-      this.buttonColorBreakIn = '#345465';
-      this.buttonColorBreakOut = '#e4e9ef';
+      this.commonBreakInCode()
       return true;
     }
     if (this.data.break_in2 === null) {
       this.data.break_in2 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = false;
-      this.disable_break_in = true;
-
-      this.buttonColorBreakIn = '#345465';
-      this.buttonColorBreakOut = '#e4e9ef';
+      this.commonBreakInCode()
       return true;
     }
     if (this.data.break_in3 === null) {
       this.data.break_in3 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = false;
-      this.disable_break_in = true;
-
-      this.buttonColorBreakIn = '#345465';
-      this.buttonColorBreakOut = '#e4e9ef';
+      this.commonBreakInCode()
       return true;
     }
     if (this.data.break_in4 === null) {
       this.data.break_in4 = Date.now();
-      this.service.saveInandOutTime(this.data).subscribe(response => {
-      });
-      this.disable_break_out = false;
-      this.disable_break_in = true;
-
-      this.buttonColorBreakIn = '#345465';
-      this.buttonColorBreakOut = '#e4e9ef';
+      this.commonBreakInCode()
       return true;
     }
   }
-
-
 
 }
