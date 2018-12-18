@@ -31,10 +31,8 @@ export class ServicesComponent implements OnInit {
     'status': ''
   }
   cols: any[];
-  editData: any = [];
   temp: any;
   temp1: any;
-  deleteData: any = [];
 
   constructor(private router: Router, private spinner: NgxSpinnerService, private formBuilder: FormBuilder, private managerservice: ManagerService) { }
 
@@ -131,8 +129,6 @@ export class ServicesComponent implements OnInit {
   }
 
   editService(data, index) {
-    // this.editData = data;
-    // data.index = index;
     this.temp = index;
     this.services.serviceId = data[index].service_id,
       this.services.subcategory = data[index].sub_cat_id,
