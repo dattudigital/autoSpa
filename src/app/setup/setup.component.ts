@@ -28,7 +28,7 @@ export class SetupComponent implements OnInit {
   }
 
   redirectToVehicleMake() {
-
+    this.router.navigate(['setup/vehicle-make']);
   }
 
   redirectToPriceList() {
