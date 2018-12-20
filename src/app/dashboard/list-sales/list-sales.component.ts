@@ -53,7 +53,6 @@ export class ListSalesComponent implements OnInit {
   }
 
   editUser(val, i) {
-    val.index = i;
     sessionStorage.setItem('selectedUserEdit', JSON.stringify(val));
     this.router.navigate(['dashboard']);
   }

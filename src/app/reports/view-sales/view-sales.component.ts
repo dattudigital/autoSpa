@@ -3,23 +3,26 @@ import { VehicleDetailsService } from '../../services/vehicle-details.service';
 import { SaleUserDetailsPipe } from '../../pipe/sale-user-details.pipe';
 import { NgxSpinnerService } from 'ngx-spinner';
 declare var jsPDF: any;
-import { ExcelServiceService } from '../../services/excel-service.service'
+import { ExcelServiceService } from '../../services/excel-service.service';
+
 @Component({
   selector: 'app-view-sales',
   templateUrl: './view-sales.component.html',
   styleUrls: ['./view-sales.component.css']
 })
+
 export class ViewSalesComponent implements OnInit {
-  userDetailsData: any = []
+  userDetailsData: any = [];
+
   constructor(private userListService: VehicleDetailsService, private excelservice: ExcelServiceService, private saleUserPipe: SaleUserDetailsPipe, private spinner: NgxSpinnerService, ) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.userListService.getUserDetails().subscribe(res => {
+      this.spinner.hide();
       if (res.json().status == true) {
         this.userDetailsData = this.saleUserPipe.transform(res.json().result);
-        this.spinner.hide();
       } else {
-        this.spinner.hide();
         this.userDetailsData = [];
       }
     });
@@ -48,6 +51,7 @@ export class ViewSalesComponent implements OnInit {
     });
     doc.save('Viewsale.pdf');
   }
+
   xlDownload() {
     this.excelservice.exportAsExcelFile(this.userDetailsData, 'ViewSaleList');
   }

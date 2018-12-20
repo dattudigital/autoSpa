@@ -30,24 +30,24 @@ export class ServicesComponent implements OnInit {
     'serviceVisibility': '',
     'status': ''
   }
-  addEnableorDisable = 'visible';
-  updateEnableorDisable = 'visible'
   cols: any[];
-  editData: any = [];
   temp: any;
   temp1: any;
-  deleteData: any = [];
+
   constructor(private router: Router, private spinner: NgxSpinnerService, private formBuilder: FormBuilder, private managerservice: ManagerService) { }
 
   ngOnInit() {
     this.spinner.show();
     this.managerservice.getSubCategory().subscribe(res => {
+      this.spinner.hide();
       if (res.json().status == true) {
         this.subCategoryDetails = res.json().result;
       } else {
         this.subCategoryDetails = [];
       }
-    })
+    });
+
+    this.spinner.show();
     this.managerservice.getServiceDetails().subscribe(res => {
       this.spinner.hide();
       if (res.json().status == true) {
@@ -55,12 +55,11 @@ export class ServicesComponent implements OnInit {
       } else {
         this.serviceDetails = [];
       }
-    })
+    });
 
     this.servicesForm = this.formBuilder.group({
       subCategory: ['', Validators.required],
       serviceName: ['', Validators.required],
-      //serviceImage: ['', Validators.required],
       serviceDescription: ['', Validators.required],
       servicePrice: ['', Validators.required],
       mediumPrice: ['', Validators.required],
@@ -75,19 +74,20 @@ export class ServicesComponent implements OnInit {
     this.cols = [
       { field: 'service_name', header: 'Service Name' },
       { field: 'service_description', header: 'Description' },
-      { field: 'service_price_small', header: 'Small Price' },  
+      { field: 'service_price_small', header: 'Small Price' },
       { field: 'service_price_medium', header: 'Medium Price' },
       { field: 'service_price_large', header: 'Large Price' },
       { field: 'service_price_xl', header: 'Extra Large Price' },
     ];
   }
+
   backToManager() {
     this.router.navigate(['manager']);
   }
+
   removeFields() {
-    this.updateEnableorDisable = 'hidden';
-    this.addEnableorDisable = 'visible';
     this.submitted = false;
+    this.services.serviceId = '';
     this.services.subcategory = '';
     this.services.serviceName = '';
     this.services.serviceDescription = '';
@@ -100,8 +100,9 @@ export class ServicesComponent implements OnInit {
     this.services.serviceTax = '';
     this.services.serviceVisibility = '';
   }
+
   get f() { return this.servicesForm.controls; }
-  
+
   addService() {
     this.submitted = true;
     if (this.servicesForm.invalid) {
@@ -122,34 +123,28 @@ export class ServicesComponent implements OnInit {
       rec_status: 1
     }
     this.managerservice.saveServices(data).subscribe(res => {
-      console.log(res.json());
       this.serviceDetails.push(res.json().result);
-      console.log(this.serviceDetails);
       $('#addServices').modal('hide');
     });
   }
 
   editService(data, index) {
-    this.addEnableorDisable = 'hidden';
-    this.updateEnableorDisable = 'visible'
-    this.editData = data;
-    data.index = index;
     this.temp = index;
-    this.services.serviceId = this.editData[index].service_id,
-      this.services.subcategory = this.editData[index].sub_cat_id,
-      this.services.serviceName = this.editData[index].service_name,
-      this.services.serviceDescription = this.editData[index].service_description,
-      this.services.servicePrice = this.editData[index].service_price,
-      this.services.serviceMediumPrice = this.editData[index].service_price_medium,
-      this.services.servicelargePrice = this.editData[index].service_price_large,
-      this.services.serviceSmallPrice = this.editData[index].service_price_small,
-      this.services.serviceExtraLargePrice = this.editData[index].service_price_xl,
-      this.services.serviceDuration = this.editData[index].service_duration,
-      this.services.serviceTax = this.editData[index].service_tax,
-      this.services.serviceVisibility = this.editData[index].service_visibility,
-      this.services.status = this.editData[index].rec_status
+    this.services.serviceId = data[index].service_id,
+      this.services.subcategory = data[index].sub_cat_id,
+      this.services.serviceName = data[index].service_name,
+      this.services.serviceDescription = data[index].service_description,
+      this.services.servicePrice = data[index].service_price,
+      this.services.serviceMediumPrice = data[index].service_price_medium,
+      this.services.servicelargePrice = data[index].service_price_large,
+      this.services.serviceSmallPrice = data[index].service_price_small,
+      this.services.serviceExtraLargePrice = data[index].service_price_xl,
+      this.services.serviceDuration = data[index].service_duration,
+      this.services.serviceTax = data[index].service_tax,
+      this.services.serviceVisibility = data[index].service_visibility,
+      this.services.status = data[index].rec_status
   }
-  
+
   updateService() {
     var data = {
       service_id: this.services.serviceId,
@@ -179,17 +174,19 @@ export class ServicesComponent implements OnInit {
         this.serviceDetails[this.temp].service_duration = data.service_duration,
         this.serviceDetails[this.temp].service_tax = data.service_tax,
         this.serviceDetails[this.temp].service_visibility = data.service_visibility,
-        this.serviceDetails[this.temp].rec_status = data.rec_status,
-        this.temp = " "
+        this.serviceDetails[this.temp].rec_status = data.rec_status;
+      if (data.rec_status == '0') {
+        this.serviceDetails.splice(this.temp, 1);
+        this.serviceDetails = this.serviceDetails.slice();
+      }
+      this.temp = " "
     });
     $('#addServices').modal('hide')
   }
 
   deleteService(val, index) {
     this.temp1 = index;
-    this.deleteData = val;
-    val.index = index;
-    this.services.serviceId = this.deleteData[index].service_id;
+    this.services.serviceId = val[index].service_id;
   }
   yesServiceDelete() {
     this.serviceDetails.splice(this.temp1, 1)
@@ -200,23 +197,22 @@ export class ServicesComponent implements OnInit {
     this.managerservice.saveServices(data).subscribe(res => {
     })
   }
+
   omit_special_char(event) {
-    var k;
-    k = event.charCode;
+    var k = event.charCode;
     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
   }
 
   //This Method  allow Numbers
   only_allow_number(event) {
-    var n;
-    n = event.charCode
+    var n = event.charCode
     return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
   }
 
   //this method allow both numbers and alphabets
   allow_numbers_alphabets(event) {
-    var a;
-    a = event.charCode
+    var a = event.charCode
     return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
   }
+
 }

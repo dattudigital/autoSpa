@@ -5,12 +5,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 declare var $: any;
 
-
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
   styleUrls: ['./branch.component.css']
 })
+
 export class BranchComponent implements OnInit {
   branchForm: FormGroup;
   submitted = false;
@@ -26,15 +26,10 @@ export class BranchComponent implements OnInit {
   }
   branches: any = [];
   cols: any[];
-  editData: any = [];
   temp: any;
-  deleteData: any = [];
   temp1: any;
 
-  addEnableorDisable = 'visible';
-  updateEnableorDisable = 'visible'
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService,private setupService: SetupService) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private spinner: NgxSpinnerService, private setupService: SetupService) { }
 
   ngOnInit() {
     this.allServices();
@@ -58,7 +53,6 @@ export class BranchComponent implements OnInit {
     ];
     this.setupService.getBranchDetails().subscribe(res => {
       this.spinner.hide();
-      console.log(res.json())
       if (res.json().status == true) {
         this.branches = res.json().result
       } else {
@@ -67,14 +61,13 @@ export class BranchComponent implements OnInit {
     })
   }
 
-  backToSetup(){
+  backToSetup() {
     this.router.navigate(['setup']);
   }
 
   removeFields() {
-    this.updateEnableorDisable = 'hidden';
-    this.addEnableorDisable = 'visible';
     this.submitted = false;
+    this.branch.branchId = '';
     this.branch.branchName = '';
     this.branch.branchAddress = '';
     this.branch.branchArea = '';
@@ -100,27 +93,21 @@ export class BranchComponent implements OnInit {
       rec_status: 1
     }
     this.setupService.saveBranchDetails(data).subscribe(res => {
-      console.log(res.json());
       this.branches.push(res.json().result);
-      console.log(this.branches);
       $('#addBranch').modal('hide');
     });
   }
 
-  editBranch(data , index) {
-    this.addEnableorDisable = 'hidden';
-    this.updateEnableorDisable = 'visible'
-    this.editData = data;
-    data.index = index;
+  editBranch(data, index) {
     this.temp = index;
-    this.branch.branchId = this.editData[index].branch_id,
-    this.branch.branchName = this.editData[index].branch_name,
-    this.branch.branchAddress = this.editData[index].branch_address,
-    this.branch.branchArea = this.editData[index].branch_area,
-    this.branch.branchLocation = this.editData[index].branch_location,
-    this.branch.branchEmail = this.editData[index].branch_email,
-    this.branch.phoneNumber = this.editData[index].branch_contact_number,
-    this.branch.status = this.editData[index].rec_status
+    this.branch.branchId = data[index].branch_id,
+      this.branch.branchName = data[index].branch_name,
+      this.branch.branchAddress = data[index].branch_address,
+      this.branch.branchArea = data[index].branch_area,
+      this.branch.branchLocation = data[index].branch_location,
+      this.branch.branchEmail = data[index].branch_email,
+      this.branch.phoneNumber = data[index].branch_contact_number,
+      this.branch.status = data[index].rec_status
   }
 
   updateBranch() {
@@ -149,10 +136,7 @@ export class BranchComponent implements OnInit {
 
   deleteBranch(val, index) {
     this.temp1 = index;
-    this.deleteData = val;
-    val.index = index;
-    this.branch.branchId = this.deleteData[index].branch_id
-
+    this.branch.branchId = val[index].branch_id
   }
 
   yesBranchDelete() {
@@ -165,11 +149,17 @@ export class BranchComponent implements OnInit {
     })
   }
 
-    //This Method  allow Numbers
-    only_allow_number(event) {
-      var n;
-      n = event.charCode
-      return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
-    }
+  only_allow_number(event) {
+    var n = event.charCode
+    return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
+  }
+  omit_special_char(event) {
+    var k = event.charCode;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
+  }
+  allow_numbers_alphabets(event) {
+    var a = event.charCode
+    return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
+  }
 
 }

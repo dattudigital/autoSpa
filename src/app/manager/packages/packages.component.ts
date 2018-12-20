@@ -10,6 +10,7 @@ declare var $: any;
   templateUrl: './packages.component.html',
   styleUrls: ['./packages.component.css']
 })
+
 export class PackagesComponent implements OnInit {
   packageForm: FormGroup;
   submitted = false;
@@ -30,13 +31,8 @@ export class PackagesComponent implements OnInit {
     'packageVisibility': '',
     'status': ''
   }
-  addEnableorDisable = 'visible';
-  updateEnableorDisable = 'visible'
-  editData: any = [];
-  deleteData: any = [];
   temp: any;
   temp1: any;
-
 
   constructor(private router: Router, private managerservice: ManagerService, private spinner: NgxSpinnerService, private formBuilder: FormBuilder) { }
 
@@ -66,21 +62,20 @@ export class PackagesComponent implements OnInit {
     this.cols = [
       { field: 'package_name', header: 'Package Name' },
       { field: 'package_description', header: 'Description' },
-      { field: 'package_price_small', header: 'Small Price' },  
+      { field: 'package_price_small', header: 'Small Price' },
       { field: 'package_price_medium', header: 'Medium Price' },
       { field: 'package_price_large', header: 'Large Price' },
       { field: 'package_price_xlarge', header: 'Extra Large Price' },
     ];
   }
 
-  backToManager(){
+  backToManager() {
     this.router.navigate(['manager'])
   }
 
   removeFields() {
-    this.updateEnableorDisable = 'hidden';
-    this.addEnableorDisable = 'visible';
     this.submitted = false;
+    this.package.packageId = '';
     this.package.packageType = '';
     this.package.packageName = '';
     this.package.packageDescription = '';
@@ -115,32 +110,26 @@ export class PackagesComponent implements OnInit {
       rec_status: 1
     }
     this.managerservice.savePackages(data).subscribe(res => {
-    console.log(res.json());
-    this.packageData.push(res.json().result);
-    console.log(this.packageData);
-    $('#addPackage').modal('hide');
+      this.packageData.push(res.json().result);
+      $('#addPackage').modal('hide');
     });
   }
 
-  editPackage(data, index)  {
-    this.addEnableorDisable = 'hidden';
-    this.updateEnableorDisable = 'visible'
-    this.editData = data;
-    data.index = index;
+  editPackage(data, index) {
     this.temp = index;
-    this.package.packageId = this.editData[index].package_id,
-    this.package.packageType = this.editData[index].package_type,
-    this.package.packageName = this.editData[index].package_name,
-    this.package.packageDescription = this.editData[index].package_description,
-    this.package.packagePrice = this.editData[index].package_price,
-    this.package.packagePriceSmall = this.editData[index].package_price_small,
-    this.package.packagePriceMedium = this.editData[index].package_price_medium,
-    this.package.packagePriceLarge = this.editData[index].package_price_large,
-    this.package.packagePriceXlarge = this.editData[index].package_price_xlarge,
-    this.package.packageValidity = this.editData[index].package_validity_days,
-    this.package.packageServices = this.editData[index].package_services,
-    this.package.packageVisibility = this.editData[index].package_visibility,
-    this.package.status = this.editData[index].rec_status
+    this.package.packageId = data[index].package_id,
+      this.package.packageType = data[index].package_type,
+      this.package.packageName = data[index].package_name,
+      this.package.packageDescription = data[index].package_description,
+      this.package.packagePrice = data[index].package_price,
+      this.package.packagePriceSmall = data[index].package_price_small,
+      this.package.packagePriceMedium = data[index].package_price_medium,
+      this.package.packagePriceLarge = data[index].package_price_large,
+      this.package.packagePriceXlarge = data[index].package_price_xlarge,
+      this.package.packageValidity = data[index].package_validity_days,
+      this.package.packageServices = data[index].package_services,
+      this.package.packageVisibility = data[index].package_visibility,
+      this.package.status = data[index].rec_status
   }
 
   updatePackage() {
@@ -160,7 +149,7 @@ export class PackagesComponent implements OnInit {
       rec_status: this.package.status
     }
     this.managerservice.savePackages(data).subscribe(res => {
-        this.packageData[this.temp].package_id = data.package_id,
+      this.packageData[this.temp].package_id = data.package_id,
         this.packageData[this.temp].package_type = data.package_type,
         this.packageData[this.temp].package_name = data.package_name,
         this.packageData[this.temp].package_description = data.package_description,
@@ -172,17 +161,19 @@ export class PackagesComponent implements OnInit {
         this.packageData[this.temp].package_validity_days = data.package_validity_days,
         this.packageData[this.temp].package_services = data.package_services,
         this.packageData[this.temp].package_visibility = data.package_visibility,
-        this.packageData[this.temp].rec_status = data.rec_status,
-        this.temp = " "
+        this.packageData[this.temp].rec_status = data.rec_status;
+      if (data.rec_status == '0') {
+        this.packageData.splice(this.temp, 1);
+        this.packageData = this.packageData.slice();
+      }
+      this.temp = " "
     });
     $('#addPackage').modal('hide')
   }
 
   deletePackage(val, index) {
     this.temp1 = index;
-    this.deleteData = val;
-    val.index = index;
-    this.package.packageId = this.deleteData[index].package_id
+    this.package.packageId = val[index].package_id
   }
   yesPackageDelete() {
     this.packageData.splice(this.temp1, 1)
@@ -194,24 +185,20 @@ export class PackagesComponent implements OnInit {
     })
   }
 
-
   omit_special_char(event) {
-    var k;
-    k = event.charCode;
+    var k = event.charCode;
     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
   }
 
   //This Method  allow Numbers
   only_allow_number(event) {
-    var n;
-    n = event.charCode
+    var n = event.charCode
     return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
   }
 
   //this method allow both numbers and alphabets
   allow_numbers_alphabets(event) {
-    var a;
-    a = event.charCode
+    var a = event.charCode
     return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
   }
 

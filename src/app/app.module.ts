@@ -33,6 +33,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { ReportsComponent } from './reports/reports.component';
 import { ViewSalesComponent } from './reports/view-sales/view-sales.component';
+import { VehicleMakeComponent } from './setup/vehicle-make/vehicle-make.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'manager/packages', component: PackagesComponent, canActivate: [AuthGuard] },
   { path: 'setup', component: SetupComponent, canActivate: [AuthGuard] },
   { path: 'setup/branch', component: BranchComponent, canActivate: [AuthGuard] },
+  { path: 'setup/vehicle-make', component: VehicleMakeComponent, canActivate: [AuthGuard] },
   { path: 'reports', component: ReportsComponent, canActivate: [AuthGuard] },
   { path: 'reports/view-sales', component: ViewSalesComponent, canActivate: [AuthGuard] },
 ]
@@ -74,6 +76,7 @@ const routes: Routes = [
     PackagesComponent,
     ReportsComponent,
     ViewSalesComponent,
+    VehicleMakeComponent,
 
   ],
   imports: [
