@@ -61,6 +61,7 @@ export class DashboardComponent implements OnInit {
   serviceId: string;
   total: any = 0;
   tempTotal = 0;
+  _disocunt = 0;
   selectedUserEditSession: any;
   //for get empid and branchic
   loginData: any;
@@ -531,6 +532,7 @@ export class DashboardComponent implements OnInit {
       if (this.discount == undefined) {
         this.total = this.tempTotal;
       } else {
+        this._disocunt = _total * this.discount
         this.total = _total - (_total * this.discount);
       }
     }
@@ -640,6 +642,7 @@ export class DashboardComponent implements OnInit {
         vehicle_type: this.selectedVechile,
         empid: this.empId,
         discount_per: this.discount,
+        discount_amt:this._disocunt,
         dis_approval_by_empid: this.discountApproval,
         branchid: this.branchId,
         invoice_num: this.invoiceNo,

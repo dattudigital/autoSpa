@@ -110,12 +110,12 @@
           <td>Total</td>
           <td>{{invoiceTotal}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="percentageAmt > '0'">
           <td></td>
           <td>Discount @{{percentageVal}}</td>
           <td></td>
           <td></td>
-          <td>{{serviceTax}}</td>
+          <td>{{percentageAmt}}</td>
         </tr>
         <tr>
           <td></td>
