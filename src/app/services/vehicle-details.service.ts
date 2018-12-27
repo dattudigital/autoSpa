@@ -42,4 +42,7 @@ export class VehicleDetailsService {
     return this.http.get(environment.host + 'payment-types')
   }
 
+  public getEmployee(){
+    return this.http.get(environment.host + 'employees')
+  }
 }

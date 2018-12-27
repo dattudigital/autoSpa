@@ -198,15 +198,15 @@
                 <div class="container">
                   <h3>Vehicle Information</h3>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '0' " (click)="carUserClick('1')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '0' " (click)="carUserClick('1');discountOption()">
                     <label style="font-size:16px">Car</label>
                   </div>
                   <div class="col-sm-1">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '1'" (click)="bikeUserClick('2')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '1'" (click)="bikeUserClick('2');discountOption()">
                     <label style="font-size:16px">Bike</label>
                   </div>
                   <div class="col-sm-2">
-                    <input type="radio" name="optradio1" [checked]="selectedVechile == '2' " (click)="commercialUserClick('3')">
+                    <input type="radio" name="optradio1" [checked]="selectedVechile == '2' " (click)="commercialUserClick('3');discountOption()">
                     <label style="font-size:16px">Commercial</label>
                   </div>
                 </div>
@@ -260,7 +260,7 @@
                       <span style="color:red">*</span>
                     </label>
                     <div class="col-sm-5">
-                      <select class="form-control" name="size" [(ngModel)]="selectedVechileSize" (ngModelChange)="totalServicePrice()"
+                      <select class="form-control" name="size" [(ngModel)]="selectedVechileSize" (ngModelChange)="totalServicePrice();discountOption()"
                         [(ngModel)]="showMoreControls" [ngModelOptions]="{standalone: true}">
                         <option value="undefined" disabled select>Select Size</option>
                         <option value="s">Small</option>
@@ -320,8 +320,8 @@
               </label>
               <div class="col-sm-8">
                 <p-multiSelect [options]="vehicleServices" [(ngModel)]="selectedServices" [displaySelectedLabel]=false
-                  (ngModelChange)="onChangeServices(selectedServices);totalServicePrice()" [panelStyle]="{minWidth:'12em'}"
-                  [style]="{'width':'50%'}" defaultLabel="Choose Services"></p-multiSelect>
+                  (ngModelChange)="onChangeServices(selectedServices);totalServicePrice();discountOption()"
+                  [panelStyle]="{minWidth:'12em'}" [style]="{'width':'50%'}" defaultLabel="Choose Services"></p-multiSelect>
               </div>
             </div>
           </div>
@@ -349,7 +349,30 @@
             <span style="color:red">*</span>
           </label>
           <div class="col-sm-5">
-            <input type="text" class="form-control" name="price" [(ngModel)]="total" readonly>
+            <input type="text" class="form-control" name="price" [(ngModel)]="total" (ngModelChange)='discountOption()'
+              readonly>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="total > '0'">
+          <label class="col-sm-4 col-form-label required">Discount
+          </label>
+          <div class="col-sm-5">
+            <select class="form-control" name="discount" [(ngModel)]="discount" (ngModelChange)='discountOption()'>
+              <option value="undefined" select>Select Discount</option>
+              <option [ngValue]="0.05">5%</option>
+              <option [ngValue]="0.1">10%</option>
+              <option [ngValue]="0.18">18%</option>
+            </select>
+          </div>
+        </div>
+        <div class="row form-group" *ngIf="discount == '0.05' || discount == '0.1' || discount == '0.18'">
+          <label class="col-sm-4 col-form-label required">Approval By
+          </label>
+          <div class="col-sm-5">
+            <select class="form-control" name="discountApproval" [(ngModel)]="discountApproval">
+              <option value="undefined" disabled select>Select Approval By</option>
+              <option *ngFor="let employee of employees" [ngValue]="employee.employee_id">{{employee.employee_firstname +" "+ employee.employee_lastname}}</option>
+            </select>
           </div>
         </div>
       </div>
@@ -498,7 +521,7 @@
         </div>
         <div class="col-sm-4">
           <div class="input-group">
-            <input type="number" min="0" name="total" maxlength="50" class="form-control" [(ngModel)]="cashTotal"
+            <input type="number" min="0" name="total" id="total" maxlength="50" class="form-control" [(ngModel)]="cashTotal"
               readonly>
             <span>Total</span>
           </div>
@@ -507,6 +530,7 @@
     </div>
   </div>
 </div>
+
 <div class="row form-group">
   <div claas="container">
     <button type="submit" class="btn btn-success" (click)="addUserInfoAndVehicle()" style="float: right;

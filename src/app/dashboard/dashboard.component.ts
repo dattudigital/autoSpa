@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NotificationsService } from 'angular2-notifications';
 import * as moment from 'moment';
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -45,6 +44,7 @@ export class DashboardComponent implements OnInit {
   serviceType: '';
   sourceCustomer: '';
   businessType: '';
+  discountApproval: any;
   // vechile info
   selectedVechile: any = 0;
   selectedVechileNo: string;
@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
   selectedVechileSize: any;
   selectedVechileAge: any;
   selectedVechileType: any;
+  employees: any = [];
   vehicleAge: any = [];
   vehicleType: any = [];
   vehicleMake: any = [];
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit {
   existingDetail: string;
   serviceId: string;
   total: any = 0;
+  tempTotal = 0;
   selectedUserEditSession: any;
   //for get empid and branchic
   loginData: any;
@@ -101,7 +103,9 @@ export class DashboardComponent implements OnInit {
   disableCredit = 'hidden';
   disableTransfer = 'hidden';
   disableOther = 'hidden';
+  disableDiscount = 'hidden';
 
+  discount: any;
   cashTotal = 0;
   paymentTypes: any = []
   constructor(private http: Http, private notif: NotificationsService, private cdr: ChangeDetectorRef, private vehicledetails: VehicleDetailsService, private formBuilder: FormBuilder, private servicePipe: VehicleServicesPipe, private router: Router, private spinner: NgxSpinnerService) { }
@@ -148,6 +152,15 @@ export class DashboardComponent implements OnInit {
         this.vehicleAge = [];
       }
     });
+
+    this.vehicledetails.getEmployee().subscribe(res => {
+      console.log(res.json())
+      if (res.json().status == true) {
+        this.employees = res.json().result;
+      } else {
+        this.employees = [];
+      }
+    })
 
     this.vehicledetails.getVehicleServices().subscribe(res => {
       if (res.json().status == true) {
@@ -205,6 +218,10 @@ export class DashboardComponent implements OnInit {
       this.saleInfoId = this.selectedUserEditSession.sale_vehicle_info_id;
       this.saleServiceId = this.selectedUserEditSession.sale_user_service_id;
       this.total = this.selectedUserEditSession.invoice_total;
+      this.discountApproval = this.selectedUserEditSession.dis_approval_by_empid;
+      if(this.selectedUserEditSession.discount_per){
+        this.discount = parseFloat(this.selectedUserEditSession.discount_per);        
+      }      
     }
   }
 
@@ -219,16 +236,20 @@ export class DashboardComponent implements OnInit {
     this.total = 0;
     for (let i = 0; i < this.selectedServices.length; i++) {
       if (this.selectedVechileSize == 's') {
-        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_small"]
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_small"];
+        this.tempTotal = this.total;
       }
       if (this.selectedVechileSize == 'l') {
-        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_large"]
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_large"];
+        this.tempTotal = this.total;
       }
       if (this.selectedVechileSize == 'm') {
-        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_medium"]
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_medium"];
+        this.tempTotal = this.total;
       }
       if (this.selectedVechileSize == 'xl') {
-        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_xl"]
+        this.total = 1 * this.total + 1 * this.selectedServices[i]["service_price_xl"];
+        this.tempTotal = this.total;
       }
     }
   }
@@ -500,8 +521,39 @@ export class DashboardComponent implements OnInit {
   get f() { return this.salesForm.controls; }
   get v() { return this.vehicleForm.controls; }
 
+  discountOption() {
+    let _total = 0;
+    _total = this.tempTotal;    
+    console.log(this.discount)
+    if (typeof this.discount == 'string') {
+      this.total = this.tempTotal;
+    } else {
+      if (this.discount == undefined) {
+        this.total = this.tempTotal;
+      } else {
+        this.total = _total - (_total * this.discount);
+      }
+    }
+  }
+
   addUserInfoAndVehicle() {
-    console.log(this.selectedServices.length);
+    if (typeof this.discount == 'number') {
+      if (!this.discountApproval) {
+        this.notif.error(
+          'Error',
+          'Please Select Employee Approval By',
+          {
+            timeOut: 3000,
+            showProgressBar: true,
+            pauseOnHover: false,
+            clickToClose: true,
+            maxLength: 50
+          }
+        )
+        return;
+      }
+    }
+
     this.submitted = true;
     // stop here if form is invalid
     if (this.salesForm.invalid) {
@@ -538,6 +590,8 @@ export class DashboardComponent implements OnInit {
       )
       return;
     }
+
+
 
     if (this.selectedUserEditSession) {
       this.invoiceNo = this.selectedUserEditSession.invoice_num
@@ -585,6 +639,8 @@ export class DashboardComponent implements OnInit {
         business_type: this.businessType,
         vehicle_type: this.selectedVechile,
         empid: this.empId,
+        discount_per: this.discount,
+        dis_approval_by_empid: this.discountApproval,
         branchid: this.branchId,
         invoice_num: this.invoiceNo,
         invoice_total: this.total
@@ -658,19 +714,19 @@ export class DashboardComponent implements OnInit {
 
   //this method  allow alphabets 
   omit_special_char(event) {
-   var k = event.charCode;
+    var k = event.charCode;
     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 0 || k == 32);
   }
 
   //This Method  allow Numbers
   only_allow_number(event) {
-   var n = event.charCode
+    var n = event.charCode
     return (n == 8 || n == 0 || n == 32 || (n >= 48 && n <= 57))
   }
 
   //this method allow bothe numbers and alphabets
   allow_numbers_alphabets(event) {
-     var a = event.charCode
+    var a = event.charCode
     return ((a > 64 && a < 91) || (a > 96 && a < 123) || a == 8 || a == 0 || (a >= 48 && a <= 57));
   }
 }
