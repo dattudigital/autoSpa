@@ -97,7 +97,9 @@ export class DashboardComponent implements OnInit {
     'accountTranferId': '',
     'othersSelect': '',
     'mobileWallet': '',
-    'othersAmount': ''
+    'othersAmount': '',
+    'creditSale': '',
+    'creditSaleAmount': ''
   }
   disableCash = 'hidden';
   isDisabled = 'hidden';
@@ -105,6 +107,7 @@ export class DashboardComponent implements OnInit {
   disableTransfer = 'hidden';
   disableOther = 'hidden';
   disableDiscount = 'hidden';
+  disableCreditSale = 'hidden'
 
   discount: any;
   cashTotal = 0;
@@ -220,9 +223,9 @@ export class DashboardComponent implements OnInit {
       this.saleServiceId = this.selectedUserEditSession.sale_user_service_id;
       this.total = this.selectedUserEditSession.invoice_total;
       this.discountApproval = this.selectedUserEditSession.dis_approval_by_empid;
-      if(this.selectedUserEditSession.discount_per){
-        this.discount = parseFloat(this.selectedUserEditSession.discount_per);        
-      }      
+      if (this.selectedUserEditSession.discount_per) {
+        this.discount = parseFloat(this.selectedUserEditSession.discount_per);
+      }
     }
   }
 
@@ -500,6 +503,16 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  creditSaleEvent() {
+    if (this.payment.creditSale == false) {
+      this.disableCreditSale = 'hidden';
+      this.payment.creditSaleAmount='';
+      this.payment.creditSale='';
+    } else {
+      this.disableCreditSale = 'visible';
+    }
+  }
+
   addTotalAmount() {
     this.cashTotal = 0;
     if (this.payment.chequeAmount && this.payment.chequeSelect) {
@@ -517,6 +530,9 @@ export class DashboardComponent implements OnInit {
     if (this.payment.othersAmount && this.payment.othersSelect) {
       this.cashTotal = this.cashTotal + this.payment.othersAmount
     }
+    if(this.payment.creditSaleAmount && this.payment.creditSale){
+      this.cashTotal = this.cashTotal + this.payment.creditSaleAmount
+    }
   }
 
   get f() { return this.salesForm.controls; }
@@ -524,7 +540,7 @@ export class DashboardComponent implements OnInit {
 
   discountOption() {
     let _total = 0;
-    _total = this.tempTotal;    
+    _total = this.tempTotal;
     console.log(this.discount)
     if (typeof this.discount == 'string') {
       this.total = this.tempTotal;
@@ -628,6 +644,13 @@ export class DashboardComponent implements OnInit {
       this.payment.otherSelect = '0'
     }
 
+    if(this.payment.creditSale == true){
+      this.payment.creditSaleAmount ='1'
+    }else{
+      this.payment.creditSaleAmount ='0'
+
+    }
+
     this.data = {
       user: {
         sale_user_id: this.saleUserId,
@@ -642,7 +665,7 @@ export class DashboardComponent implements OnInit {
         vehicle_type: this.selectedVechile,
         empid: this.empId,
         discount_per: this.discount,
-        discount_amt:this._disocunt,
+        discount_amt: this._disocunt,
         dis_approval_by_empid: this.discountApproval,
         branchid: this.branchId,
         invoice_num: this.invoiceNo,
@@ -680,8 +703,11 @@ export class DashboardComponent implements OnInit {
         other: this.payment.otherSelect,
         others_type: this.payment.mobileWallet,
         others_amt: this.payment.othersAmount,
+        credit_sale:this.payment.creditSale,
+        credit_sale_amt:this.payment.creditSaleAmount
       }
     }
+    console.log(this.data)
     this.spinner.show();
     this.vehicledetails.userVehicleService(this.data).subscribe(res => {
       this.spinner.hide();

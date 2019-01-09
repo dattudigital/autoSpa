@@ -21,9 +21,12 @@ export class ListSalesComponent implements OnInit {
   branchArea: '';
   branchLocation: '';
   branchContact: '';
-  percentageVal:any;
-  percentageAmt:any;
+  percentageVal: any;
+  percentageAmt: any;
   //to print invoice details
+  userName: '';
+  userEmail: '';
+  userPhone: '';
   userAddress: '';
   invoiceNo: '';
   invoiceTotal: any;
@@ -40,7 +43,7 @@ export class ListSalesComponent implements OnInit {
 
   ngOnInit() {
     this.spinner.show();
-    this.userListService.getUserDetails().subscribe(res => {      
+    this.userListService.getUserDetails().subscribe(res => {
       if (res.json().status == true) {
         this.userDetailsDatas = this.saleUserPipe.transform(res.json().result);
         this.spinner.hide();
@@ -69,9 +72,12 @@ export class ListSalesComponent implements OnInit {
 
     this.http.get(environment.host + 'users/' + rowData.services).subscribe(res => {
       this.servicesData = res.json().result;
+      console.log(this.servicesData)
       this.vehicleSize = rowData.vehicle_size
     });
-
+    this.userName = rowData.firstname;
+    this.userEmail = rowData.email_id;
+    this.userPhone = rowData.mobile
     this.userAddress = rowData.address;
     this.invoiceNo = rowData.invoice_num;
     this.invoiceTotal = rowData.invoice_total;
@@ -82,20 +88,20 @@ export class ListSalesComponent implements OnInit {
       this.serviceTax = Math.floor(this.serviceTax)
       this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;
     }
-    this.invoiceDate = rowData.ceraeddate
+    this.invoiceDate = rowData.ceraeddate;
     this.vehicleNo = rowData.vehicle_no
     console.log(rowData);
     console.log(rowData.invoice_total);
-    if(rowData.discount_per == 0.05){
+    if (rowData.discount_per == 0.05) {
       this.percentageVal = "5%";
       // rowData.discount = rowData.invoice_total * 0.05;
-    } else if(rowData.discount_per == 0.1){
+    } else if (rowData.discount_per == 0.1) {
       this.percentageVal = "10%";
       // rowData.discount = rowData.invoice_total * 0.1;
-    } else if(rowData.discount_per == 0.18){
+    } else if (rowData.discount_per == 0.18) {
       this.percentageVal = "18%";
       // rowData.discount = rowData.invoice_total * 0.18;
-    } 
+    }
     this.percentageAmt = rowData.discount_amt;
     console.log(rowData.discount);
   }
@@ -109,7 +115,7 @@ export class ListSalesComponent implements OnInit {
     popupWin.document.write(`
   <html>
     <head>
-        <title>INVOICE FORM</title>           
+        <title style="text-align:"center">INVOICE</title>           
     </head>
     <body onload="window.print(); window.close()">
         ${printContents}

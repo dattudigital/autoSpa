@@ -19,6 +19,7 @@
           <th>Vehicle Type </th>
           <th>Vehicle Make </th>
           <th>Vehicle Category</th>
+          <th>Payment Type</th>
           <th>Invoice No.</th>
           <th>Invoice Amount</th>
           <th>Edit </th>
@@ -34,6 +35,7 @@
           <td>{{userDetailsData.type_name}}</td>
           <td>{{userDetailsData.make_name}}</td>
           <td>{{userDetailsData.vehicl_name}}</td>
+          <td>{{userDetailsData.cash}}</td>
           <td>{{userDetailsData.invoice_num}}</td>
           <td>{{userDetailsData.invoice_total}}</td>
           <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
@@ -47,31 +49,47 @@
 
 <div class="tableShow" id="printlist" [style.visibility]="printStyle" style="display:none">
   <div class="invoice-box">
-    <table cellpadding="10" cellspacing="10" style="width:100%">
-      <tr class="top" style="width:100%">
-        <td class="title" style="width:50%;">
+    <table cellpadding="15" cellspacing="10" style="width:100%">
+      <tr class="top">
+        <td class="title">
           <img src="assets/images/download.png" style="width:60%; max-width:200px;">
         </td>
-        <td style="width:50%;">
+        <td style="text-align: right">
           <br> {{branchAddress}}
           <br> {{branchArea}},
-          <br>{{branchLocation}},
-          <br>Phone:{{branchContact}}
+          <br> {{branchLocation}},
+          <br>Phone: {{branchContact}}
         </td>
+        <div class="clear"></div>
       </tr>
       <tr>
         <table style="width:100%;border:1px solid black" cellpadding="10" cellspacing="10">
+          <tr colspan=1>
+            <th style="text-align: right">TAX INVOICE</th>
+          </tr>
           <tr>
-            <td>
-              <b></b><br>
+            <td>To:<br>
+              {{userName}}<br>
+              
+              {{userEmail}} <br>
+          
+              {{userPhone}}<br>
+             
               {{userAddress}}
+
+              <div class="vertical">
+
+              </div>
+            <td style="text-align: right">
+              Invoice No:{{invoiceNo}} <br>
+            
+              Date: {{invoiceDate | date: 'dd/MM/yyyy'}} <br>
+              
+              Vehicle No: {{vehicleNo}}<br>
+            
+              JobCard NO: 00{{0+1}}
             </td>
-            <td>
-              INVOICE NO:{{invoiceNo}} <br>
-              DATE: {{invoiceDate | date: 'dd/MM/yyyy'}} <br>
-              VEHICLE No: {{vehicleNo}}<br>
-              JOB CARD NO: 98765
-            </td>
+            <div class="clear"></div>
           </tr>
         </table>
       </tr>
@@ -80,7 +98,7 @@
 
     <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
       <thead>
-        <tr style="border:2px solid #000;">
+        <tr style="border:1px solid black">
           <th width="15%">S.No</th>
           <th width="30%">Particular</th>
           <th width="20%">Qty</th>
@@ -165,4 +183,5 @@
       </tr>
     </table>
   </div>
+
 </div>

@@ -35,6 +35,20 @@ export class SaleUserDetailsPipe implements PipeTransform {
       } else if (element.vehicle_type == 2) {
         element.vehicl_name = "Commercial";
       }
+
+      if(element.cash == 1){
+        element.cash="Cash"
+      }else if(element.cheque == 1){
+        element.cheque='Cheque'
+      }else if(element.credit_card == 1){
+        element.credit_card="Credit/Debit Card"
+      }else if(element.account_transfer == 1){
+        element.account_transfer ="Account Transfer"
+      }else if(element.other == 1){
+        element.other="mobileWallet"
+      }else if(element.credit_sale == 1){
+        element.credit_sale="Credit Sale"
+      }
     });
     return value;
   }

@@ -371,7 +371,8 @@
           <div class="col-sm-5">
             <select class="form-control" name="discountApproval" [(ngModel)]="discountApproval">
               <option value="undefined" disabled select>Select Approval By</option>
-              <option *ngFor="let employee of employees" [ngValue]="employee.employee_id">{{employee.employee_firstname +" "+ employee.employee_lastname}}</option>
+              <option *ngFor="let employee of employees" [ngValue]="employee.employee_id">{{employee.employee_firstname
+                +" "+ employee.employee_lastname}}</option>
             </select>
           </div>
         </div>
@@ -444,7 +445,7 @@
         </div>
         <div class="col-sm-4">
           <input type="checkbox" name="myChk" id="myChk" for="credit" [(ngModel)]="payment.creditcardSelect" (change)="creditCardEvent();addTotalAmount()" />
-          <label>Credit Card</label>
+          <label>Credit/debit Card</label>
           <div class="tableShow" [style.visibility]="disableCredit">
             <div class="row form-group">
               <span class="col-sm-4  required">Amount
@@ -519,6 +520,28 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-4">
+          <input type="checkbox" name="myChk" id="myChk" for="bank" [(ngModel)]="payment.creditSale" (change)="creditSaleEvent();addTotalAmount()" />
+          <label>Credit Sale</label>
+          <div class="tableShow" [style.visibility]="disableCreditSale">
+            <div class="row form-group">
+              <span class="col-sm-4  required">Amount
+                <span style="color:red">*</span>
+              </span>
+              <div class="col-sm-5">
+                <input type="number" min="0" (keypress)="only_allow_number($event)" name="other" id="other" value=""
+                  [(ngModel)]="payment.creditSaleAmount" (ngModelChange)="addTotalAmount()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="row form-group">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
         <div class="col-sm-4">
           <div class="input-group">
             <input type="number" min="0" name="total" id="total" maxlength="50" class="form-control" [(ngModel)]="cashTotal"
