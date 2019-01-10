@@ -191,7 +191,6 @@ export class HeaderComponent implements OnInit {
   }
 
   loginSubmite() {
-    console.log("main Login")
     var data = {
       password: this.password,
       email_id: this.mailId

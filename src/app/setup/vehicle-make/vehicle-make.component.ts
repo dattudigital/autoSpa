@@ -19,7 +19,6 @@ export class VehicleMakeComponent implements OnInit {
     this.vehicleDetails.getVehicleMake().subscribe(res => {
       if (res.json().status == true) {
         this.vehicleMake = this.saleUserPipe.transform(res.json().result);
-        console.log(this.vehicleMake)
       } else {
         this.vehicleMake = [];
       }
