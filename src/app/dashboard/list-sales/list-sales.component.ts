@@ -30,7 +30,7 @@ export class ListSalesComponent implements OnInit {
   userAddress: '';
   invoiceNo: '';
   invoiceTotal: any;
-  invoiceDate: '';
+  invoiceDate: number;
   vehicleNo: '';
   vatCalculate: any;
   serviceTax: any;
@@ -38,10 +38,16 @@ export class ListSalesComponent implements OnInit {
   servicesData: any
   servicePrice: any;
   vehicleSize: any;
+  jobCardNo: any;
 
   constructor(private userListService: VehicleDetailsService, private http: Http, private router: Router, private saleUserPipe: SaleUserDetailsPipe, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
+    this.getCurrentDate();
+    setInterval(() => {
+      this.getCurrentDate();
+    }, 1000);
+
     this.spinner.show();
     this.userListService.getUserDetails().subscribe(res => {
       if (res.json().status == true) {
@@ -55,6 +61,10 @@ export class ListSalesComponent implements OnInit {
 
   redirectToAddSale() {
     this.router.navigate(['dashboard']);
+  }
+
+  getCurrentDate() {
+    this.invoiceDate = Date.now();
   }
 
   editUser(val, i) {
@@ -72,7 +82,6 @@ export class ListSalesComponent implements OnInit {
 
     this.http.get(environment.host + 'users/' + rowData.services).subscribe(res => {
       this.servicesData = res.json().result;
-      console.log(this.servicesData)
       this.vehicleSize = rowData.vehicle_size
     });
     this.userName = rowData.firstname;
@@ -88,10 +97,16 @@ export class ListSalesComponent implements OnInit {
       this.serviceTax = Math.floor(this.serviceTax)
       this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;
     }
-    this.invoiceDate = rowData.ceraeddate;
     this.vehicleNo = rowData.vehicle_no
-    console.log(rowData);
-    console.log(rowData.invoice_total);
+
+    if (rowData.job_card_no.length == 1) {
+      this.jobCardNo = "00" + rowData.job_card_no
+    } else if (rowData.job_card_no.length == 2) {
+      this.jobCardNo = "0" + rowData.job_card_no;
+    } else if (rowData.job_card_no.length >= 2) {
+      this.jobCardNo = rowData.job_card_no;
+    }
+
     if (rowData.discount_per == 0.05) {
       this.percentageVal = "5%";
       // rowData.discount = rowData.invoice_total * 0.05;
@@ -103,7 +118,6 @@ export class ListSalesComponent implements OnInit {
       // rowData.discount = rowData.invoice_total * 0.18;
     }
     this.percentageAmt = rowData.discount_amt;
-    console.log(rowData.discount);
   }
 
   printInvoice(printlist, val, i) {

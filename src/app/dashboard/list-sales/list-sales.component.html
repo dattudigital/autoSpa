@@ -35,7 +35,12 @@
           <td>{{userDetailsData.type_name}}</td>
           <td>{{userDetailsData.make_name}}</td>
           <td>{{userDetailsData.vehicl_name}}</td>
-          <td>{{userDetailsData.cash}}</td>
+          <td *ngIf="userDetailsData.cash == '1'">Cash</td>
+          <td *ngIf="userDetailsData.cheque == '1'">Cheque</td>
+          <td *ngIf="userDetailsData.credit_card == '1'">Credit/debit Card</td>
+          <td *ngIf="userDetailsData.account_transfer == '1'">Account transfer</td>
+          <td *ngIf="userDetailsData.other == '1'">Mobile </td>
+          <td *ngIf="userDetailsData.credit_sale == '1'">Credit Sale </td>
           <td>{{userDetailsData.invoice_num}}</td>
           <td>{{userDetailsData.invoice_total}}</td>
           <td (click)="editUser(userDetailsData,i)"> <i class="fa fa-edit" style="color:orange"></i></td>
@@ -87,7 +92,7 @@
 
               Vehicle No: {{vehicleNo}}<br>
 
-              JobCard NO: 00{{0+1}}
+              JobCard NO: {{jobCardNo}}
             </td>
             <div class="clear"></div>
           </tr>
