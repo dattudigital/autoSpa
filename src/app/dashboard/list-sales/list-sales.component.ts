@@ -115,7 +115,7 @@ export class ListSalesComponent implements OnInit {
     popupWin.document.write(`
   <html>
     <head>
-        <title style="text-align:"center">INVOICE</title>           
+        <title style="padding-right:50px;">INVOICE</title>           
     </head>
     <body onload="window.print(); window.close()">
         ${printContents}

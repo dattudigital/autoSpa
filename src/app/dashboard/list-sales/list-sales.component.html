@@ -65,16 +65,16 @@
       <tr>
         <table style="width:100%;border:1px solid black" cellpadding="10" cellspacing="10">
           <tr colspan=1>
-            <th style="text-align: right">TAX INVOICE</th>
+            <th style="padding-left:200px;">TAX INVOICE</th>
           </tr>
           <tr>
             <td>To:<br>
               {{userName}}<br>
-              
+
               {{userEmail}} <br>
-          
+
               {{userPhone}}<br>
-             
+
               {{userAddress}}
 
               <div class="vertical">
@@ -82,11 +82,11 @@
               </div>
             <td style="text-align: right">
               Invoice No:{{invoiceNo}} <br>
-            
+
               Date: {{invoiceDate | date: 'dd/MM/yyyy'}} <br>
-              
+
               Vehicle No: {{vehicleNo}}<br>
-            
+
               JobCard NO: 00{{0+1}}
             </td>
             <div class="clear"></div>
@@ -99,55 +99,58 @@
     <table cellpadding="10" cellspacing="10" style="width:100%;border:1px solid black">
       <thead>
         <tr style="border:1px solid black">
-          <th width="15%">S.No</th>
-          <th width="30%">Particular</th>
-          <th width="20%">Qty</th>
-          <th width="20%">Rate Per Unit</th>
-          <th width="20%">Amount</th>
+          <th>S.No</th>
+          <th style="padding-right:20px">Particular</th>
+          <th>Qty</th>
+          <th>Rate Per Unit</th>
+          <th>Amount</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let data of servicesData;let i = index">
-          <td width="20%">{{i+1}}</td>
-          <td>{{data.service_name}}</td>
-          <td width="20%">{{1}}</td>
-          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
-          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
-          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
-          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+          <td style="padding-left:25px">{{i+1}}</td>
+          <td style="padding-left:90px">{{data.service_name}}</td>
+          <td style="padding-left:25px">{{1}}</td>
+          <td style="padding-left:80px" *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td style="padding-left:80px" *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td style="padding-left:80px" *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td style="padding-left:80px" *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
 
-          <td *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
-          <td *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
-          <td *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
-          <td *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
+          <td style="padding-left:30px" *ngIf="vehicleSize == 's'">{{data.service_price_small}}</td>
+          <td style="padding-left:30px" *ngIf="vehicleSize == 'm'">{{data.service_price_medium}}</td>
+          <td style="padding-left:30px" *ngIf="vehicleSize == 'l'">{{data.service_price_large}}</td>
+          <td style="padding-left:30px" *ngIf="vehicleSize == 'xl'">{{data.service_price_xl}}</td>
         </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>Total</td>
-          <td>{{invoiceTotal}}</td>
-        </tr>
+
         <tr *ngIf="percentageAmt > '0'">
           <td></td>
-          <td>Discount @{{percentageVal}}</td>
           <td></td>
           <td></td>
-          <td>{{percentageAmt}}</td>
+          <td style="padding-left:80px">Discount @{{percentageVal}}</td>
+          <td style="padding-left:30px">{{percentageAmt}}</td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td style="padding-left:80px">Total</td>
+          <td style="padding-left:30px">{{invoiceTotal}}</td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td style="padding-left:80px">GST @18%</td>
+          <td></td>
+          <td></td>
+          <td style="padding-left:30px">{{serviceTax}}</td>
         </tr>
         <tr>
           <td></td>
-          <td>GST @18%</td>
+          <td style="padding-left:80px">GRAND TOTAL</td>
           <td></td>
           <td></td>
-          <td>{{serviceTax}}</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>GRAND TOTAL</td>
-          <td></td>
-          <td></td>
-          <td>{{totalWithTax}}</td>
+          <td style="padding-left:30px">{{totalWithTax}}</td>
         </tr>
       </tbody>
     </table>
