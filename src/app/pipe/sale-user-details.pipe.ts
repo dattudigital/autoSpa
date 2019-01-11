@@ -6,7 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SaleUserDetailsPipe implements PipeTransform {
 
   transform(value: any): any {
-    console.log(value);
     value.forEach(element => {
       if (element.source_customer == 0) {
         element.source_name = "Walk-in";

@@ -13,7 +13,6 @@ export class VehicleServicesPipe implements PipeTransform {
         value: element
       })    
     });
-    console.log(data)
     return data;
   }
 

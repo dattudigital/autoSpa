@@ -158,7 +158,6 @@ export class DashboardComponent implements OnInit {
     });
 
     this.vehicledetails.getEmployee().subscribe(res => {
-      console.log(res.json())
       if (res.json().status == true) {
         this.employees = res.json().result;
       } else {
@@ -541,7 +540,6 @@ export class DashboardComponent implements OnInit {
   discountOption() {
     let _total = 0;
     _total = this.tempTotal;
-    console.log(this.discount)
     if (typeof this.discount == 'string') {
       this.total = this.tempTotal;
     } else {
@@ -707,12 +705,10 @@ export class DashboardComponent implements OnInit {
         credit_sale_amt:this.payment.creditSaleAmount
       }
     }
-    console.log(this.data)
     this.spinner.show();
     this.vehicledetails.userVehicleService(this.data).subscribe(res => {
       this.spinner.hide();
       if (res.json().status == true) {
-        console.log("came to here ");
         this.notif.success(
           'Success',
           'Successfully Done',

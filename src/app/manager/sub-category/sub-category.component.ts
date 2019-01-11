@@ -68,11 +68,8 @@ export class SubCategoryComponent implements OnInit {
       sub_category_name: this.subCategory.name,
       rec_status: 1
     }
-    console.log(data)
     this.managerservice.saveSubCategory(data).subscribe(res => {
-      console.log(res.json());
       this.subCategoryData.push(res.json().result);
-      console.log(this.subCategoryData);
       $('#addSubCategory').modal('hide');
     });
   }

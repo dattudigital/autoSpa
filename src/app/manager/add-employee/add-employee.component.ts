@@ -162,7 +162,6 @@ export class AddEmployeeComponent implements OnInit {
         this.employees.push(emp);
         this.employees = this.employees.slice();
         $('#addEmployee').modal('hide');
-        console.log(this.employees);
       }
     });
   }
@@ -195,7 +194,6 @@ export class AddEmployeeComponent implements OnInit {
       emp_type_id: this.employee.employeeType,
       rec_status: this.employee.status
     }
-    console.log(data)
     this.service.addOrUpdateEmployee(data).subscribe(res => {
       this.employees[this.temp].employee_firstname = data.employee_firstname;
       this.employees[this.temp].employee_lastname = data.employee_lastname;
@@ -207,7 +205,6 @@ export class AddEmployeeComponent implements OnInit {
       this.employees[this.temp].emp_type_id = data.emp_type_id
       this.employees[this.temp].rec_status = data.rec_status;
       if (data.rec_status == '0') {
-        console.log(this.temp)
         this.employees.splice(this.temp, 1);
         this.employees = this.employees.slice();
       }

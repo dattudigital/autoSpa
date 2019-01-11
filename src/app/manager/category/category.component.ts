@@ -56,11 +56,8 @@ export class CategoryComponent implements OnInit {
       category_name: this.category.name,
       rec_status: 1
     }
-    console.log(data)
     this.managerservice.saveCategoryDetails(data).subscribe(res => {
-      console.log(res.json());
       this.categoryData.push(res.json().result);
-      console.log(this.categoryData);
       $('#addCategory').modal('hide');
     });
   }

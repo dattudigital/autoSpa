@@ -52,10 +52,10 @@ export class ListSalesComponent implements OnInit {
     this.userListService.getUserDetails().subscribe(res => {
       if (res.json().status == true) {
         this.userDetailsDatas = this.saleUserPipe.transform(res.json().result);
-        this.spinner.hide();
       } else {
         this.userDetailsDatas = [];
       }
+      this.spinner.hide();
     });
   }
 
@@ -109,13 +109,10 @@ export class ListSalesComponent implements OnInit {
 
     if (rowData.discount_per == 0.05) {
       this.percentageVal = "5%";
-      // rowData.discount = rowData.invoice_total * 0.05;
     } else if (rowData.discount_per == 0.1) {
       this.percentageVal = "10%";
-      // rowData.discount = rowData.invoice_total * 0.1;
     } else if (rowData.discount_per == 0.18) {
       this.percentageVal = "18%";
-      // rowData.discount = rowData.invoice_total * 0.18;
     }
     this.percentageAmt = rowData.discount_amt;
   }
