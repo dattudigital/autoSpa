@@ -1,0 +1,11 @@
+.alertRed{
+    color:red;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 45%;
+    padding-bottom: 18px;
+  }

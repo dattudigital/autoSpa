@@ -2,7 +2,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="login-form">
-        <div class="login_form">
+          <img src="./assets/images/sssss.png"  alt="TVS" class="center">
+          <!-- <img src="../../assets/images/sssss.png"  alt="TVS" class="center"> -->
           <form>
             <div class="form-group">
               <div class="col-md-4 col-sm-6 login_form-left">
@@ -21,7 +22,7 @@
                 <input type="password" class="form-control" [(ngModel)]="password" name="password" placeholder="Employee Password">
               </div>
               <div class="form-group">
-                <label *ngIf="errorMessage" class="alertRed">Invalid Credentials</label>
+                <label *ngIf="errorMessage" class="alertRed" style="padding-left: 214px;">Invalid Credentials</label>
               </div>
               <div class="clear"></div>
             </div>
@@ -29,7 +30,6 @@
               <button type="submit" (click)="loginSubmite()" class="btn btn-primary submit-button">Sign In</button>
             </div>
           </form>
-        </div>
       </div>
     </div>
   </div>
