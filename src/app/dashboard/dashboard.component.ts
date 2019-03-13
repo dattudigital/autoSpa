@@ -52,6 +52,7 @@ export class DashboardComponent implements OnInit {
   selectedVechileSize: any;
   selectedVechileAge: any;
   selectedVechileType: any;
+  jobCardNo: any;
   employees: any = [];
   vehicleAge: any = [];
   vehicleType: any = [];
@@ -92,7 +93,7 @@ export class DashboardComponent implements OnInit {
     'creditcardSelect': '',
     'creditcardAmount': '',
     'creditTransId': '',
-    'accountTranferSelect': '',
+    'accountSelect': '',
     'accounttranferAmount': '',
     'accountTranferId': '',
     'othersSelect': '',
@@ -107,8 +108,7 @@ export class DashboardComponent implements OnInit {
   disableTransfer = 'hidden';
   disableOther = 'hidden';
   disableDiscount = 'hidden';
-  disableCreditSale = 'hidden'
-
+  disableCreditSale = 'hidden';
   discount: any;
   cashTotal = 0;
   paymentTypes: any = []
@@ -473,7 +473,7 @@ export class DashboardComponent implements OnInit {
   }
 
   tranferEvent() {
-    if (this.payment.accountTranferSelect == false) {
+    if (this.payment.accountSelect == false) {
       this.disableTransfer = 'hidden';
       this.payment.accountTranferId = null;
       this.payment.accounttranferAmount = null;
@@ -523,7 +523,7 @@ export class DashboardComponent implements OnInit {
     if (this.payment.creditcardAmount && this.payment.creditcardSelect) {
       this.cashTotal = this.cashTotal + this.payment.creditcardAmount
     }
-    if (this.payment.accounttranferAmount && this.payment.accountTranferSelect) {
+    if (this.payment.accounttranferAmount && this.payment.accountSelect) {
       this.cashTotal = this.cashTotal + this.payment.accounttranferAmount;
     }
     if (this.payment.othersAmount && this.payment.othersSelect) {
@@ -672,6 +672,7 @@ export class DashboardComponent implements OnInit {
       vechileInfo: {
         sale_vehicle_info_id: this.saleInfoId,
         vehicle_no: this.selectedVechileNo,
+        job_card_no: this.jobCardNo,
         vehicle_make_id: this.selectedVechileMake,
         vehicle_size: this.selectedVechileSize,
         vehicle_type_id: this.selectedVechileType,

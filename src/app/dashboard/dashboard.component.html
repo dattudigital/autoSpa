@@ -472,7 +472,7 @@
     <div class="col-sm-12">
       <div class="row form-group">
         <div class="col-sm-4">
-          <input type="checkbox" name="myChk" id="myChk" for="bank" [(ngModel)]="payment.accountTranferSelect" (change)="tranferEvent();addTotalAmount()" />
+          <input type="checkbox" name="myChk" id="myChk" for="bank" [(ngModel)]="payment.accountSelect" (change)="tranferEvent();addTotalAmount()" />
           <label>Account Transfer</label>
           <div class="tableShow" [style.visibility]="disableTransfer">
             <div class="row form-group">
@@ -546,11 +546,25 @@
           <div class="input-group">
             <input type="number" min="0" name="total" id="total" maxlength="50" class="form-control" [(ngModel)]="cashTotal"
               readonly>
-            <span>Total</span>
+            <span>Total Amount</span>
           </div>
         </div>
       </div>
     </div>
+      
+    <div class="col-sm-12">
+      <div class="row form-group">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+          <div class="input-group">
+            <input type="number" name="total" id="total" maxlength="50" class="form-control" [(ngModel)]="jobCardNo">
+            <span>Job Card No.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 

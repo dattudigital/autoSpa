@@ -28,7 +28,7 @@ export class ListSalesComponent implements OnInit {
   userEmail: '';
   userPhone: '';
   userAddress: '';
-  invoiceNo: '';
+  invoiceNo: any;
   invoiceTotal: any;
   invoiceDate: number;
   vehicleNo: '';
@@ -88,7 +88,7 @@ export class ListSalesComponent implements OnInit {
     this.userEmail = rowData.email_id;
     this.userPhone = rowData.mobile
     this.userAddress = rowData.address;
-    this.invoiceNo = rowData.invoice_num;
+    // this.invoiceNo = rowData.invoice_num;
     this.invoiceTotal = rowData.invoice_total;
     if (this.invoiceTotal) {
       this.serviceTax = 0;
@@ -98,13 +98,16 @@ export class ListSalesComponent implements OnInit {
       this.totalWithTax = this.invoiceTotal * 1 + this.serviceTax * 1;
     }
     this.vehicleNo = rowData.vehicle_no
+    this.jobCardNo = rowData.job_card_no
+    console.log(rowData)
+    console.log(rowData.invoice_num.length)
 
-    if (rowData.job_card_no.length == 1) {
-      this.jobCardNo = "00" + rowData.job_card_no
-    } else if (rowData.job_card_no.length == 2) {
-      this.jobCardNo = "0" + rowData.job_card_no;
-    } else if (rowData.job_card_no.length >= 2) {
-      this.jobCardNo = rowData.job_card_no;
+    if (rowData.invoice_num.length == 1) {
+      this.invoiceNo = "00" + rowData.invoice_num
+    } else if (rowData.invoice_num.length == 2) {
+      this.invoiceNo = "0" + rowData.invoice_num;
+    } else if (rowData.invoice_num.length >= 2) {
+      this.invoiceNo = rowData.invoice_num;
     }
 
     if (rowData.discount_per == 0.05) {
